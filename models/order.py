@@ -1,29 +1,30 @@
-from models.db import db
+from models.Base import Base
+from sqlalchemy import Column, Integer, String, Text, Float, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
 
-
-class OrderDetails(db.Model):
+class OrderDetails(Base):
     __tablename__ = 'order_details'
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    total = db.Column(db.Float)
-    payment_id = db.Column(db.Integer, db.ForeignKey('user_payment.id'))
-    shipping_address_id = db.Column(db.Integer, db.ForeignKey('user_address.id'))
-    created_at = db.Column(db.DateTime)
-    modified_at = db.Column(db.DateTime)
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    total = Column(Float)
+    payment_id = Column(Integer, ForeignKey('user_payment.id'))
+    shipping_address_id = Column(Integer, ForeignKey('user_address.id'))
+    created_at = Column(DateTime)
+    modified_at = Column(DateTime)
 
-    user = db.relationship('User', backref='orders')
-    payment = db.relationship('UserPayment', backref='order_details')
-    shipping_address = db.relationship('UserAddress', backref='orders')
+    user = relationship('User', backref='orders')
+    payment = relationship('UserPayment', backref='order_details')
+    shipping_address = relationship('UserAddress', backref='orders')
 
 
-class OrderItems(db.Model):
+class OrderItems(Base):
     __tablename__ = 'order_items'
-    id = db.Column(db.Integer, primary_key=True)
-    order_id = db.Column(db.Integer, db.ForeignKey('order_details.id'))
-    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
-    quantity = db.Column(db.Integer, nullable=False)
-    created_at = db.Column(db.DateTime)
-    modified_at = db.Column(db.DateTime)
+    id = Column(Integer, primary_key=True)
+    order_id = Column(Integer, ForeignKey('order_details.id'))
+    product_id = Column(Integer, ForeignKey('product.id'))
+    quantity = Column(Integer, nullable=False)
+    created_at = Column(DateTime)
+    modified_at = Column(DateTime)
 
-    order = db.relationship('OrderDetails', backref='order_items')
-    product = db.relationship('Product', backref='order_items')
+    order = relationship('OrderDetails', backref='order_items')
+    product = relationship('Product', backref='order_items')

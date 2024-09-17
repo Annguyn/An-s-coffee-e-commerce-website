@@ -1,23 +1,26 @@
-from models.db import db
-class ShoppingSession(db.Model):
+from models.Base import Base
+from sqlalchemy import Column, Integer, String, Text, Float, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
+
+class ShoppingSession(Base):
     __tablename__ = 'shopping_session'
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    total = db.Column(db.Float)
-    created_at = db.Column(db.DateTime)
-    modified_at = db.Column(db.DateTime)
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    total = Column(Float)
+    created_at = Column(DateTime)
+    modified_at = Column(DateTime)
 
-    user = db.relationship('User', backref='shopping_sessions')
+    user = relationship('User', backref='shopping_sessions')
 
 
-class CartItem(db.Model):
+class CartItem(Base):
     __tablename__ = 'cart_item'
-    id = db.Column(db.Integer, primary_key=True)
-    session_id = db.Column(db.Integer, db.ForeignKey('shopping_session.id'))
-    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
-    quantity = db.Column(db.Integer, nullable=False)
-    created_at = db.Column(db.DateTime)
-    modified_at = db.Column(db.DateTime)
+    id = Column(Integer, primary_key=True)
+    session_id = Column(Integer, ForeignKey('shopping_session.id'))
+    product_id = Column(Integer, ForeignKey('product.id'))
+    quantity = Column(Integer, nullable=False)
+    created_at = Column(DateTime)
+    modified_at = Column(DateTime)
 
-    session = db.relationship('ShoppingSession', backref='cart_items')
-    product = db.relationship('Product', backref='cart_items')
+    session = relationship('ShoppingSession', backref='cart_items')
+    product = relationship('Product', backref='cart_items')

@@ -1,36 +1,38 @@
-from models.db import db
+from models.Base import Base
+from sqlalchemy import Column, Integer, String, Text, Float, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
 
-class ProductCategory(db.Model):
+class ProductCategory(Base):
     __tablename__ = 'product_category'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-    desc = db.Column(db.Text)
-    created_at = db.Column(db.DateTime)
-    modified_at = db.Column(db.DateTime)
-    deleted_at = db.Column(db.DateTime)
+    id = Column(Integer, primary_key=True)
+    name = Column(String(255), nullable=False)
+    desc = Column(Text)
+    created_at = Column(DateTime)
+    modified_at = Column(DateTime)
+    deleted_at = Column(DateTime)
 
-class ProductInventory(db.Model):
+class ProductInventory(Base):
     __tablename__ = 'product_inventory'
-    id = db.Column(db.Integer, primary_key=True)
-    quantity = db.Column(db.Integer, nullable=False)
-    created_at = db.Column(db.DateTime)
-    modified_at = db.Column(db.DateTime)
-    deleted_at = db.Column(db.DateTime)
+    id = Column(Integer, primary_key=True)
+    quantity = Column(Integer, nullable=False)
+    created_at = Column(DateTime)
+    modified_at = Column(DateTime)
+    deleted_at = Column(DateTime)
 
-class Product(db.Model):
+class Product(Base):
     __tablename__ = 'product'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-    desc = db.Column(db.Text)
-    SKU = db.Column(db.String(100), nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('product_category.id'))
-    inventory_id = db.Column(db.Integer, db.ForeignKey('product_inventory.id'))
-    price = db.Column(db.Float, nullable=False)
-    discount_id = db.Column(db.Integer, db.ForeignKey('discount.id'))
-    created_at = db.Column(db.DateTime)
-    modified_at = db.Column(db.DateTime)
-    deleted_at = db.Column(db.DateTime)
+    id = Column(Integer, primary_key=True)
+    name = Column(String(255), nullable=False)
+    desc = Column(Text)
+    SKU = Column(String(100), nullable=False)
+    category_id = Column(Integer, ForeignKey('product_category.id'))
+    inventory_id = Column(Integer, ForeignKey('product_inventory.id'))
+    price = Column(Float, nullable=False)
+    discount_id = Column(Integer, ForeignKey('discount.id'))
+    created_at = Column(DateTime)
+    modified_at = Column(DateTime)
+    deleted_at = Column(DateTime)
 
-    category = db.relationship('ProductCategory', backref='products')
-    inventory = db.relationship('ProductInventory', backref='products')
-    discount = db.relationship('Discount', backref='products')
+    category = relationship('ProductCategory', backref='products')
+    inventory = relationship('ProductInventory', backref='products')
+    discount = relationship('Discount', backref='products')

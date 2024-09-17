@@ -1,12 +1,14 @@
-from models.db import db
+from models.Base import Base
+from sqlalchemy import Column, Integer, String, Text, Float, DateTime, ForeignKey, Boolean
+from sqlalchemy.orm import relationship
 
-class Discount(db.Model):
+class Discount(Base):
     __tablename__ = 'discount'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-    desc = db.Column(db.Text)
-    discount_percent = db.Column(db.Float)
-    active = db.Column(db.Boolean, default=True)
-    created_at = db.Column(db.DateTime)
-    modified_at = db.Column(db.DateTime)
-    deleted_at = db.Column(db.DateTime)
+    id = Column(Integer, primary_key=True)
+    name = Column(String(255), nullable=False)
+    desc = Column(Text)
+    discount_percent = Column(Float)
+    active = Column(Boolean, default=True)
+    created_at = Column(DateTime)
+    modified_at = Column(DateTime)
+    deleted_at = Column(DateTime)

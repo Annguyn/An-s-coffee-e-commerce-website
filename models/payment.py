@@ -1,24 +1,26 @@
-from models.db import db
-class UserPayment(db.Model):
+from models.Base import Base
+from sqlalchemy import Column, Integer, String, Text, Float, DateTime, ForeignKey, Date
+from sqlalchemy.orm import relationship
+
+class UserPayment(Base):
     __tablename__ = 'user_payment'
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    payment_type = db.Column(db.String(100), nullable=False)  # e.g., 'Credit Card', 'Paypal'
-    provider = db.Column(db.String(255), nullable=False)      # e.g., 'Visa', 'MasterCard'
-    account_no = db.Column(db.String(100), nullable=False)
-    expiry = db.Column(db.Date)  # Expiry date for card
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey('user.id'))
+    payment_type = Column(String(100), nullable=False)  # e.g., 'Credit Card', 'Paypal'
+    provider = Column(String(255), nullable=False)      # e.g., 'Visa', 'MasterCard'
+    account_no = Column(String(100), nullable=False)
+    expiry = Column(Date)  # Expiry date for card
 
-    user = db.relationship('User', backref='payments')
+    user = relationship('User', backref='payments')
 
-
-class PaymentDetails(db.Model):
+class PaymentDetails(Base):
     __tablename__ = 'payment_details'
-    id = db.Column(db.Integer, primary_key=True)
-    order_id = db.Column(db.Integer, db.ForeignKey('order_details.id'))
-    amount = db.Column(db.Float, nullable=False)
-    provider = db.Column(db.String(255), nullable=False)  # e.g., 'Visa', 'Paypal'
-    status = db.Column(db.String(100), nullable=False)  # e.g., 'Completed', 'Pending'
-    created_at = db.Column(db.DateTime)
-    modified_at = db.Column(db.DateTime)
+    id = Column(Integer, primary_key=True)
+    order_id = Column(Integer, ForeignKey('order_details.id'))
+    amount = Column(Float, nullable=False)
+    provider = Column(String(255), nullable=False)  # e.g., 'Visa', 'Paypal'
+    status = Column(String(100), nullable=False)  # e.g., 'Completed', 'Pending'
+    created_at = Column(DateTime)
+    modified_at = Column(DateTime)
 
-    order = db.relationship('OrderDetails', backref='payment_details')
+    order = relationship('OrderDetails', backref='payment_details')
