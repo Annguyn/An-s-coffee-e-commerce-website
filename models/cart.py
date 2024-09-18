@@ -1,26 +1,24 @@
-from models.Base import Base
-from sqlalchemy import Column, Integer, String, Text, Float, DateTime, ForeignKey
-from sqlalchemy.orm import relationship
+from extensions import db  # Import db từ Flask-SQLAlchemy
 
-class ShoppingSession(Base):
+class ShoppingSession(db.Model):  # Thay vì Base
     __tablename__ = 'shopping_session'
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('user.id'))
-    total = Column(Float)
-    created_at = Column(DateTime)
-    modified_at = Column(DateTime)
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    total = db.Column(db.Float)
+    created_at = db.Column(db.DateTime)
+    modified_at = db.Column(db.DateTime)
 
-    user = relationship('User', backref='shopping_sessions')
+    user = db.relationship('User', backref='shopping_sessions')
 
 
-class CartItem(Base):
+class CartItem(db.Model):  # Thay vì Base
     __tablename__ = 'cart_item'
-    id = Column(Integer, primary_key=True)
-    session_id = Column(Integer, ForeignKey('shopping_session.id'))
-    product_id = Column(Integer, ForeignKey('product.id'))
-    quantity = Column(Integer, nullable=False)
-    created_at = Column(DateTime)
-    modified_at = Column(DateTime)
+    id = db.Column(db.Integer, primary_key=True)
+    session_id = db.Column(db.Integer, db.ForeignKey('shopping_session.id'))
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
+    quantity = db.Column(db.Integer, nullable=False)
+    created_at = db.Column(db.DateTime)
+    modified_at = db.Column(db.DateTime)
 
-    session = relationship('ShoppingSession', backref='cart_items')
-    product = relationship('Product', backref='cart_items')
+    session = db.relationship('ShoppingSession', backref='cart_items')
+    product = db.relationship('Product', backref='cart_items')

@@ -1,27 +1,26 @@
-from models.Base import Base
-from sqlalchemy import Column, Integer, String, Text, Float, DateTime, ForeignKey
-from sqlalchemy.orm import relationship
+from extensions import db  # sử dụng SQLAlchemy từ Flask
 
-class User(Base):
+class User(db.Model):  # Thay vì Base
     __tablename__ = 'user'
-    id = Column(Integer, primary_key=True)
-    username = Column(String(255), unique=True, nullable=False)
-    password = Column(Text, nullable=False)
-    first_name = Column(String(255))
-    last_name = Column(String(255))
-    telephone = Column(String(20))
-    created_at = Column(DateTime)
-    modified_at = Column(DateTime)
-class UserAddress(Base):
-    __tablename__ = 'user_address'
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('user.id'))
-    address_line1 = Column(String(255), nullable=False)
-    address_line2 = Column(String(255))
-    city = Column(String(100))
-    postal_code = Column(String(20))
-    country = Column(String(100))
-    telephone = Column(String(20))
-    mobile = Column(String(20))
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String(255), unique=True, nullable=False)
+    password = db.Column(db.Text, nullable=False)
+    first_name = db.Column(db.Unicode(255))  # Support Vietnamese characters
+    last_name = db.Column(db.Unicode(255))
+    telephone = db.Column(db.String(20))
+    created_at = db.Column(db.DateTime)
+    modified_at = db.Column(db.DateTime)
 
-    user = relationship('User', backref='addresses')
+class UserAddress(db.Model):  # Thay vì Base
+    __tablename__ = 'user_address'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    address_line1 = db.Column(db.String(255), nullable=False)
+    address_line2 = db.Column(db.String(255))
+    city = db.Column(db.String(100))
+    postal_code = db.Column(db.String(20))
+    country = db.Column(db.String(100))
+    telephone = db.Column(db.String(20))
+    mobile = db.Column(db.String(20))
+
+    user = db.relationship('User', backref='addresses')

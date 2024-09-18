@@ -1,26 +1,26 @@
-from models.Base import Base
-from sqlalchemy import Column, Integer, String, Text, Float, DateTime, ForeignKey, Date
-from sqlalchemy.orm import relationship
+from sqlalchemy import Date
 
-class UserPayment(Base):
+from extensions import db  # Import db from Flask-SQLAlchemy
+
+class UserPayment(db.Model):
     __tablename__ = 'user_payment'
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey('user.id'))
-    payment_type = Column(String(100), nullable=False)  # e.g., 'Credit Card', 'Paypal'
-    provider = Column(String(255), nullable=False)      # e.g., 'Visa', 'MasterCard'
-    account_no = Column(String(100), nullable=False)
-    expiry = Column(Date)  # Expiry date for card
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    payment_type = db.Column(db.String(100), nullable=False)  # e.g., 'Credit Card', 'Paypal'
+    provider = db.Column(db.String(255), nullable=False)      # e.g., 'Visa', 'MasterCard'
+    account_no = db.Column(db.String(100), nullable=False)
+    expiry = db.Column(db.Date)  # Expiry date for card
 
-    user = relationship('User', backref='payments')
+    user = db.relationship('User', backref='payments')
 
-class PaymentDetails(Base):
+class PaymentDetails(db.Model):
     __tablename__ = 'payment_details'
-    id = Column(Integer, primary_key=True)
-    order_id = Column(Integer, ForeignKey('order_details.id'))
-    amount = Column(Float, nullable=False)
-    provider = Column(String(255), nullable=False)  # e.g., 'Visa', 'Paypal'
-    status = Column(String(100), nullable=False)  # e.g., 'Completed', 'Pending'
-    created_at = Column(DateTime)
-    modified_at = Column(DateTime)
+    id = db.Column(db.Integer, primary_key=True)
+    order_id = db.Column(db.Integer, db.ForeignKey('order_details.id'))
+    amount = db.Column(db.Float, nullable=False)
+    provider = db.Column(db.String(255), nullable=False)  # e.g., 'Visa', 'Paypal'
+    status = db.Column(db.String(100), nullable=False)  # e.g., 'Completed', 'Pending'
+    created_at = db.Column(db.DateTime)
+    modified_at = db.Column(db.DateTime)
 
-    order = relationship('OrderDetails', backref='payment_details')
+    order = db.relationship('OrderDetails', backref='payment_details')
