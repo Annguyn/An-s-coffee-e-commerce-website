@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Olog - Home</title>
-    <link rel="stylesheet" href="dist/main.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='dist/main.css')}}">
 </head>
 
 <body>
+{% if user %}
+<p>Welcome, {{ user.username }}!</p>
+{% endif %}
     <!-- Header Area Start -->
     <header class="header">
         <div class="header-top">
@@ -82,8 +85,7 @@
                 <div class="d-none d-lg-block">
                     <nav class="menu-area d-flex align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="dist/images/logo/logo.png" alt="logo" /></a>
-                        </div>
+                            <a href="index.html"><img src="{{ url_for('static', filename='dist/images/logo/logo.png') }}" alt="logo" /></a>                        </div>
                         <ul class="main-menu d-flex align-items-center">
                             <li><a class="active" href="index.html">Home</a></li>
                             <li><a href="shop.html">Men</a></li>
@@ -110,6 +112,11 @@
                             </li>
                             <li><a href="javascript:void(0)">Sales</a></li>
                         </ul>
+                        {% if session.get('is_admin') %}
+                            <div class="container">
+                                <a href="{{ url_for('shop.upload_product') }}" class="btn btn-primary">Upload Product</a>
+                            </div>
+                        {% endif %}
                         <div class="search-bar">
                             <input type="text" placeholder="Search for product...">
                             <div class="icon">
@@ -231,7 +238,7 @@
                     </div>
                     <div class="mobile-nav d-flex align-items-center justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="dist/images/logo/logo.png" alt="logo" /></a>
+                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/logo.png')}}" alt="logo" /></a>
                         </div>
                         <div class="search-bar">
                             <input type="text" placeholder="Search for product...">
@@ -404,8 +411,7 @@
                     <div class="col-md-4 col-sm-6">
                         <div class="product-item">
                             <div class="product-item-image">
-                                <a href="product-details.html"><img src="dist/images/product/01.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
+                                <a href="product-details.html"><img src="{{ url_for('static', filename='dist/images/product/01.jpg') }}" alt="Product Name" class="img-fluid"></a>
                                 <div class="cart-icon">
                                     <a href="#"><i class="far fa-heart"></i></a>
                                     <a href="#">
@@ -441,7 +447,7 @@
                     <div class="col-md-4 col-sm-6">
                         <div class="product-item">
                             <div class="product-item-image">
-                                <a href="product-details.html"><img src="dist/images/product/02.jpg" alt="Product Name"
+                                <a href="product-details.html"><img src="{{ url_for('static',filename='dist/images/product/02.jpg') }}" alt="Product Name"
                                         class="img-fluid"></a>
                                 <div class="cart-icon">
                                     <a href="#"><i class="far fa-heart"></i></a>
@@ -478,7 +484,7 @@
                     <div class="col-md-4 col-sm-6">
                         <div class="product-item">
                             <div class="product-item-image">
-                                <a href="product-details.html"><img src="dist/images/product/03.jpg" alt="Product Name"
+                                <a href="product-details.html"><img src="{{ url_for('static',filename='dist/images/product/03.jpg') }}" alt="Product Name"
                                         class="img-fluid"></a>
                                 <div class="cart-icon">
                                     <a href="#"><i class="far fa-heart"></i></a>
@@ -515,7 +521,7 @@
                     <div class="col-md-4 col-sm-6">
                         <div class="product-item">
                             <div class="product-item-image">
-                                <a href="product-details.html"><img src="dist/images/product/04.jpg" alt="Product Name"
+                                <a href="product-details.html"><img src="{{ url_for('static',filename='dist/images/product/04.jpg') }}" alt="Product Name"
                                         class="img-fluid"></a>
                                 <div class="cart-icon">
                                     <a href="#"><i class="far fa-heart"></i></a>
@@ -552,7 +558,7 @@
                     <div class="col-md-4 col-sm-6">
                         <div class="product-item">
                             <div class="product-item-image">
-                                <a href="product-details.html"><img src="dist/images/product/05.jpg" alt="Product Name"
+                                <a href="product-details.html"><img src="{{ url_for('static',filename='dist/images/product/05.jpg' )}}" alt="Product Name"
                                         class="img-fluid"></a>
                                 <div class="cart-icon">
                                     <a href="#"><i class="far fa-heart"></i></a>
@@ -589,7 +595,7 @@
                     <div class="col-md-4 col-sm-6">
                         <div class="product-item">
                             <div class="product-item-image">
-                                <a href="product-details.html"><img src="dist/images/product/06.jpg" alt="Product Name"
+                                <a href="product-details.html"><img src="{{ url_for('static',filename='dist/images/product/06.jpg') }}" alt="Product Name"
                                         class="img-fluid"></a>
                                 <div class="cart-icon">
                                     <a href="#"><i class="far fa-heart"></i></a>
@@ -626,7 +632,7 @@
                     <div class="col-md-4 col-sm-6">
                         <div class="product-item">
                             <div class="product-item-image">
-                                <a href="product-details.html"><img src="dist/images/product/07.jpg" alt="Product Name"
+                                <a href="product-details.html"><img src="{{ url_for('static',filename='dist/images/product/07.jpg') }}" alt="Product Name"
                                         class="img-fluid"></a>
                                 <div class="cart-icon">
                                     <a href="#"><i class="far fa-heart"></i></a>
@@ -663,8 +669,7 @@
                     <div class="col-md-4 col-sm-6">
                         <div class="product-item">
                             <div class="product-item-image">
-                                <a href="product-details.html"><img src="dist/images/product/08.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
+                                <a href="product-details.html"><img src="{{ url_for('static', filename='dist/images/product/08.jpg') }}" alt="Product Name" class="img-fluid"></a>
                                 <div class="cart-icon">
                                     <a href="#"><i class="far fa-heart"></i></a>
                                     <a href="#">
@@ -700,7 +705,7 @@
                     <div class="col-md-4 col-sm-6">
                         <div class="product-item">
                             <div class="product-item-image">
-                                <a href="product-details.html"><img src="dist/images/product/09.jpg" alt="Product Name"
+                                <a href="product-details.html"><img src="{{ url_for('static',filename='dist/images/product/09.jpg') }}" alt="Product Name"
                                         class="img-fluid"></a>
                                 <div class="cart-icon">
                                     <a href="#"><i class="far fa-heart"></i></a>
@@ -795,7 +800,7 @@
             <div class="row main-footer">
                 <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                     <div class="main-footer-info">
-                        <img src="dist/images/logo/white.png" alt="Logo" class="img-fluid">
+                        <img src="{{ url_for('static',filename='dist/images/logo/white.png') }}" alt="Logo" class="img-fluid">
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam molestie malesuada
                             metus, non molestie ligula laoreet vitae. Ut et fringilla risus, vel.
@@ -856,11 +861,10 @@
     </footer>
     <!-- Footer -->
 
-    <script src="src/js/jquery.min.js"></script>
-    <script src="src/js/bootstrap.min.js"></script>
-    <script src="src/scss/vendors/plugin/js/slick.min.js"></script>
-    <script src="src/scss/vendors/plugin/js/jquery.nice-select.min.js"></script>
-    <script src="dist/main.js"></script>
+    <script src="{{ url_for('static', filename='src/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='src/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='src/scss/vendors/plugin/js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='dist/main.js') }}"></script>
     <script>
         function openNav() {
 

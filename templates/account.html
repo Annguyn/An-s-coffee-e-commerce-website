@@ -10,6 +10,14 @@
 </head>
 
 <body>
+<header>
+    {% if user %}
+        <p>Welcome, {{ user.first_name }}!</p>
+{#        <a href="{{ url_for('auth.logout') }}">Logout</a>#}
+    {% else %}
+        <a href="{{ url_for('account.sign_in') }}">Login</a>
+    {% endif %}
+</header>
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     {% for category, message in messages %}
