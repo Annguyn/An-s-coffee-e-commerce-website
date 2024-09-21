@@ -5,6 +5,7 @@ class ProductCategory(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255), nullable=False)
     desc = db.Column(db.Text)
+    image = db.Column(db.LargeBinary)
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
     deleted_at = db.Column(db.DateTime)

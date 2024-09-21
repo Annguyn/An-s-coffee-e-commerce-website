@@ -6,12 +6,11 @@ from datetime import datetime
 
 shop_bp = Blueprint('shop', __name__)
 
-
 @shop_bp.route('/shop')
 @login_required
 def home():
-    return render_template('shop.html', user=current_user)
-
+    products = Product.query.all()
+    return render_template('shop.html', user=current_user, products=products)
 
 @shop_bp.route('/shop/upload', methods=['GET', 'POST'])
 @login_required
@@ -26,6 +25,7 @@ def upload():
         product_image = request.files['product_image'].read()
         created_at = datetime.now()
         modified_at = datetime.now()
+
         new_inventory = ProductInventory(
             quantity=0,
             created_at=created_at,
@@ -33,6 +33,7 @@ def upload():
         )
         db.session.add(new_inventory)
         db.session.commit()
+
         new_product = Product(
             name=product_name,
             desc=product_desc,
@@ -46,11 +47,6 @@ def upload():
             modified_at=modified_at
         )
         db.session.add(new_product)
-        db.session.commit()
-
-
-
-        new_product.inventory_id = new_inventory.id
         db.session.commit()
 
         flash('Product uploaded successfully!', 'success')

@@ -16,13 +16,14 @@ from os import path, getcwd
 from flask_security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
 from flask_security import current_user
-
 import os
+from filters import b64encode
 
 
 from routes.shop import shop_bp
 
 app = Flask(__name__)
+app.jinja_env.filters['b64encode'] = b64encode
 app.config['SECRET_KEY'] = "annguyen"
 dir = path.abspath(getcwd())
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{dir}/database.db'

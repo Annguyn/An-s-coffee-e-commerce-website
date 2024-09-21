@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Olog - Home</title>
+    <title>An Coffee</title>
     <link rel="stylesheet" href="../static/dist/main.css">
 </head>
 
@@ -34,7 +34,7 @@
                                         </svg>
                                     </div>
                                     <div class="text">
-                                        <span>olog.wetbise@mail.com</span>
+                                        <span>nbxan@ancoffee.com</span>
                                     </div>
                                 </div>
                                 <div class="cta">
@@ -82,7 +82,7 @@
                 <div class="d-none d-lg-block">
                     <nav class="menu-area d-flex align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="../static/dist/images/logo/logo.png" alt="logo" /></a>
+                            <a href="index.html"><img src="../static/dist/images/logo/AnDakLak.png" alt="logo" /></a>
                         </div>
                         <ul class="main-menu d-flex align-items-center">
                             <li><a class="active" href="index.html">Home</a></li>
@@ -323,15 +323,14 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 order-2 order-lg-1">
                         <div class="banner-area__content">
-                            <h2>Premium care for
-                                premium people.</h2>
-                            <p>Not ready for a subscription? Shop all a la carté skin, hair, and body care.</p>
+                            <h2>"Awaken Your Senses, One Sip at a Time."</h2>
+                            <p>Let's try our best Coffee </p>
                             <a class="btn bg-primary" href="#">Shop Now</a>
                         </div>
                     </div>
                     <div class="col-lg-6 order-1 order-lg-2">
                         <div class="banner-area__img">
-                            <img src="../static/dist/images/banner.jpg" alt="banner-img" class="img-fluid">
+                            <img src="../static/img/rawcf.jpg" alt="banner-img" class="img-fluid">
                         </div>
                     </div>
                 </div>
@@ -375,10 +374,12 @@
                 </div>
                 <div class="features-wrapper">
                     <div class="features-active">
+                        {% for product in products %}
                         <div class="product-item">
                             <div class="product-item-image">
-                                <a href="product-details.html"><img src="../static/dist/images/product/05.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
+                                <a href="product-details.html">
+                                    <img src="{{ product.image | b64encode }}" alt="{{ product.name }}" class="img-fluid">
+                                </a>
                                 <div class="cart-icon">
                                     <a href="#"><i class="far fa-heart"></i></a>
                                     <a href="#">
@@ -406,150 +407,151 @@
                                 </div>
                             </div>
                             <div class="product-item-info">
-                                <a href="product-details.html">BERRY TYPE-II: C1N Backpack</a>
-                                <span>$975</span> <del>$999</del>
+                                <a href="product-details.html">{{  product.name }}</a>
+                                <span>{{ product.price }}</span> <del>200000</del>
                             </div>
                         </div>
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="product-details.html"> <img src="../static/dist/images/product/04.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="far fa-heart"></i></a>
-                                    <a href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"
-                                            viewBox="0 0 16.75 16.75">
-                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">
-                                                <g id="Icon" transform="translate(0 1)">
-                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <path id="Path_3" data-name="Path 3"
-                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"
-                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"
-                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="1.5" />
-                                                </g>
-                                            </g>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="product-details.html">BERRY TYPE-II: C1N Backpack</a>
-                                <span>$975</span> <del>$999</del>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="product-details.html"><img src="../static/dist/images/product/01.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="far fa-heart"></i></a>
-                                    <a href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"
-                                            viewBox="0 0 16.75 16.75">
-                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">
-                                                <g id="Icon" transform="translate(0 1)">
-                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <path id="Path_3" data-name="Path 3"
-                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"
-                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"
-                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="1.5" />
-                                                </g>
-                                            </g>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="product-details.html">BERRY TYPE-II: C1N Backpack</a>
-                                <span>$975</span> <del>$999</del>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="product-details.html"> <img src="../static/dist/images/product/02.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="far fa-heart"></i></a>
-                                    <a href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"
-                                            viewBox="0 0 16.75 16.75">
-                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">
-                                                <g id="Icon" transform="translate(0 1)">
-                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <path id="Path_3" data-name="Path 3"
-                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"
-                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"
-                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="1.5" />
-                                                </g>
-                                            </g>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="product-details.html">BERRY TYPE-II: C1N Backpack</a>
-                                <span>$975</span> <del>$999</del>
-                            </div>
-                        </div>
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="product-details.html"><img src="../static/dist/images/product/03.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="far fa-heart"></i></a>
-                                    <a href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"
-                                            viewBox="0 0 16.75 16.75">
-                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">
-                                                <g id="Icon" transform="translate(0 1)">
-                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <path id="Path_3" data-name="Path 3"
-                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"
-                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"
-                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="1.5" />
-                                                </g>
-                                            </g>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="product-details.html">BERRY TYPE-II: C1N Backpack</a>
-                                <span>$975</span> <del>$999</del>
-                            </div>
-                        </div>
+                        {% endfor %}
+{#                        <div class="product-item">#}
+{#                            <div class="product-item-image">#}
+{#                                <a href="product-details.html"> <img src="../static/dist/images/product/04.jpg" alt="Product Name"#}
+{#                                        class="img-fluid"></a>#}
+{#                                <div class="cart-icon">#}
+{#                                    <a href="#"><i class="far fa-heart"></i></a>#}
+{#                                    <a href="#">#}
+{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"#}
+{#                                            viewBox="0 0 16.75 16.75">#}
+{#                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">#}
+{#                                                <g id="Icon" transform="translate(0 1)">#}
+{#                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"#}
+{#                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"#}
+{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
+{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
+{#                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"#}
+{#                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"#}
+{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
+{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
+{#                                                    <path id="Path_3" data-name="Path 3"#}
+{#                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"#}
+{#                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"#}
+{#                                                        stroke-linecap="round" stroke-linejoin="round"#}
+{#                                                        stroke-width="1.5" />#}
+{#                                                </g>#}
+{#                                            </g>#}
+{#                                        </svg>#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="product-item-info">#}
+{#                                <a href="product-details.html">BERRY TYPE-II: C1N Backpack</a>#}
+{#                                <span>$975</span> <del>$999</del>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="product-item">#}
+{#                            <div class="product-item-image">#}
+{#                                <a href="product-details.html"><img src="../static/dist/images/product/01.jpg" alt="Product Name"#}
+{#                                        class="img-fluid"></a>#}
+{#                                <div class="cart-icon">#}
+{#                                    <a href="#"><i class="far fa-heart"></i></a>#}
+{#                                    <a href="#">#}
+{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"#}
+{#                                            viewBox="0 0 16.75 16.75">#}
+{#                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">#}
+{#                                                <g id="Icon" transform="translate(0 1)">#}
+{#                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"#}
+{#                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"#}
+{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
+{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
+{#                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"#}
+{#                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"#}
+{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
+{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
+{#                                                    <path id="Path_3" data-name="Path 3"#}
+{#                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"#}
+{#                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"#}
+{#                                                        stroke-linecap="round" stroke-linejoin="round"#}
+{#                                                        stroke-width="1.5" />#}
+{#                                                </g>#}
+{#                                            </g>#}
+{#                                        </svg>#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="product-item-info">#}
+{#                                <a href="product-details.html">BERRY TYPE-II: C1N Backpack</a>#}
+{#                                <span>$975</span> <del>$999</del>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="product-item">#}
+{#                            <div class="product-item-image">#}
+{#                                <a href="product-details.html"> <img src="../static/dist/images/product/02.jpg" alt="Product Name"#}
+{#                                        class="img-fluid"></a>#}
+{#                                <div class="cart-icon">#}
+{#                                    <a href="#"><i class="far fa-heart"></i></a>#}
+{#                                    <a href="#">#}
+{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"#}
+{#                                            viewBox="0 0 16.75 16.75">#}
+{#                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">#}
+{#                                                <g id="Icon" transform="translate(0 1)">#}
+{#                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"#}
+{#                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"#}
+{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
+{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
+{#                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"#}
+{#                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"#}
+{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
+{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
+{#                                                    <path id="Path_3" data-name="Path 3"#}
+{#                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"#}
+{#                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"#}
+{#                                                        stroke-linecap="round" stroke-linejoin="round"#}
+{#                                                        stroke-width="1.5" />#}
+{#                                                </g>#}
+{#                                            </g>#}
+{#                                        </svg>#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="product-item-info">#}
+{#                                <a href="product-details.html">BERRY TYPE-II: C1N Backpack</a>#}
+{#                                <span>$975</span> <del>$999</del>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                        <div class="product-item">#}
+{#                            <div class="product-item-image">#}
+{#                                <a href="product-details.html"><img src="../static/dist/images/product/03.jpg" alt="Product Name"#}
+{#                                        class="img-fluid"></a>#}
+{#                                <div class="cart-icon">#}
+{#                                    <a href="#"><i class="far fa-heart"></i></a>#}
+{#                                    <a href="#">#}
+{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"#}
+{#                                            viewBox="0 0 16.75 16.75">#}
+{#                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">#}
+{#                                                <g id="Icon" transform="translate(0 1)">#}
+{#                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"#}
+{#                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"#}
+{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
+{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
+{#                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"#}
+{#                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"#}
+{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
+{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
+{#                                                    <path id="Path_3" data-name="Path 3"#}
+{#                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"#}
+{#                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"#}
+{#                                                        stroke-linecap="round" stroke-linejoin="round"#}
+{#                                                        stroke-width="1.5" />#}
+{#                                                </g>#}
+{#                                            </g>#}
+{#                                        </svg>#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="product-item-info">#}
+{#                                <a href="product-details.html">BERRY TYPE-II: C1N Backpack</a>#}
+{#                                <span>$975</span> <del>$999</del>#}
+{#                            </div>#}
+{#                        </div>#}
                     </div>
                     <div class="slider-arrows">
                         <div class="prev-arrow">
@@ -589,15 +591,13 @@
                     <div class="row align-items-center">
                         <div class="col-lg-6 ">
                             <div class="about-area-content-img">
-                                <img src="../static/dist/images/feature/medicine.jpg" alt="img" class="img-fluid">
+                                <img src="../static/img/thump.jpg" alt="img" class="img-fluid">
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="about-area-content-text">
-                                <h3>Why Shop with Olog</h3>
-                                <p>Fortify your hair follicles, give thinning areas some volume, and treat your
-                                    body’s
-                                    skin like driving your dream car off the lot.</p>
+                                <h3>Why Shop with An Coffee</h3>
+                                <p>We provide the best quality coffee and with the best price in market</p>
                                 <div class="icon-area-content">
                                     <div class="icon-area">
                                         <i class="far fa-check-circle"></i>
@@ -611,10 +611,10 @@
                                         <i class="far fa-check-circle"></i>
                                         <span>Shop in 2 languages</span>
                                     </div>
-                                    <div class="icon-area">
-                                        <i class="far fa-check-circle"></i>
-                                        <span>Mauris congue eros in iaculis.</span>
-                                    </div>
+{#                                    <div class="icon-area">#}
+{#                                        <i class="far fa-check-circle"></i>#}
+{#                                        <span>Mauris congue eros in iaculis.</span>#}
+{#                                    </div>#}
                                 </div>
 
                                 <a class="btn bg-primary" href="#">Get Started</a>
@@ -637,11 +637,12 @@
                     </div>
                 </div>
                 <div class="row">
+                    {% for product in products %}
                     <div class="col-md-4 col-sm-6">
                         <div class="product-item">
                             <div class="product-item-image">
-                                <a href="product-details.html"><img src="dist/images/product/01.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
+                                <a href="product-details.html">
+                                    <img src="{{ product.image | b64encode }}" alt="{{ product.name }}" class="img-fluid">
                                 <div class="cart-icon">
                                     <a href="#"><i class="far fa-heart"></i></a>
                                     <a href="#">
@@ -669,308 +670,12 @@
                                 </div>
                             </div>
                             <div class="product-item-info">
-                                <a href="product-details.html">PUMA air max 97</a>
-                                <span>$975</span> <del>$999</del>
+                                <a href="product-details.html">{{ product.name }}</a>
+                                <span>{{ product.price }}</span> <del>200000</del>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="product-details.html"><img src="../static/dist/images/product/02.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="far fa-heart"></i></a>
-                                    <a href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"
-                                            viewBox="0 0 16.75 16.75">
-                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">
-                                                <g id="Icon" transform="translate(0 1)">
-                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <path id="Path_3" data-name="Path 3"
-                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"
-                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"
-                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="1.5" />
-                                                </g>
-                                            </g>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="product-details.html">Echo Studio. Amazon Echo Studio</a>
-                                <span>$175</span> <del>$199</del>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="product-details.html"><img src="../static/dist/images/product/03.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="far fa-heart"></i></a>
-                                    <a href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"
-                                            viewBox="0 0 16.75 16.75">
-                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">
-                                                <g id="Icon" transform="translate(0 1)">
-                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <path id="Path_3" data-name="Path 3"
-                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"
-                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"
-                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="1.5" />
-                                                </g>
-                                            </g>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="product-details.html">Corning Sunglasses for Men.</a>
-                                <span>$175</span> <del>$199</del>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="product-details.html"><img src="../static/dist/images/product/04.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="far fa-heart"></i></a>
-                                    <a href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"
-                                            viewBox="0 0 16.75 16.75">
-                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">
-                                                <g id="Icon" transform="translate(0 1)">
-                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <path id="Path_3" data-name="Path 3"
-                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"
-                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"
-                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="1.5" />
-                                                </g>
-                                            </g>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="product-details.html">Canon PowerShot SX540</a>
-                                <span>$175</span> <del>$199</del>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="product-details.html"><img src="../static/dist/images/product/05.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="far fa-heart"></i></a>
-                                    <a href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"
-                                            viewBox="0 0 16.75 16.75">
-                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">
-                                                <g id="Icon" transform="translate(0 1)">
-                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <path id="Path_3" data-name="Path 3"
-                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"
-                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"
-                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="1.5" />
-                                                </g>
-                                            </g>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="product-details.html">BERRY TYPE-II: C1N Backpack</a>
-                                <span>$175</span> <del>$199</del>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="product-details.html"><img src="../static/dist/images/product/06.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="far fa-heart"></i></a>
-                                    <a href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"
-                                            viewBox="0 0 16.75 16.75">
-                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">
-                                                <g id="Icon" transform="translate(0 1)">
-                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <path id="Path_3" data-name="Path 3"
-                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"
-                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"
-                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="1.5" />
-                                                </g>
-                                            </g>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="product-details.html">Kauri Marine Blue (Green Sole)</a>
-                                <span>$175</span> <del>$199</del>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="product-details.html"><img src="../static/dist/images/product/07.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="far fa-heart"></i></a>
-                                    <a href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"
-                                            viewBox="0 0 16.75 16.75">
-                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">
-                                                <g id="Icon" transform="translate(0 1)">
-                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <path id="Path_3" data-name="Path 3"
-                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"
-                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"
-                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="1.5" />
-                                                </g>
-                                            </g>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="product-details.html">Full Set for photographer</a>
-                                <span>$175</span> <del>$199</del>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="product-details.html"><img src="../static/dist/images/product/08.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="far fa-heart"></i></a>
-                                    <a href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"
-                                            viewBox="0 0 16.75 16.75">
-                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">
-                                                <g id="Icon" transform="translate(0 1)">
-                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <path id="Path_3" data-name="Path 3"
-                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"
-                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"
-                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="1.5" />
-                                                </g>
-                                            </g>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="product-details.html">Face Masks,Face Masks of 50 Pack</a>
-                                <span>$175</span> <del>$199</del>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6">
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="product-details.html"><img src="../static/dist/images/product/09.jpg" alt="Product Name"
-                                        class="img-fluid"></a>
-                                <div class="cart-icon">
-                                    <a href="#"><i class="far fa-heart"></i></a>
-                                    <a href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"
-                                            viewBox="0 0 16.75 16.75">
-                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">
-                                                <g id="Icon" transform="translate(0 1)">
-                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <path id="Path_3" data-name="Path 3"
-                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"
-                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"
-                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="1.5" />
-                                                </g>
-                                            </g>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a href="product-details.html">Fossil Men's Nate Stainless Steel Chronograph Quartz
-                                    Watch</a>
-                                <span>$175</span> <del>$199</del>
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>
@@ -982,116 +687,118 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="section-title">
-                            <h2>Shop with top categorys</h2>
+                            <h2>Shop with top categories</h2>
                         </div>
                     </div>
                 </div>
                 <div class="row">
+                    {% for category in categories %}
                     <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                         <div class="productcategory text-center">
                             <div class="productcategory-img">
-                                <a href="#"><img src="../static/dist/images/categorys/tree dasher.jpg" alt="images"></a>
-                            </div>
-                            <div class="productcategory-text">
+                                <a href="#"><img src="{{ category.image | b64encode }}" alt="images" class="small-img"> </a>
+                                <div class="productcategory-text">
                                 <a href="#">
-                                    <h6>Tree Dasher</h6>
+                                    <h6>{{ category.name }}</h6>
                                     <span>480 Products</span>
                                 </a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                        <div class="productcategory text-center">
-                            <div class="productcategory-img">
-                                <a href="#"><img src="../static/dist/images/categorys/wool-shoe.jpg" alt="images"> </a>
-                            </div>
-                            <div class="productcategory-text">
-                                <a href="#">
-                                    <h6>Wool Runner Shoes</h6>
-                                    <span>40 Products</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                        <div class="productcategory text-center">
-                            <div class="productcategory-img">
-                                <a href="#"><img src="../static/dist/images/categorys/jumper.jpg" alt="images"></a>
-                            </div>
-                            <div class="productcategory-text">
-                                <a href="#">
-                                    <h6>Jumper</h6>
-                                    <span>75 Products</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                        <div class="productcategory text-center">
-                            <div class="productcategory-img">
-                                <a href="#"><img src="../static/dist/images/categorys/iphone.jpg" alt="images"></a>
-                            </div>
-                            <div class="productcategory-text">
-                                <a href="#">
-                                    <h6>Apple</h6>
-                                    <span>12 Products</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                        <div class="productcategory text-center">
-                            <div class="productcategory-img">
-                                <a href="#"><img src="../static/dist/images/categorys/iphone.jpg" alt="images"></a>
-                            </div>
-                            <div class="productcategory-text">
-                                <a href="#">
-                                    <h6>Electronic</h6>
-                                    <span>50 Products</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                        <div class="productcategory text-center">
-                            <div class="productcategory-img">
-                                <a href="#"><img src="../static/dist/images/categorys/drone.jpg" alt="images"></a>
-                            </div>
-                            <div class="productcategory-text">
-                                <a href="#">
-                                    <h6>Drone</h6>
-                                    <span>20 Products</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                        <div class="productcategory text-center">
-                            <div class="productcategory-img">
-                                <a href="#"><img src="../static/dist/images/categorys/headphone.jpg" alt="images"></a>
-                            </div>
-                            <div class="productcategory-text">
-                                <a href="#">
-                                    <h6>Headphone</h6>
-                                    <span>10 Products</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
-                        <div class="productcategory text-center">
-                            <div class="productcategory-img">
-                                <a href="#"><img src="../static/dist/images/categorys/chosma.jpg" alt="images"></a>
-                            </div>
-                            <div class="productcategory-text">
-                                <a href="#">
-                                    <h6>Sunglass</h6>
-                                    <span>25 Products</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+{#                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">#}
+{#                        <div class="productcategory text-center">#}
+{#                            <div class="productcategory-img">#}
+{#                                <a href="#"><img src="../static/dist/images/categorys/wool-shoe.jpg" alt="images"> </a>#}
+{#                            </div>#}
+{#                            <div class="productcategory-text">#}
+{#                                <a href="#">#}
+{#                                    <h6>Wool Runner Shoes</h6>#}
+{#                                    <span>40 Products</span>#}
+{#                                </a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">#}
+{#                        <div class="productcategory text-center">#}
+{#                            <div class="productcategory-img">#}
+{#                                <a href="#"><img src="../static/dist/images/categorys/jumper.jpg" alt="images"></a>#}
+{#                            </div>#}
+{#                            <div class="productcategory-text">#}
+{#                                <a href="#">#}
+{#                                    <h6>Jumper</h6>#}
+{#                                    <span>75 Products</span>#}
+{#                                </a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">#}
+{#                        <div class="productcategory text-center">#}
+{#                            <div class="productcategory-img">#}
+{#                                <a href="#"><img src="../static/dist/images/categorys/iphone.jpg" alt="images"></a>#}
+{#                            </div>#}
+{#                            <div class="productcategory-text">#}
+{#                                <a href="#">#}
+{#                                    <h6>Apple</h6>#}
+{#                                    <span>12 Products</span>#}
+{#                                </a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">#}
+{#                        <div class="productcategory text-center">#}
+{#                            <div class="productcategory-img">#}
+{#                                <a href="#"><img src="../static/dist/images/categorys/iphone.jpg" alt="images"></a>#}
+{#                            </div>#}
+{#                            <div class="productcategory-text">#}
+{#                                <a href="#">#}
+{#                                    <h6>Electronic</h6>#}
+{#                                    <span>50 Products</span>#}
+{#                                </a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">#}
+{#                        <div class="productcategory text-center">#}
+{#                            <div class="productcategory-img">#}
+{#                                <a href="#"><img src="../static/dist/images/categorys/drone.jpg" alt="images"></a>#}
+{#                            </div>#}
+{#                            <div class="productcategory-text">#}
+{#                                <a href="#">#}
+{#                                    <h6>Drone</h6>#}
+{#                                    <span>20 Products</span>#}
+{#                                </a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">#}
+{#                        <div class="productcategory text-center">#}
+{#                            <div class="productcategory-img">#}
+{#                                <a href="#"><img src="../static/dist/images/categorys/headphone.jpg" alt="images"></a>#}
+{#                            </div>#}
+{#                            <div class="productcategory-text">#}
+{#                                <a href="#">#}
+{#                                    <h6>Headphone</h6>#}
+{#                                    <span>10 Products</span>#}
+{#                                </a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">#}
+{#                        <div class="productcategory text-center">#}
+{#                            <div class="productcategory-img">#}
+{#                                <a href="#"><img src="../static/dist/images/categorys/chosma.jpg" alt="images"></a>#}
+{#                            </div>#}
+{#                            <div class="productcategory-text">#}
+{#                                <a href="#">#}
+{#                                    <h6>Sunglass</h6>#}
+{#                                    <span>25 Products</span>#}
+{#                                </a>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+
                 </div>
+                    {% endfor %}
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="features-morebutton text-center">
@@ -1216,10 +923,9 @@
             <div class="row main-footer">
                 <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                     <div class="main-footer-info">
-                        <img src="../static/dist/images/logo/white.png" alt="Logo" class="img-fluid">
+                        <img src="../static/dist/images/logo/AnDakLak.png" alt="Logo" class="img-fluid">
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam molestie malesuada
-                            metus, non molestie ligula laoreet vitae. Ut et fringilla risus, vel.
+                            Let's try out the best online shopping platform in the world. You can buy anything you want
                         </p>
                     </div>
                 </div>
@@ -1262,7 +968,7 @@
                 <div class="col-lg-12">
                     <div class="copyright d-flex justify-content-between align-items-center">
                         <div class="copyright-text order-2 order-lg-1">
-                            <p>&copy; 2020. Design and Developed by <a href="#">Zakir Soft</a></p>
+                            <p>&copy; 2024. Design and Developed by <a href="#">Nguyen Ba Xuan An</a></p>
                         </div>
                         <div class="copyright-links order-1 order-lg-2">
                             <a href="#" class="ml-0"><i class="fab fa-facebook-f"></i></a>
