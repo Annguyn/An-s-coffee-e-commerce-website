@@ -1,17 +1,14 @@
-# models/user.py
-from extensions import db  # sử dụng SQLAlchemy từ Flask
+from extensions import db
 from flask_security import UserMixin, RoleMixin
 import uuid
 from werkzeug.security import generate_password_hash, check_password_hash
 
-# Define the Role model
 class Role(db.Model, RoleMixin):
     __tablename__ = 'role'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=True)
     description = db.Column(db.String(255))
 
-# Define the User model
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -26,18 +23,14 @@ class User(db.Model, UserMixin):
     active = db.Column(db.Boolean, default=True)  # Add the 'active' field
     fs_uniquifier = db.Column(db.String(255), unique=True, nullable=False, default=lambda: str(uuid.uuid4()))
 
-    # Define the relationship to Role via a secondary table
     roles = db.relationship('Role', secondary='user_roles', backref=db.backref('users', lazy='dynamic'))
 
-    # Define the set_password method to hash the password
     def set_password(self, password):
         self.password = generate_password_hash(password)
 
-    # Define the verify_password method to check if passwords match
     def verify_password(self, password):
         return check_password_hash(self.password, password)
 
-# Define the UserRoles association table
 class UserRoles(db.Model):
     __tablename__ = 'user_roles'
     id = db.Column(db.Integer, primary_key=True)

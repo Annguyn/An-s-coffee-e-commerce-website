@@ -342,6 +342,11 @@
             </div>
         </section>
         <!-- BreadCrumb Start-->
+        {% if user.is_admin %}
+            <div class="container">
+                <a href="upload_product.html" class="btn btn-primary">Upload Product</a>
+            </div>
+        {% endif %}
 
         <!-- Catagory Search Start -->
         <section class="search">

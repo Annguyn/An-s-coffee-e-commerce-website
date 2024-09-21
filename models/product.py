@@ -2,7 +2,7 @@ from extensions import db
 
 class ProductCategory(db.Model):
     __tablename__ = 'product_category'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String(255), nullable=False)
     desc = db.Column(db.Text)
     created_at = db.Column(db.DateTime)
@@ -11,7 +11,7 @@ class ProductCategory(db.Model):
 
 class ProductInventory(db.Model):
     __tablename__ = 'product_inventory'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     quantity = db.Column(db.Integer, nullable=False)
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
@@ -19,7 +19,7 @@ class ProductInventory(db.Model):
 
 class Product(db.Model):
     __tablename__ = 'product'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     name = db.Column(db.String(255), nullable=False)
     desc = db.Column(db.Text)
     SKU = db.Column(db.String(100), nullable=False)
@@ -30,7 +30,7 @@ class Product(db.Model):
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
     deleted_at = db.Column(db.DateTime)
-
+    image = db.Column(db.LargeBinary)
     category = db.relationship('ProductCategory', backref='products')
     inventory = db.relationship('ProductInventory', backref='products')
     discount = db.relationship('Discount', backref='products')
