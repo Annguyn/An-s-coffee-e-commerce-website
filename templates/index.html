@@ -381,8 +381,8 @@
                                     <img src="{{ product.image | b64encode }}" alt="{{ product.name }}" class="img-fluid">
                                 </a>
                                 <div class="cart-icon">
-                                    <a href="#"><i class="far fa-heart"></i></a>
-                                    <a href="#">
+                                    <a href="#" class="add-to-favourites" data-product-id="{{ product.id }}"><i class="far fa-heart"></i></a>
+                                    <a href="#" class="add-to-cart" data-product-id="{{ product.id }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"
                                             viewBox="0 0 16.75 16.75">
                                             <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">
@@ -412,146 +412,6 @@
                             </div>
                         </div>
                         {% endfor %}
-{#                        <div class="product-item">#}
-{#                            <div class="product-item-image">#}
-{#                                <a href="product-details.html"> <img src="../static/dist/images/product/04.jpg" alt="Product Name"#}
-{#                                        class="img-fluid"></a>#}
-{#                                <div class="cart-icon">#}
-{#                                    <a href="#"><i class="far fa-heart"></i></a>#}
-{#                                    <a href="#">#}
-{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"#}
-{#                                            viewBox="0 0 16.75 16.75">#}
-{#                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">#}
-{#                                                <g id="Icon" transform="translate(0 1)">#}
-{#                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <path id="Path_3" data-name="Path 3"#}
-{#                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"#}
-{#                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"#}
-{#                                                        stroke-linecap="round" stroke-linejoin="round"#}
-{#                                                        stroke-width="1.5" />#}
-{#                                                </g>#}
-{#                                            </g>#}
-{#                                        </svg>#}
-{#                                    </a>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="product-item-info">#}
-{#                                <a href="product-details.html">BERRY TYPE-II: C1N Backpack</a>#}
-{#                                <span>$975</span> <del>$999</del>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="product-item">#}
-{#                            <div class="product-item-image">#}
-{#                                <a href="product-details.html"><img src="../static/dist/images/product/01.jpg" alt="Product Name"#}
-{#                                        class="img-fluid"></a>#}
-{#                                <div class="cart-icon">#}
-{#                                    <a href="#"><i class="far fa-heart"></i></a>#}
-{#                                    <a href="#">#}
-{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"#}
-{#                                            viewBox="0 0 16.75 16.75">#}
-{#                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">#}
-{#                                                <g id="Icon" transform="translate(0 1)">#}
-{#                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <path id="Path_3" data-name="Path 3"#}
-{#                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"#}
-{#                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"#}
-{#                                                        stroke-linecap="round" stroke-linejoin="round"#}
-{#                                                        stroke-width="1.5" />#}
-{#                                                </g>#}
-{#                                            </g>#}
-{#                                        </svg>#}
-{#                                    </a>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="product-item-info">#}
-{#                                <a href="product-details.html">BERRY TYPE-II: C1N Backpack</a>#}
-{#                                <span>$975</span> <del>$999</del>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="product-item">#}
-{#                            <div class="product-item-image">#}
-{#                                <a href="product-details.html"> <img src="../static/dist/images/product/02.jpg" alt="Product Name"#}
-{#                                        class="img-fluid"></a>#}
-{#                                <div class="cart-icon">#}
-{#                                    <a href="#"><i class="far fa-heart"></i></a>#}
-{#                                    <a href="#">#}
-{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"#}
-{#                                            viewBox="0 0 16.75 16.75">#}
-{#                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">#}
-{#                                                <g id="Icon" transform="translate(0 1)">#}
-{#                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <path id="Path_3" data-name="Path 3"#}
-{#                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"#}
-{#                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"#}
-{#                                                        stroke-linecap="round" stroke-linejoin="round"#}
-{#                                                        stroke-width="1.5" />#}
-{#                                                </g>#}
-{#                                            </g>#}
-{#                                        </svg>#}
-{#                                    </a>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="product-item-info">#}
-{#                                <a href="product-details.html">BERRY TYPE-II: C1N Backpack</a>#}
-{#                                <span>$975</span> <del>$999</del>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                        <div class="product-item">#}
-{#                            <div class="product-item-image">#}
-{#                                <a href="product-details.html"><img src="../static/dist/images/product/03.jpg" alt="Product Name"#}
-{#                                        class="img-fluid"></a>#}
-{#                                <div class="cart-icon">#}
-{#                                    <a href="#"><i class="far fa-heart"></i></a>#}
-{#                                    <a href="#">#}
-{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"#}
-{#                                            viewBox="0 0 16.75 16.75">#}
-{#                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">#}
-{#                                                <g id="Icon" transform="translate(0 1)">#}
-{#                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <path id="Path_3" data-name="Path 3"#}
-{#                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"#}
-{#                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"#}
-{#                                                        stroke-linecap="round" stroke-linejoin="round"#}
-{#                                                        stroke-width="1.5" />#}
-{#                                                </g>#}
-{#                                            </g>#}
-{#                                        </svg>#}
-{#                                    </a>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="product-item-info">#}
-{#                                <a href="product-details.html">BERRY TYPE-II: C1N Backpack</a>#}
-{#                                <span>$975</span> <del>$999</del>#}
-{#                            </div>#}
-{#                        </div>#}
                     </div>
                     <div class="slider-arrows">
                         <div class="prev-arrow">
@@ -705,98 +565,6 @@
                             </div>
                         </div>
                     </div>
-{#                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">#}
-{#                        <div class="productcategory text-center">#}
-{#                            <div class="productcategory-img">#}
-{#                                <a href="#"><img src="../static/dist/images/categorys/wool-shoe.jpg" alt="images"> </a>#}
-{#                            </div>#}
-{#                            <div class="productcategory-text">#}
-{#                                <a href="#">#}
-{#                                    <h6>Wool Runner Shoes</h6>#}
-{#                                    <span>40 Products</span>#}
-{#                                </a>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">#}
-{#                        <div class="productcategory text-center">#}
-{#                            <div class="productcategory-img">#}
-{#                                <a href="#"><img src="../static/dist/images/categorys/jumper.jpg" alt="images"></a>#}
-{#                            </div>#}
-{#                            <div class="productcategory-text">#}
-{#                                <a href="#">#}
-{#                                    <h6>Jumper</h6>#}
-{#                                    <span>75 Products</span>#}
-{#                                </a>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">#}
-{#                        <div class="productcategory text-center">#}
-{#                            <div class="productcategory-img">#}
-{#                                <a href="#"><img src="../static/dist/images/categorys/iphone.jpg" alt="images"></a>#}
-{#                            </div>#}
-{#                            <div class="productcategory-text">#}
-{#                                <a href="#">#}
-{#                                    <h6>Apple</h6>#}
-{#                                    <span>12 Products</span>#}
-{#                                </a>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">#}
-{#                        <div class="productcategory text-center">#}
-{#                            <div class="productcategory-img">#}
-{#                                <a href="#"><img src="../static/dist/images/categorys/iphone.jpg" alt="images"></a>#}
-{#                            </div>#}
-{#                            <div class="productcategory-text">#}
-{#                                <a href="#">#}
-{#                                    <h6>Electronic</h6>#}
-{#                                    <span>50 Products</span>#}
-{#                                </a>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">#}
-{#                        <div class="productcategory text-center">#}
-{#                            <div class="productcategory-img">#}
-{#                                <a href="#"><img src="../static/dist/images/categorys/drone.jpg" alt="images"></a>#}
-{#                            </div>#}
-{#                            <div class="productcategory-text">#}
-{#                                <a href="#">#}
-{#                                    <h6>Drone</h6>#}
-{#                                    <span>20 Products</span>#}
-{#                                </a>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">#}
-{#                        <div class="productcategory text-center">#}
-{#                            <div class="productcategory-img">#}
-{#                                <a href="#"><img src="../static/dist/images/categorys/headphone.jpg" alt="images"></a>#}
-{#                            </div>#}
-{#                            <div class="productcategory-text">#}
-{#                                <a href="#">#}
-{#                                    <h6>Headphone</h6>#}
-{#                                    <span>10 Products</span>#}
-{#                                </a>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">#}
-{#                        <div class="productcategory text-center">#}
-{#                            <div class="productcategory-img">#}
-{#                                <a href="#"><img src="../static/dist/images/categorys/chosma.jpg" alt="images"></a>#}
-{#                            </div>#}
-{#                            <div class="productcategory-text">#}
-{#                                <a href="#">#}
-{#                                    <h6>Sunglass</h6>#}
-{#                                    <span>25 Products</span>#}
-{#                                </a>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-
                 </div>
                     {% endfor %}
                 <div class="row">
@@ -999,5 +767,61 @@
             document.getElementById("mySidenav").style.width = "0";
             $('#overlayy').removeClass("active");
         }
+        $(document).ready(function() {
+            $('.add-to-favourites').on('click', function(e) {
+                e.preventDefault(); // Prevent the default behavior of the anchor tag
+
+                var productId = $(this).data('product-id');
+
+                $.ajax({
+                    url: "{{ url_for('add_to_favourite.add_to_favourites') }}",
+                    type: 'POST',
+                    data: {
+                        'product_id': productId
+                    },
+                    success: function(response) {
+                        if (response.message) {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        if (xhr.responseJSON && xhr.responseJSON.error) {
+                            alert(xhr.responseJSON.error);  // Display error message
+                        } else {
+                            alert('An error occurred. Please try again.');
+                        }
+                    }
+                });
+            });
+
+            $('.add-to-cart').on('click', function(e) {
+                e.preventDefault(); // Prevent the default behavior of the anchor tag
+
+                var productId = $(this).data('product-id');
+                var quantity = $(this).data('quantity') || 1;
+
+                $.ajax({
+                    url: "{{ url_for('add_to_cart.add_to_cart') }}",
+                    type: 'POST',
+                    data: {
+                        'product_id': productId,
+                        'quantity': quantity
+                    },
+                    success: function(response) {
+                        if (response.message) {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        if (xhr.responseJSON && xhr.responseJSON.error) {
+                            alert(xhr.responseJSON.error);  // Display error message
+                        } else {
+                            alert('An error occurred. Please try again.');
+                        }
+                    }
+                });
+            });
+        });
     </script>
+
 </body>

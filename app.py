@@ -9,6 +9,7 @@ from models.cart import ShoppingSession, CartItem
 from models.user import User, UserAddress
 from models.order import OrderDetails, OrderItems
 from models.payment import UserPayment, PaymentDetails
+from routes.cart import add_to_cart_bp
 from routes.index import index_bp
 from routes.account import account_bp
 from extensions import db
@@ -18,8 +19,8 @@ from flask_security import Security, SQLAlchemyUserDatastore, \
 from flask_security import current_user
 import os
 from filters import b64encode
-
-
+from routes.add_to_favourite import add_to_favourite_bp
+from routes.cart import add_to_cart_bp
 from routes.shop import shop_bp
 
 app = Flask(__name__)
@@ -35,11 +36,12 @@ login_manager.login_view = 'account_bp.login'
 def load_user(user_id):
     return User.query.get(int(user_id))
 db.init_app(app)
-
 # Create engine and session
 engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 # session = Session()
 
+app.register_blueprint(add_to_cart_bp)
+app.register_blueprint(add_to_favourite_bp)
 app.register_blueprint(account_bp)
 app.register_blueprint(index_bp)
 app.register_blueprint(shop_bp)
