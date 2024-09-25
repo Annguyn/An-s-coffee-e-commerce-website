@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, redirect, url_for
+from flask import Blueprint, request, jsonify, redirect, url_for, render_template
 from flask_login import login_required, current_user
 from models import db, Product
 from models.cart import CartItem, ShoppingSession
@@ -6,6 +6,17 @@ from extensions import db
 from datetime import datetime
 
 add_to_cart_bp = Blueprint('add_to_cart', __name__)
+@add_to_cart_bp.route('/cart', methods=['GET'])
+@login_required
+def show_cart():
+    shopping_session = ShoppingSession.query.filter_by(user_id=current_user.id).first()
+    cart_items = CartItem.query.filter_by(session_id=shopping_session.id).all()
+    products = {}
+    for item in cart_items:
+        product = Product.query.get(item.product_id)
+        products[item.product_id] = product
+    return render_template('cart.html', user=current_user, cart_items=cart_items,
+                           session=shopping_session, products=products)
 
 @add_to_cart_bp.route('/add_to_cart', methods=['POST'])
 @login_required

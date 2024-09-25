@@ -1,6 +1,8 @@
 from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash, session
 from flask_security import Security, SQLAlchemyUserDatastore, login_user
+from flask_login import LoginManager
+
 from models.user import User
 from extensions import db
 from utils import get_logged_in_user
@@ -11,6 +13,10 @@ account_bp = Blueprint('account', __name__)
 # Initialize Flask-Security
 user_datastore = SQLAlchemyUserDatastore(db, User, None)
 security = Security()
+
+
+
+
 
 @account_bp.route('/account')
 def account():

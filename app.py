@@ -10,6 +10,7 @@ from models.user import User, UserAddress
 from models.order import OrderDetails, OrderItems
 from models.payment import UserPayment, PaymentDetails
 from routes.cart import add_to_cart_bp
+from routes.favourie import favourite_bp
 from routes.index import index_bp
 from routes.account import account_bp
 from extensions import db
@@ -40,6 +41,7 @@ db.init_app(app)
 engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 # session = Session()
 
+app.register_blueprint(favourite_bp)
 app.register_blueprint(add_to_cart_bp)
 app.register_blueprint(add_to_favourite_bp)
 app.register_blueprint(account_bp)
@@ -52,6 +54,10 @@ with app.app_context():
 # Setup Flask-Security
 user_datastore = SQLAlchemyUserDatastore(db, User, None)
 security = Security(app, user_datastore)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 @app.route('/')
 def hello_world():
