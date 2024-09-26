@@ -385,7 +385,7 @@
                                     <p> {{ products[item.product_id].name }}</p>
                                 </div>
                                 <div class="button">
-                                    <a class="btn bg-primary" href="billing-information.html">Checkout now</a>
+                                    <a class="btn bg-primary" href="{{ url_for('billing_information.show_billing_information') }}">Checkout now</a>
                                     <a class="cart-btn" href="#">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18"
                                             viewBox="0 0 20 18">
@@ -512,7 +512,7 @@
 
                         </div>
                         <form action="#">
-                            <a href="billing-information.html" class="btn bg-primary" type="submit" style="width: 100%;">Checkout Now</a>
+                            <a href="{{ url_for('billing_information.show_billing_information') }}" class="btn bg-primary" type="submit" style="width: 100%;">Checkout Now</a>
                         </form>
                     </div>
                 </div>

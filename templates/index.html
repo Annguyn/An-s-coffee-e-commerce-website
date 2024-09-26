@@ -129,7 +129,7 @@
                         <div class="menu-icon ml-auto">
                             <ul>
                                 <li>
-                                    <a href="wishlist.html">
+                                    <a href="{{ url_for('favourite.show_favourite') if user else '#' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20"
                                             viewBox="0 0 22 20">
                                             <g id="Heart" transform="translate(1 1)">
@@ -143,7 +143,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="cart.html"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                    <a href="{{ url_for('add_to_cart.show_cart') if user else '#' }}"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                                             viewBox="0 0 22 22">
                                             <g id="Icon" transform="translate(-1524 -89)">
                                                 <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.909" cy="0.952"
@@ -164,7 +164,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="account.html"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                    <a href="{{ url_for('account.account') if not user else '#' }}"><svg xmlns="http://www.w3.org/2000/svg" width="18"
                                             height="20" viewBox="0 0 18 20">
                                             <g id="Account" transform="translate(1 1)">
                                                 <path id="Path_86" data-name="Path 86"
@@ -251,7 +251,7 @@
                         </div>
                         <div class="menu-icon">
                             <ul>
-                                <li> <a href="wishlist.html">
+                                <li> <a href="{{ url_for('favourite.show_favourite') if user else '#' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20"
                                             viewBox="0 0 22 20">
                                             <g id="Heart" transform="translate(1 1)">
@@ -265,7 +265,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="cart.html">
+                                    <a href="{{ url_for('add_to_cart.show_cart') if user else '#' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                                             viewBox="0 0 22 22">
                                             <g id="Icon" transform="translate(-1524 -89)">

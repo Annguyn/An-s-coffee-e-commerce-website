@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash
 from extensions import csrf
 from models.product import Product, ProductCategory, ProductInventory
 from flask_login import current_user, login_required
+from routes.cart import show_cart
 index_bp = Blueprint('index', __name__)
 
 @index_bp.route('/')

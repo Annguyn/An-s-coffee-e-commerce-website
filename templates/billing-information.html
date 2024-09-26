@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>An Coffee</title>
-    <link rel="stylesheet" href="dist/main.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='dist/main.css') }}">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                                         </svg>
                                     </div>
                                     <div class="text">
-                                        <span>+8801658 874521</span>
+                                        <span>+84 818573466</span>
                                     </div>
                                 </div>
                             </div>
@@ -231,7 +231,7 @@
                     </div>
                     <div class="mobile-nav d-flex align-items-center justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="dist/images/logo/logo.png" alt="logo" /></a>
+                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="logo" /></a>
                         </div>
                         <div class="search-bar">
                             <input type="text" placeholder="Search for product...">
@@ -641,23 +641,19 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-12 mt-30">
-                                        <select name="" id="">
-                                            <option value="01">Country/Region</option>
-                                            <option value="02">United States</option>
+                                        <select name="province" id="province" onchange="loadDistricts()">
+                                            <option value="">Province/City</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-12 mt-30">
-                                        <select name="" id="">
-                                            <option value="01">States</option>
-                                            <option value="02">Chicago</option>
+                                        <select name="district" id="district" onchange="loadWards()">
+                                            <option value="">District/Town</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-12 mt-30">
-                                        <div class="form__div">
-                                            <input type="text" class="form__input" placeholder="
-                                            ">
-                                            <label for="" class="form__label">Zip Code</label>
-                                        </div>
+                                        <select name="commune" id="commune">
+                                            <option value="">Commune/Ward</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -768,7 +764,7 @@
         <div class="row main-footer">
             <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                 <div class="main-footer-info">
-                    <img src="dist/images/logo/white.png" alt="Logo" class="img-fluid">
+                    <img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="Logo" class="img-fluid">
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam molestie malesuada
                         metus, non molestie ligula laoreet vitae. Ut et fringilla risus, vel.
@@ -830,10 +826,13 @@
 <!-- Footer -->
 
 
-    <script src="src/js/jquery.min.js"></script>
-    <script src="src/js/bootstrap.min.js"></script>
-    <script src="src/scss/vendors/plugin/js/jquery.nice-select.min.js"></script>
-    <script src="dist/main.js"></script>
+    <script src="../static/src/js/jquery.min.js"></script>
+    <script src="../static/src/js/bootstrap.min.js"></script>
+    <script src="../static/src/scss/vendors/plugin/js/jquery.nice-select.min.js"></script>
+    <script src="../static/dist/main.js"></script>
+    <script src="https://esgoo.net/scripts/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
     <script>
         function openNav() {
 
@@ -845,5 +844,42 @@
             document.getElementById("mySidenav").style.width = "0";
             $('#overlayy').removeClass("active");
         }
+        $(document).ready(function() {
+            //Lấy tỉnh thành
+            $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm',function(data_tinh){
+                if(data_tinh.error==0){
+                    $.each(data_tinh.data, function (key_tinh,val_tinh) {
+                        $("#province").append('<option value="'+val_tinh.id+'">'+val_tinh.full_name+'</option>');
+                    });
+                    $("#province").change(function(e){
+                        var idtinh=$(this).val();
+                        //Lấy quận huyện
+                        $.getJSON('https://esgoo.net/api-tinhthanh/2/'+idtinh+'.htm',function(data_quan){
+                            if(data_quan.error==0){
+                                $("#district").html('<option value="0">Quận Huyện</option>');
+                                $("#commune").html('<option value="0">Phường Xã</option>');
+                                $.each(data_quan.data, function (key_quan,val_quan) {
+                                    $("#district").append('<option value="'+val_quan.id+'">'+val_quan.full_name+'</option>');
+                                });
+                                //Lấy phường xã
+                                $("#district").change(function(e){
+                                    var idquan=$(this).val();
+                                    $.getJSON('https://esgoo.net/api-tinhthanh/3/'+idquan+'.htm',function(data_phuong){
+                                        if(data_phuong.error==0){
+                                            $("#commune").html('<option value="0">Phường Xã</option>');
+                                            $.each(data_phuong.data, function (key_phuong,val_phuong) {
+                                                $("#commune").append('<option value="'+val_phuong.id+'">'+val_phuong.full_name+'</option>');
+                                            });
+                                        }
+                                    });
+                                });
+
+                            }
+                        });
+                    });
+
+                }
+            });
+        });
     </script>
 </body>

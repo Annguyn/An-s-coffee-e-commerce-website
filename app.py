@@ -18,6 +18,7 @@ from os import path, getcwd
 from flask_security import Security, SQLAlchemyUserDatastore, \
     UserMixin, RoleMixin, login_required
 from flask_security import current_user
+from routes.billing_information import billing_information_bp
 import os
 from filters import b64encode
 from routes.add_to_favourite import add_to_favourite_bp
@@ -41,6 +42,7 @@ db.init_app(app)
 engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 # session = Session()
 
+app.register_blueprint(billing_information_bp)
 app.register_blueprint(favourite_bp)
 app.register_blueprint(add_to_cart_bp)
 app.register_blueprint(add_to_favourite_bp)

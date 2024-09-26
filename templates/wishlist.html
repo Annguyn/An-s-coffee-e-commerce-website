@@ -375,13 +375,14 @@
                         </div>
                     </div>
                     <div class="body">
+                        {% for product in products %}
                         <div class="item">
                             <div class="image">
-                                <img src="{{ url_for('static',filename='dist/images/nike-shoe.jpg') }}">
+                                <img src="{{ product.image|b64encode }} " alt="{{ product.name }}">
                             </div>
                             <div class="name">
                                 <div class="name-text">
-                                    <p> Skechers Men's Classic Fit-Delson-Camden Sneaker</p>
+                                    <p> {{ product.name }}</p>
                                 </div>
                                 <div class="button">
                                     <div class="product-pricelist-selector-button">
@@ -414,7 +415,7 @@
                                 </div>
                             </div>
                             <div class="price">
-                                <span>$254.99</span> <del>$499.99</del>
+                                <span>{{ product.price }}</span> <del>200000</del>
                             </div>
                             <div class="rating">
                                 <i class="fas fa-star"></i> 5.0
@@ -464,6 +465,7 @@
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
                 </div>
                 <!-- Wishlist Item End -->
@@ -499,7 +501,7 @@
             <div class="row main-footer">
                 <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                     <div class="main-footer-info">
-                        <img src="dist/images/logo/white.png" alt="Logo" class="img-fluid">
+                        <img src="{{ url_for('static',filename='dist/images/logo/AnDakLak') }}" alt="Logo" class="img-fluid">
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam molestie malesuada
                             metus, non molestie ligula laoreet vitae. Ut et fringilla risus, vel.
