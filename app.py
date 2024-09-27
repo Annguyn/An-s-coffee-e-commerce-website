@@ -6,9 +6,9 @@ from sqlalchemy import create_engine
 from models.discount import Discount
 from models.product import Product, ProductCategory, ProductInventory
 from models.cart import ShoppingSession, CartItem
-from models.user import User, UserAddress
+from models.user import User
 from models.order import OrderDetails, OrderItems
-from models.payment import UserPayment, PaymentDetails
+from models.payment import PaymentDetails
 from routes.cart import add_to_cart_bp
 from routes.favourie import favourite_bp
 from routes.index import index_bp

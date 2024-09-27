@@ -1,6 +1,6 @@
 from .product import Product, ProductCategory, ProductInventory
-from .user import User, UserAddress
+from .user import User
 from .order import OrderDetails, OrderItems
-from .payment import UserPayment, PaymentDetails
+from .payment import PaymentDetails
 from .cart import ShoppingSession, CartItem
 from .discount import Discount

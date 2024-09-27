@@ -1,25 +1,30 @@
 from sqlalchemy import Date
 
-from extensions import db  # Import db from Flask-SQLAlchemy
+from extensions import db
 
-class UserPayment(db.Model):
-    __tablename__ = 'user_payment'
+class BillingInformation(db.Model):
+    __tablename__ = 'billing_information'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    payment_type = db.Column(db.String(100), nullable=False)  # e.g., 'Credit Card', 'Paypal'
-    provider = db.Column(db.String(255), nullable=False)      # e.g., 'Visa', 'MasterCard'
-    account_no = db.Column(db.String(100), nullable=False)
-    expiry = db.Column(db.Date)  # Expiry date for card
+    first_name = db.Column(db.Unicode(255))
+    last_name = db.Column(db.Unicode(255))
+    email = db.Column(db.String(255))
+    address = db.Column(db.String(255))
+    city = db.Column(db.String(255))
+    district = db.Column(db.String(255))
+    ward = db.Column(db.String(255))
+    telephone = db.Column(db.String(20))
+    created_at = db.Column(db.DateTime)
+    modified_at = db.Column(db.DateTime)
 
-    user = db.relationship('User', backref='payments')
-
+    user = db.relationship('User', backref='billing_information')
 class PaymentDetails(db.Model):
     __tablename__ = 'payment_details'
     id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey('order_details.id'))
     amount = db.Column(db.Float, nullable=False)
-    provider = db.Column(db.String(255), nullable=False)  # e.g., 'Visa', 'Paypal'
-    status = db.Column(db.String(100), nullable=False)  # e.g., 'Completed', 'Pending'
+    provider = db.Column(db.String(255), nullable=False)
+    status = db.Column(db.String(100), nullable=False)
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
 

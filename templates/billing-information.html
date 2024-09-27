@@ -595,91 +595,58 @@
                         </div>
                         <div class="deliver-info-form">
                             <h6>Billing information</h6>
-                            <form action="#">
+                            <form method="POST" action="{{ url_for('billing_information.update_billing_information') }}">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form__div">
-                                            <input type="text" class="form__input" placeholder="
-                                            ">
+                                            <input type="text" class="form__input" name="first_name" placeholder=" " required>
                                             <label for="" class="form__label">First Name</label>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form__div">
-                                            <input type="text" class="form__input" placeholder="
-                                            ">
+                                            <input type="text" class="form__input" name="last_name" placeholder=" " required>
                                             <label for="" class="form__label">Last Name</label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-12">
                                         <div class="form__div">
-                                            <input type="text" class="form__input" placeholder="
-                                            ">
+                                            <input type="text" class="form__input" name="address" placeholder=" " required>
                                             <label for="" class="form__label">Address</label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form__div">
-                                            <input type="text" class="form__input" placeholder="
-                                            ">
-                                            <label for="" class="form__label">Apartment, House</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="form__div mb-0">
-                                            <input type="text" class="form__input" placeholder="
-                                            ">
-                                            <label for="" class="form__label">City</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-lg-4 col-md-4 col-12 mt-30">
-                                        <select name="province" id="province" onchange="loadDistricts()">
+                                        <select name="province" id="province" required>
                                             <option value="">Province/City</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-12 mt-30">
-                                        <select name="district" id="district" onchange="loadWards()">
+                                        <select name="district" id="district" required>
                                             <option value="">District/Town</option>
                                         </select>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-12 mt-30">
-                                        <select name="commune" id="commune">
+                                        <select name="commune" id="commune" required>
                                             <option value="">Commune/Ward</option>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-12">
                                         <div class="form__div">
-                                            <input type="text" class="form__input" placeholder="
-                                            ">
+                                            <input type="tel" class="form__input" name="telephone" placeholder=" " required>
                                             <label for="" class="form__label">Phone</label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
                                     <div class="col-12">
                                         <div class="form__div">
-                                            <input type="email" class="form__input" placeholder="
-                                            ">
+                                            <input type="email" class="form__input" name="email1" placeholder=" " required>
                                             <label for="" class="form__label">Email</label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div
-                                        class="col-12 d-flex align-items-center justify-content-between bottom flex-wrap">
+                                    <div class="col-12 d-flex align-items-center justify-content-between bottom flex-wrap">
                                         <a href="#">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                                            Return to cart</a>
+                                            Return to cart
+                                        </a>
                                         <button class="btn bg-primary mt-0" type="submit">Continue</button>
                                     </div>
                                 </div>

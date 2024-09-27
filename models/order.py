@@ -1,19 +1,22 @@
-from extensions import db  # Import db từ Flask-SQLAlchemy
+from extensions import db
+
+class PaymentMethod(db.Model):
+    __tablename__ = 'payment_method'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(255))
 
 class OrderDetails(db.Model):
     __tablename__ = 'order_details'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     total = db.Column(db.Float)
-    payment_id = db.Column(db.Integer, db.ForeignKey('user_payment.id'))
-    shipping_address_id = db.Column(db.Integer, db.ForeignKey('user_address.id'))
+    payment_method_id = db.Column(db.Integer, db.ForeignKey('payment_method.id'))
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
 
     user = db.relationship('User', backref='orders')
-    payment = db.relationship('UserPayment', backref='order_details')
-    shipping_address = db.relationship('UserAddress', backref='orders')
-
+    payment_method = db.relationship('PaymentMethod', backref='order_details')
 
 class OrderItems(db.Model):
     __tablename__ = 'order_items'
