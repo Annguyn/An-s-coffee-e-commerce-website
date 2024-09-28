@@ -49,4 +49,4 @@ def update_billing_information():
         db.session.commit()
     except KeyError as e:
         return f"Missing form data: {e}", 400
-    return redirect(url_for('billing_information.show_billing_information'))
+    return redirect(url_for('shipping.show_shipping'))

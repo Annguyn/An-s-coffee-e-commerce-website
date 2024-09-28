@@ -23,6 +23,8 @@ import os
 from filters import b64encode
 from routes.add_to_favourite import add_to_favourite_bp
 from routes.cart import add_to_cart_bp
+from routes.payment import payment_bp
+from routes.shipping import shipping_bp
 from routes.shop import shop_bp
 
 app = Flask(__name__)
@@ -42,6 +44,8 @@ db.init_app(app)
 engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 # session = Session()
 
+app.register_blueprint(payment_bp)
+app.register_blueprint(shipping_bp)
 app.register_blueprint(billing_information_bp)
 app.register_blueprint(favourite_bp)
 app.register_blueprint(add_to_cart_bp)

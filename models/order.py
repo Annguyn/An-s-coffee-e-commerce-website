@@ -6,17 +6,24 @@ class PaymentMethod(db.Model):
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.String(255))
 
+class ShippingMethod(db.Model):
+    __tablename__ = 'shipping_method'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.String(255))
+    price = db.Column(db.Float)
+
 class OrderDetails(db.Model):
     __tablename__ = 'order_details'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     total = db.Column(db.Float)
-    payment_method_id = db.Column(db.Integer, db.ForeignKey('payment_method.id'))
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
+    payment_id = db.Column(db.Integer, db.ForeignKey('payment_method.id'))
 
     user = db.relationship('User', backref='orders')
-    payment_method = db.relationship('PaymentMethod', backref='order_details')
+
 
 class OrderItems(db.Model):
     __tablename__ = 'order_items'

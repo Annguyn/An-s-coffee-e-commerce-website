@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>An Coffee</title>
-    <link rel="stylesheet" href="dist/main.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='dist/main.css') }}">
 </head>
 
 <body>
@@ -82,7 +82,7 @@
                 <div class="d-none d-lg-block">
                     <nav class="menu-area d-flex align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="dist/images/logo/logo.png" alt="logo" /></a>
+                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="logo" /></a>
                         </div>
                         <ul class="main-menu d-flex align-items-center">
                             <li><a class="active" href="index.html">Home</a></li>
@@ -231,7 +231,7 @@
                     </div>
                     <div class="mobile-nav d-flex align-items-center justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="dist/images/logo/logo.png" alt="logo" /></a>
+                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="logo" /></a>
                         </div>
                         <div class="search-bar">
                             <input type="text" placeholder="Search for product...">
@@ -367,8 +367,8 @@
                                             <span>Contact:</span>
                                         </div>
                                         <div class="right">
-                                            <p>mike.hudson@gmail.com</p>
-                                            <p>+1202-555-0558</p>
+                                            <p>{{ billing_information.email}}</p>
+                                            <p>{{ billing_information.telephone }}</p>
                                         </div>
                                     </div>
                                     <div class="shipping-info-button">
@@ -383,24 +383,9 @@
                                             <span>Ship to:</span>
                                         </div>
                                         <div class="right mar-5">
-                                            <p>Flat No. # 5/D, Apartmen No. #2587/S, Street No. #24/A, </p>
-                                            <p>Illinois, Chicago-60626</p>
-                                        </div>
-                                    </div>
-                                    <div class="shipping-info-button">
-                                        <form action="#">
-                                            <button type="submit">Change</button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="shipping-info mod">
-                                    <div class="shipping-info-text">
-                                        <div class="left">
-                                            <span>Ship to:</span>
-                                        </div>
-                                        <div class="right mar-5">
-                                            <p>Flat No. # 5/D, Apartmen No. #2587/S, Street No. #24/A, </p>
-                                            <p>Illinois, Chicago-60626</p>
+                                            <p>{{ billing_information.address}}</p>
+                                            <p>{{ billing_information.city + ', ' +billing_information.district
+                                                    +', ' + billing_information.ward}}</p>
                                         </div>
                                     </div>
                                     <div class="shipping-info-button">
@@ -417,10 +402,10 @@
                             <h6>Check Summery</h6>
                             <div class="card-price-list d-flex justify-content-between align-items-center">
                                 <div class="item">
-                                    <p>3 item</p>
+                                    <p>{{ quantity }} item</p>
                                 </div>
                                 <div class="price">
-                                    <p>$125</p>
+                                    <p>{{ total }}</p>
                                 </div>
                             </div>
                             <div class="card-price-list d-flex justify-content-between align-items-center">
@@ -428,7 +413,7 @@
                                     <p>Shipping Cast</p>
                                 </div>
                                 <div class="price">
-                                    <p>$55</p>
+                                    <p>{{ shipping_method.price }}</p>
                                 </div>
                             </div>
                             <div class="card-price-list d-flex justify-content-between align-items-center">
@@ -439,20 +424,20 @@
                                     <p>8%</p>
                                 </div>
                             </div>
-                            <div class="card-price-list d-flex justify-content-between align-items-center">
-                                <div class="item">
-                                    <p>Taxes</p>
-                                </div>
-                                <div class="price">
-                                    <p>$5.49</p>
-                                </div>
-                            </div>
+{#                            <div class="card-price-list d-flex justify-content-between align-items-center">#}
+{#                                <div class="item">#}
+{#                                    <p>Taxes</p>#}
+{#                                </div>#}
+{#                                <div class="price">#}
+{#                                    <p>$5.49</p>#}
+{#                                </div>#}
+{#                            </div>#}
                             <div class="card-price-subtotal d-flex justify-content-between align-items-center">
                                 <div class="total-text">
                                     <p>Total Price</p>
                                 </div>
                                 <div class="total-price">
-                                    <p>$174.99</p>
+                                    <p>{{ total + shipping_method.price }}</p>
                                 </div>
 
                             </div>
@@ -462,7 +447,7 @@
                 <div class="row">
                     <div class="col-lg-7">
                         <div class="payment-area-payment">
-                            <form action="#">
+                            <form action="{{url_for('payment.update_payment')}}" method="POST">
                                 <legend class="text-center">Express payment</legend>
                                 <div class="payment-methods">
                                     <div class="methods">
@@ -852,7 +837,7 @@
             <div class="row main-footer">
                 <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                     <div class="main-footer-info">
-                        <img src="dist/images/logo/white.png" alt="Logo" class="img-fluid">
+                        <img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="Logo" class="img-fluid">
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam molestie malesuada
                             metus, non molestie ligula laoreet vitae. Ut et fringilla risus, vel.

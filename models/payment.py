@@ -10,6 +10,7 @@ class BillingInformation(db.Model):
     last_name = db.Column(db.Unicode(255))
     email = db.Column(db.String(255))
     address = db.Column(db.String(255))
+    shipping_method_id = db.Column(db.Integer, db.ForeignKey('shipping_method.id'))
     city = db.Column(db.String(255))
     district = db.Column(db.String(255))
     ward = db.Column(db.String(255))

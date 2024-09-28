@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>An Coffee</title>
-    <link rel="stylesheet" href="dist/main.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='dist/main.css') }}">
 </head>
 
 <body>
@@ -82,7 +82,7 @@
                 <div class="d-none d-lg-block">
                     <nav class="menu-area d-flex align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="dist/images/logo/logo.png" alt="logo" /></a>
+                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="logo" /></a>
                         </div>
                         <ul class="main-menu d-flex align-items-center">
                             <li><a class="active" href="index.html">Home</a></li>
@@ -231,7 +231,7 @@
                     </div>
                     <div class="mobile-nav d-flex align-items-center justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="dist/images/logo/logo.png" alt="logo" /></a>
+                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="logo" /></a>
                         </div>
                         <div class="search-bar">
                             <input type="text" placeholder="Search for product...">
@@ -366,8 +366,8 @@
                                         <span>Contact:</span>
                                     </div>
                                     <div class="right mar-5">
-                                        <p>mike.hudson@gmail.com</p>
-                                        <p>+1202-555-0558</p>
+                                        <p>{{ billing_information.email }}</p>
+                                        <p>{{ billing_information.telephone }}</p>
                                     </div>
                                 </div>
                                 <div class="shipping-info-button">
@@ -382,8 +382,9 @@
                                         <span>Ship to:</span>
                                     </div>
                                     <div class="right mar-5">
-                                        <p>Flat No. # 5/D, Apartmen No. #2587/S, Street No. #24/A, </p>
-                                        <p>Illinois, Chicago-60626</p>
+                                        <p>{{ billing_information.address }}</p>
+                                        <p>{{ billing_information.ward + ', ' + billing_information.district + ', '
+                                                + billing_information.city }}</p>
                                     </div>
                                 </div>
                                 <div class="shipping-info-button">
@@ -395,17 +396,16 @@
                         </div>
                         <div class="form">
                             <h6>Shipping method</h6>
-                            <form action="#">
+                            <form action="{{ url_for('shipping.update_shipping') }}" method="POST">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="select-button">
                                             <div class="button-area">
                                                 <div class="radio-button">
-                                                    <input type="radio" name="shipping" id="shippingMethod" checked>
+                                                    <input type="radio" name="shipping" id="shippingMethod1" value="0" {% if billing_information.shipping_method == '0' %}checked{% endif %}>
                                                 </div>
                                                 <div class="text-area">
-                                                    <p>Fast Shipping (Delivered in 8-12 days, includes 3-4 days for
-                                                        processing)</p>
+                                                    <p>Fast Shipping (Delivered in 8-12 days, includes 3-4 days for processing)</p>
                                                 </div>
                                             </div>
                                             <div class="select-button-text">
@@ -419,13 +419,10 @@
                                         <div class="select-button modifier">
                                             <div class="button-area">
                                                 <div class="radio-button">
-                                                    <input type="radio" name="shipping" id="shippingMethod">
+                                                    <input type="radio" name="shipping" id="shippingMethod2" value="1" {% if billing_information.shipping_method == '1' %}checked{% endif %}>
                                                 </div>
                                                 <div class="text-area">
-                                                    <p>
-                                                        Faster Shipping (Delivered in 4-6 days, includes 2 days for
-                                                        processing)
-                                                    </p>
+                                                    <p>Faster Shipping (Delivered in 4-6 days, includes 2 days for processing)</p>
                                                 </div>
                                             </div>
                                             <div class="select-button-text">
@@ -439,11 +436,10 @@
                                         <div class="select-button">
                                             <div class="button-area">
                                                 <div class="radio-button">
-                                                    <input type="radio" name="shipping" id="shippingMethod">
+                                                    <input type="radio" name="shipping" id="shippingMethod3" value="2" {% if billing_information.shipping_method == '2' %}checked{% endif %}>
                                                 </div>
                                                 <div class="text-area">
-                                                    <p>Fastest Shipping (Delivered in 2-3 days, includes 1 days for
-                                                        processing)</p>
+                                                    <p>Fastest Shipping (Delivered in 2-3 days, includes 1 day for processing)</p>
                                                 </div>
                                             </div>
                                             <div class="select-button-text">
@@ -453,11 +449,11 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div
-                                        class="col-12 d-flex align-items-center justify-content-between bottom flex-wrap">
+                                    <div class="col-12 d-flex align-items-center justify-content-between bottom flex-wrap">
                                         <a href="billing-information.html">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                                            Return to Billing information</a>
+                                            Return to Billing information
+                                        </a>
                                         <button class="btn bg-primary mt-0" type="submit">Continue</button>
                                     </div>
                                 </div>
@@ -470,10 +466,10 @@
                         <h6>Check Summery</h6>
                         <div class="card-price-list d-flex justify-content-between align-items-center">
                             <div class="item">
-                                <p>3 item</p>
+                                <p>{{ quantity }} items</p>
                             </div>
                             <div class="price">
-                                <p>$125</p>
+                                <p>{{ total }} VND</p>
                             </div>
                         </div>
                         <div class="card-price-list d-flex justify-content-between align-items-center">
@@ -492,20 +488,20 @@
                                 <p>8%</p>
                             </div>
                         </div>
-                        <div class="card-price-list d-flex justify-content-between align-items-center">
-                            <div class="item">
-                                <p>Taxes</p>
-                            </div>
-                            <div class="price">
-                                <p>$5.49</p>
-                            </div>
-                        </div>
+{#                        <div class="card-price-list d-flex justify-content-between align-items-center">#}
+{#                            <div class="item">#}
+{#                                <p>Taxes</p>#}
+{#                            </div>#}
+{#                            <div class="price">#}
+{#                                <p>$5.49</p>#}
+{#                            </div>#}
+{#                        </div>#}
                         <div class="card-price-subtotal d-flex justify-content-between align-items-center">
                             <div class="total-text">
                                 <p>Total Price</p>
                             </div>
                             <div class="total-price">
-                                <p>$174.99</p>
+                                <p>{{  total }}</p>
                             </div>
 
                         </div>
@@ -543,7 +539,7 @@
             <div class="row main-footer">
                 <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                     <div class="main-footer-info">
-                        <img src="dist/images/logo/white.png" alt="Logo" class="img-fluid">
+                        <img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="Logo" class="img-fluid">
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam molestie malesuada
                             metus, non molestie ligula laoreet vitae. Ut et fringilla risus, vel.
@@ -605,10 +601,10 @@
     <!-- Footer -->
 
 
-    <script src="src/js/jquery.min.js"></script>
-    <script src="src/js/bootstrap.min.js"></script>
-    <script src="src/scss/vendors/plugin/js/jquery.nice-select.min.js"></script>
-    <script src="dist/main.js"></script>
+    <script src="../static/src/js/jquery.min.js"></script>
+    <script src="../static/src/js/bootstrap.min.js"></script>
+    <script src="../static/src/scss/vendors/plugin/js/jquery.nice-select.min.js"></script>
+    <script src="../static/dist/main.js"></script>
     <script>
         function openNav() {
 

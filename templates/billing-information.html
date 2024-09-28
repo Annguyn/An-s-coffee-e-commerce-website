@@ -812,41 +812,53 @@
             $('#overlayy').removeClass("active");
         }
         $(document).ready(function() {
-            //Lấy tỉnh thành
-            $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm',function(data_tinh){
-                if(data_tinh.error==0){
-                    $.each(data_tinh.data, function (key_tinh,val_tinh) {
-                        $("#province").append('<option value="'+val_tinh.id+'">'+val_tinh.full_name+'</option>');
+            // Lấy tỉnh thành
+            $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function(data_tinh) {
+                if (data_tinh.error == 0) {
+                    $.each(data_tinh.data, function(key_tinh, val_tinh) {
+                        // Store full_name as value and id as a data attribute
+                        $("#province").append('<option value="' + val_tinh.full_name + '" data-id="' + val_tinh.id + '">' + val_tinh.full_name + '</option>');
                     });
-                    $("#province").change(function(e){
-                        var idtinh=$(this).val();
-                        //Lấy quận huyện
-                        $.getJSON('https://esgoo.net/api-tinhthanh/2/'+idtinh+'.htm',function(data_quan){
-                            if(data_quan.error==0){
-                                $("#district").html('<option value="0">Quận Huyện</option>');
-                                $("#commune").html('<option value="0">Phường Xã</option>');
-                                $.each(data_quan.data, function (key_quan,val_quan) {
-                                    $("#district").append('<option value="'+val_quan.id+'">'+val_quan.full_name+'</option>');
+
+                    // When a province is selected
+                    $("#province").change(function(e) {
+                        // Get the province id from the selected option's data-id attribute
+                        var idtinh = $("#province option:selected").data("id");
+
+                        // Lấy quận huyện (districts)
+                        $.getJSON('https://esgoo.net/api-tinhthanh/2/' + idtinh + '.htm', function(data_quan) {
+                            if (data_quan.error == 0) {
+                                $("#district").html('<option value="0">Quận Huyện</option>'); // Reset district dropdown
+                                $("#commune").html('<option value="0">Phường Xã</option>');   // Reset commune dropdown
+
+                                $.each(data_quan.data, function(key_quan, val_quan) {
+                                    // Store full_name as value and id as a data attribute
+                                    $("#district").append('<option value="' + val_quan.full_name + '" data-id="' + val_quan.id + '">' + val_quan.full_name + '</option>');
                                 });
-                                //Lấy phường xã
-                                $("#district").change(function(e){
-                                    var idquan=$(this).val();
-                                    $.getJSON('https://esgoo.net/api-tinhthanh/3/'+idquan+'.htm',function(data_phuong){
-                                        if(data_phuong.error==0){
-                                            $("#commune").html('<option value="0">Phường Xã</option>');
-                                            $.each(data_phuong.data, function (key_phuong,val_phuong) {
-                                                $("#commune").append('<option value="'+val_phuong.id+'">'+val_phuong.full_name+'</option>');
+
+                                // When a district is selected
+                                $("#district").change(function(e) {
+                                    // Get the district id from the selected option's data-id attribute
+                                    var idquan = $("#district option:selected").data("id");
+
+                                    // Lấy phường xã (wards)
+                                    $.getJSON('https://esgoo.net/api-tinhthanh/3/' + idquan + '.htm', function(data_phuong) {
+                                        if (data_phuong.error == 0) {
+                                            $("#commune").html('<option value="0">Phường Xã</option>'); // Reset commune dropdown
+
+                                            $.each(data_phuong.data, function(key_phuong, val_phuong) {
+                                                // Store full_name as value and id as a data attribute
+                                                $("#commune").append('<option value="' + val_phuong.full_name + '" data-id="' + val_phuong.id + '">' + val_phuong.full_name + '</option>');
                                             });
                                         }
                                     });
                                 });
-
                             }
                         });
                     });
-
                 }
             });
         });
+
     </script>
 </body>
