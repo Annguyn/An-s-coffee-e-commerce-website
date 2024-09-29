@@ -10,6 +10,7 @@ from models.user import User
 from models.order import OrderDetails, OrderItems
 from models.payment import PaymentDetails
 from routes.cart import add_to_cart_bp
+from routes.chat import chat_bp
 from routes.favourie import favourite_bp
 from routes.index import index_bp
 from routes.account import account_bp
@@ -45,6 +46,7 @@ db.init_app(app)
 engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 # session = Session()
 
+app.register_blueprint(chat_bp)
 app.register_blueprint(product_bp)
 app.register_blueprint(payment_bp)
 app.register_blueprint(shipping_bp)
