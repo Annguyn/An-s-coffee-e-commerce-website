@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import current_user, login_required
 from extensions import db
-from models.product import Product, ProductCategory, ProductInventory
+from models.product import Product, ProductCategory, ProductInventory, ProductImage
 from datetime import datetime
 
 shop_bp = Blueprint('shop', __name__)
@@ -12,9 +12,9 @@ def home():
     products = Product.query.all()
     return render_template('shop.html', user=current_user, products=products)
 
-@shop_bp.route('/shop/upload', methods=['GET', 'POST'])
+@shop_bp.route('/upload', methods=['GET', 'POST'])
 @login_required
-def upload():
+def upload_product():
     if request.method == 'POST':
         product_name = request.form['product_name']
         product_desc = request.form['product_desc']
@@ -23,6 +23,7 @@ def upload():
         product_price = request.form['product_price']
         discount_id = request.form.get('discount_id')
         product_image = request.files['product_image'].read()
+        additional_images = request.files.getlist('additional_images')
         created_at = datetime.now()
         modified_at = datetime.now()
 
@@ -47,6 +48,15 @@ def upload():
             modified_at=modified_at
         )
         db.session.add(new_product)
+        db.session.commit()
+
+        for image in additional_images:
+            new_additional_image = ProductImage(
+                product_id=new_product.id,
+                image=image.read()
+            )
+            db.session.add(new_additional_image)
+
         db.session.commit()
 
         flash('Product uploaded successfully!', 'success')

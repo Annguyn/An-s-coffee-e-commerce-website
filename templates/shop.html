@@ -238,7 +238,7 @@
                     </div>
                     <div class="mobile-nav d-flex align-items-center justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/logo.png')}}" alt="logo" /></a>
+                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png')}}" alt="logo" /></a>
                         </div>
                         <div class="search-bar">
                             <input type="text" placeholder="Search for product...">
@@ -344,7 +344,7 @@
         <!-- BreadCrumb Start-->
         {% if user.is_admin %}
             <div class="container">
-                <a href="{{ url_for('shop.upload') }}" class="btn btn-primary">Upload Product</a>
+                <a href="{{ url_for('shop.upload_product') }}" class="btn btn-primary">Upload Product</a>
             </div>
         {% endif %}
 

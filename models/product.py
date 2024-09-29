@@ -1,5 +1,11 @@
 from extensions import db
 
+class ProductImage(db.Model):
+    __tablename__ = 'product_image'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    image = db.Column(db.LargeBinary)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+
 class ProductCategory(db.Model):
     __tablename__ = 'product_category'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
