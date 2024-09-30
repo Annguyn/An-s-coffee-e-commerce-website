@@ -1,6 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import current_user, login_required
 from extensions import db
+from models import CartItem, ShoppingSession
+from models.favourite import Favourite
 from models.product import Product, ProductCategory, ProductInventory, ProductImage
 from datetime import datetime
 
@@ -10,6 +12,7 @@ shop_bp = Blueprint('shop', __name__)
 @login_required
 def home():
     products = Product.query.all()
+
     return render_template('shop.html', user=current_user, products=products)
 
 @shop_bp.route('/upload', methods=['GET', 'POST'])

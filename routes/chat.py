@@ -10,7 +10,6 @@ chat_bp = Blueprint('chat', __name__)
 def chat():
     data = request.get_json()
     user_message = data.get('message')
-
     if "hello" in user_message.lower():
         bot_reply = "Hello! How can I help you today?"
     elif "help" in user_message.lower():
@@ -44,7 +43,7 @@ def chat():
         product_name = user_message.split("product")[-1].strip()
         product = Product.query.filter(Product.name.ilike(f"%{product_name}%")).first()
         if product:
-            bot_reply = f"The product {product.name} costs {product.price} and we have {product.inventory} in stock."
+            bot_reply = f"The product {product.name} costs {product.price} and we have {product.inventory.quantity} in stock."
         else:
             bot_reply = "Sorry, I couldn't find that product."
     else:

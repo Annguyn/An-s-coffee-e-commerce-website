@@ -20,6 +20,7 @@ class User(db.Model, UserMixin):
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
     is_admin = db.Column(db.Boolean, default=False)
+    email_verified = db.Column(db.Boolean, default=False)
     active = db.Column(db.Boolean, default=True)  # Add the 'active' field
     fs_uniquifier = db.Column(db.String(255), unique=True, nullable=False, default=lambda: str(uuid.uuid4()))
 

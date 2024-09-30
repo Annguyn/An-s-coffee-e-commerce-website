@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>An Coffee</title>
-    <link rel="stylesheet" href="dist/main.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='dist/main.css') }}">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                                         </svg>
                                     </div>
                                     <div class="text">
-                                        <span>+8801658 874521</span>
+                                        <span>+84 818573466</span>
                                     </div>
                                 </div>
                             </div>
@@ -82,7 +82,7 @@
                 <div class="d-none d-lg-block">
                     <nav class="menu-area d-flex align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="dist/images/logo/logo.png" alt="logo" /></a>
+                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="logo" /></a>
                         </div>
                         <ul class="main-menu d-flex align-items-center">
                             <li><a class="active" href="index.html">Home</a></li>
@@ -231,7 +231,7 @@
                     </div>
                     <div class="mobile-nav d-flex align-items-center justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="dist/images/logo/logo.png" alt="logo" /></a>
+                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="logo" /></a>
                         </div>
                         <div class="search-bar">
                             <input type="text" placeholder="Search for product...">
@@ -375,153 +375,86 @@
                                 </div>
                             </div>
                             <div class="body">
-                                <div class="item">
-                                    <div class="image">
-                                        <img src="dist/images/nike-shoe.jpg">
-                                    </div>
-                                    <div class="name">
-                                        <div class="name-text">
-                                            <p> Skechers Men's Classic Fit-Delson-Camden Sneaker</p>
+                                {% for order_with_items in orders_with_items %}
+                                    <p style="font-size: x-large; font-family:fantasy">
+                                        Date : {{ order_with_items['order'].created_at }}</p>
+                                    <script>
+                                        (function() {
+                                            const createdTime = new Date('{{ order_with_items['order'].created_at }}'); // Use created_at from backend
+                                            const orderId = '{{ order_with_items['order'].id }}'; // Unique order ID
+
+                                            function updateTimeDifference() {
+                                                const now = new Date();
+                                                const diff = now - createdTime;
+
+                                                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                                                const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                                                const minutes = Math.floor((diff / (1000 * 60)) % 60);
+
+                                                const daysElement = document.getElementById('days-' + orderId);
+                                                const hoursElement = document.getElementById('hours-' + orderId);
+                                                const minutesElement = document.getElementById('minutes-' + orderId);
+
+                                                if (daysElement) daysElement.innerText = days;
+                                                if (hoursElement) hoursElement.innerText = hours;
+                                                if (minutesElement) minutesElement.innerText = minutes;
+                                            }
+
+                                            setInterval(updateTimeDifference, 60000);
+                                            updateTimeDifference();
+                                        })();
+                                    </script>
+                                    {% for item in order_with_items['items'] %}
+                                        <div class="item">
+                                            <div class="image">
+                                                <img src="{{ item.product.image|b64encode }}">
+                                            </div>
+                                            <div class="name">
+                                                <div class="name-text">
+                                                    <p>{{ item.product.name }}</p>
+                                                </div>
+                                                <div class="button">
+                                                    <a class="btn bg-primary" href="billing-information.html">Checkout now</a>
+                                                    <a class="cart-btn" href="#">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 20 18">
+                                                            <g id="Heart" transform="translate(1 1)">
+                                                                <path id="Heart-2" data-name="Heart"
+                                                                      d="M18.161,4.413a4.674,4.674,0,0,0-6.7,0l-.913.93-.913-.93a4.675,4.675,0,0,0-6.7,0,4.893,4.893,0,0,0,0,6.828l.913.93L10.548,19l6.7-6.828.913-.93a4.892,4.892,0,0,0,0-6.828Z"
+                                                                      transform="translate(-1.549 -2.998)" fill="#fff" stroke="#1a2224"
+                                                                      stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                                            </g>
+                                                        </svg>
+                                                    </a>
+                                                    <a class="del" href="#">Delete</a>
+                                                </div>
+                                            </div>
+                                            <div class="price">
+                                                <span>${{ item.product.price }}</span> <del>${{ item.product.original_price }}</del>
+                                            </div>
+                                            <div class="rating">
+                                                <i class="fas fa-star"></i> {{ item.product.rating }}
+                                            </div>
+                                            <div class="info status">
+                                                <div class="status-timer">
+                                                    <h6>
+                                                        {{ item.status }}
+                                                    </h6>
+                                                    <ul>
+                                                        <li id="days-{{ order_with_items['order'].id }}">0
+                                                            <p>Day</p>
+                                                        </li>
+                                                        <li id="hours-{{ order_with_items['order'].id }}">0
+                                                            <p>Hours</p>
+                                                        </li>
+                                                        <li id="minutes-{{ order_with_items['order'].id }}">0
+                                                            <p>Min</p>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="button">
-                                            <a class="btn bg-primary" href="billing-information.html">Checkout now</a>
-                                            <a class="cart-btn" href="#">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18"
-                                                    viewBox="0 0 20 18">
-                                                    <g id="Heart" transform="translate(1 1)">
-                                                        <path id="Heart-2" data-name="Heart"
-                                                            d="M18.161,4.413a4.674,4.674,0,0,0-6.7,0l-.913.93-.913-.93a4.675,4.675,0,0,0-6.7,0,4.893,4.893,0,0,0,0,6.828l.913.93L10.548,19l6.7-6.828.913-.93a4.892,4.892,0,0,0,0-6.828Z"
-                                                            transform="translate(-1.549 -2.998)" fill="#fff" stroke="#1a2224"
-                                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-                                                    </g>
-                                                </svg>
-                                            </a>
-                                            <a class="del" href="#">Delete</a>
-                                        </div>
-                                    </div>
-                                    <div class="price">
-                                        <span>$254.99</span> <del>$499.99</del>
-                                    </div>
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i> 5.0
-                                    </div>
-                                    <div class="info status">
-                                        <div class="status-timer">
-                                            <h6>
-                                                Pending
-                                            </h6>
-                                            <ul>
-                                                <li>1
-                                                    <p>Day</p>
-                                                </li>
-                                                <li>19
-                                                    <p>Hours</p>
-                                                </li>
-                                                <li>34
-                                                    <p>Min</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="image">
-                                        <img src="dist/images/nike-shoe.jpg">
-                                    </div>
-                                    <div class="name">
-                                        <div class="name-text">
-                                            <p> Skechers Men's Classic Fit-Delson-Camden Sneaker</p>
-                                        </div>
-                                        <div class="button">
-                                            <a class="btn bg-primary" href="billing-information.html">Checkout now</a>
-                                            <a class="cart-btn" href="#">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18"
-                                                    viewBox="0 0 20 18">
-                                                    <g id="Heart" transform="translate(1 1)">
-                                                        <path id="Heart-2" data-name="Heart"
-                                                            d="M18.161,4.413a4.674,4.674,0,0,0-6.7,0l-.913.93-.913-.93a4.675,4.675,0,0,0-6.7,0,4.893,4.893,0,0,0,0,6.828l.913.93L10.548,19l6.7-6.828.913-.93a4.892,4.892,0,0,0,0-6.828Z"
-                                                            transform="translate(-1.549 -2.998)" fill="#fff" stroke="#1a2224"
-                                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-                                                    </g>
-                                                </svg>
-                                            </a>
-                                            <a class="del" href="#">Delete</a>
-                                        </div>
-                                    </div>
-                                    <div class="price">
-                                        <span>$254.99</span> <del>$499.99</del>
-                                    </div>
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i> 5.0
-                                    </div>
-                                    <div class="info status">
-                                        <div class="status-timer">
-                                            <h6>
-                                                Pending
-                                            </h6>
-                                            <ul>
-                                                <li>1
-                                                    <p>Day</p>
-                                                </li>
-                                                <li>19
-                                                    <p>Hours</p>
-                                                </li>
-                                                <li>34
-                                                    <p>Min</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="image">
-                                        <img src="dist/images/nike-shoe.jpg">
-                                    </div>
-                                    <div class="name">
-                                        <div class="name-text">
-                                            <p> Skechers Men's Classic Fit-Delson-Camden Sneaker</p>
-                                        </div>
-                                        <div class="button">
-                                            <a class="btn bg-primary" href="billing-information.html">Checkout now</a>
-                                            <a class="cart-btn" href="#">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18"
-                                                    viewBox="0 0 20 18">
-                                                    <g id="Heart" transform="translate(1 1)">
-                                                        <path id="Heart-2" data-name="Heart"
-                                                            d="M18.161,4.413a4.674,4.674,0,0,0-6.7,0l-.913.93-.913-.93a4.675,4.675,0,0,0-6.7,0,4.893,4.893,0,0,0,0,6.828l.913.93L10.548,19l6.7-6.828.913-.93a4.892,4.892,0,0,0,0-6.828Z"
-                                                            transform="translate(-1.549 -2.998)" fill="#fff" stroke="#1a2224"
-                                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-                                                    </g>
-                                                </svg>
-                                            </a>
-                                            <a class="del" href="#">Delete</a>
-                                        </div>
-                                    </div>
-                                    <div class="price">
-                                        <span>$254.99</span> <del>$499.99</del>
-                                    </div>
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i> 5.0
-                                    </div>
-                                    <div class="info status">
-                                        <div class="status-timer">
-                                            <h6>
-                                                Pending
-                                            </h6>
-                                            <ul>
-                                                <li>1
-                                                    <p>Day</p>
-                                                </li>
-                                                <li>19
-                                                    <p>Hours</p>
-                                                </li>
-                                                <li>34
-                                                    <p>Min</p>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                    {% endfor %}
+                                {% endfor %}
                             </div>
                         </div>
                         <!-- Order Item End -->
@@ -557,7 +490,7 @@
         <div class="row main-footer">
             <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                 <div class="main-footer-info">
-                    <img src="dist/images/logo/white.png" alt="Logo" class="img-fluid">
+                    <img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="Logo" class="img-fluid">
                     <p>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam molestie malesuada
                         metus, non molestie ligula laoreet vitae. Ut et fringilla risus, vel.
@@ -619,10 +552,10 @@
 <!-- Footer -->
 
 
-    <script src="src/js/jquery.min.js"></script>
-    <script src="src/js/bootstrap.min.js"></script>
-    <script src="src/scss/vendors/plugin/js/jquery.nice-select.min.js"></script>
-    <script src="dist/main.js"></script>
+    <script src="../static/src/js/jquery.min.js"></script>
+    <script src="../static/src/js/bootstrap.min.js"></script>
+    <script src="../static/src/scss/vendors/plugin/js/jquery.nice-select.min.js"></script>
+    <script src="../static/dist/main.js"></script>
     <script>
         function openNav() {
 

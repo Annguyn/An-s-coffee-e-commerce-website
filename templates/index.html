@@ -130,6 +130,7 @@
                             <ul>
                                 <li>
                                     <a href="{{ url_for('favourite.show_favourite') if user else '#' }}">
+                                        {% if current_user.is_authenticated %}
                                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20"
                                             viewBox="0 0 22 20">
                                             <g id="Heart" transform="translate(1 1)">
@@ -139,13 +140,15 @@
                                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
                                             </g>
                                         </svg>
-                                        <span class="heart">3</span>
+                                        <span class="heart">{{  num_favorite_products }}</span>
+                                        {% endif %}
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ url_for('add_to_cart.show_cart') if user else '#' }}"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                    <a href="{{ url_for('add_to_cart.show_cart') if current_user.is_authenticated else '#' }}"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                                             viewBox="0 0 22 22">
-                                            <g id="Icon" transform="translate(-1524 -89)">
+                                        {% if current_user.is_authenticated %}
+                                        <g id="Icon" transform="translate(-1524 -89)" >
                                                 <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.909" cy="0.952"
                                                     rx="0.909" ry="0.952" transform="translate(1531.364 108.095)"
                                                     fill="none" stroke="#1a2224" stroke-linecap="round"
@@ -160,7 +163,8 @@
                                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
                                             </g>
                                         </svg>
-                                        <span class="cart">3</span>
+                                        <span class="cart">{{ num_cart_items }}</span>
+                                        {% endif %}
                                     </a>
                                 </li>
                                 <li>
@@ -338,22 +342,22 @@
                     <div class="col-sm-12">
                         <div class="brand-area">
                             <div class="brand-area-image">
-                                <img src="../static/dist/images/brand/01.png" alt="Brand" class="img-fluid">
+                                <img src="../static/dist/images/brand/01.jpg" alt="Brand" class="img-fluid">
                             </div>
                             <div class="brand-area-image">
-                                <img src="../static/dist/images/brand/02.png" alt="Brand" class="img-fluid">
+                                <img src="../static/dist/images/brand/02.avif" alt="Brand" class="img-fluid">
                             </div>
                             <div class="brand-area-image">
                                 <img src="../static/dist/images/brand/03.png" alt="Brand" class="img-fluid">
                             </div>
                             <div class="brand-area-image">
-                                <img src="../static/dist/images/brand/04.png" alt="Brand" class="img-fluid">
+                                <img src="../static/dist/images/brand/04.jpg" alt="Brand" class="img-fluid">
                             </div>
                             <div class="brand-area-image">
-                                <img src="../static/dist/images/brand/02.png" alt="Brand" class="img-fluid">
+                                <img src="../static/dist/images/brand/05.jpg" alt="Brand" class="img-fluid">
                             </div>
                             <div class="brand-area-image">
-                                <img src="../static/dist/images/brand/05.png" alt="Brand" class="img-fluid">
+                                <img src="../static/dist/images/brand/06.jpg" alt="Brand" class="img-fluid">
                             </div>
                         </div>
                     </div>

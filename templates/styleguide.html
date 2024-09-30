@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>An Coffee</title>
-    <link rel="stylesheet" href="dist/main.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='dist/main.css') }}">
 </head>
 
 <body>
@@ -83,7 +83,7 @@
                 <div class="d-none d-lg-block">
                     <nav class="menu-area d-flex align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="dist/images/logo/logo.png" alt="logo" /></a>
+                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="logo" /></a>
                         </div>
                         <ul class="main-menu d-flex align-items-center">
                             <li><a class="active" href="index.html">Home</a></li>
@@ -194,7 +194,7 @@
                     </div>
                     <div class="mobile-nav d-flex align-items-center justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="dist/images/logo/logo.png" alt="logo" /></a>
+                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="logo" /></a>
                         </div>
                         <div class="search-bar">
                             <input type="text" placeholder="Search for product...">
@@ -345,7 +345,7 @@
             <div class="col-3">
                 <div class="productcategory text-center">
                     <div class="productcategory-img">
-                        <img src="dist/images/categorys/jumper.jpg" alt="images">
+                        <img src={{ url_for('static',filename='dist/images/categorys/jumper.jpg') }}"" alt="images">
                     </div>
                     <div class="productcategory-text">
                         <h6>Tree Dasher</h6>
@@ -381,7 +381,7 @@
                 <div class="col-lg-4">
                     <div class="product-item">
                         <div class="product-item-image">
-                            <img src="dist/images/product/05.jpg" alt="Product Name" class="img-fluid">
+                            <img src="{{ url_for('static',filename='dist/images/product/05.jpg') }}" alt="Product Name" class="img-fluid">
                             <div class="cart-icon">
                                 <a href="#"><i class="far fa-heart"></i></a>
                                 <a href="#">
@@ -477,7 +477,7 @@
                     <div class="body">
                         <div class="item">
                             <div class="image">
-                                <img src="dist/images/nike-shoe.jpg">
+                                <img src={{url_for('static',filename='dist/images/nike-shoe.jpg')}}">
                             </div>
                             <div class="name">
                                 <div class="name-text">
@@ -552,7 +552,7 @@
 
                         <div class="item">
                             <div class="image">
-                                <img src="dist/images/nike-shoe.jpg">
+                                <img src="{{ url_for('static',filename='dist/images/nike-shoe.jpg') }}">
                             </div>
                             <div class="name">
                                 <div class="name-text">
@@ -602,7 +602,7 @@
 
                         <div class="item">
                             <div class="image">
-                                <img src="dist/images/nike-shoe.jpg">
+                                <img src="{{ url_for('static',filename='dist/images/nike-shoe.jpg') }}">
                             </div>
                             <div class="name">
                                 <div class="name-text">
@@ -691,7 +691,7 @@
 
                         <div class="item">
                             <div class="image">
-                                <img src="dist/images/nike-shoe.jpg">
+                                <img src="{{ url_for('static',filename='dist/images/nike-shoe.jpg') }}">
                             </div>
                             <div class="name">
                                 <div class="name-text">
@@ -785,11 +785,11 @@
         <!-- Cartitem Area End -->
     </div>
 
-    <script src="src/js/jquery.min.js"></script>
-    <script src="src/js/bootstrap.min.js"></script>
-    <script src="src/scss/vendors/plugin/js/slick.min.js"></script>
-    <script src="src/scss/vendors/plugin/js/jquery.nice-select.min.js"></script>
-    <script src="dist/main.js"></script>
+    <script src="../static/src/js/jquery.min.js"></script>
+    <script src="../static/src/js/bootstrap.min.js"></script>
+    <script src="../static/src/scss/vendors/plugin/js/slick.min.js"></script>
+    <script src="../static/src/scss/vendors/plugin/js/jquery.nice-select.min.js"></script>
+    <script src="../static/dist/main.js"></script>
     <script>
         function openNav() {
 

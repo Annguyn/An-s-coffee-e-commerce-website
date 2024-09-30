@@ -10542,6 +10542,8 @@ footer {
 .brand-area {
   padding-top: 30px; }
   .brand-area-image img {
+    width: 100px;
+    height: auto;
     cursor: pointer;
     -webkit-filter: grayscale(100%);
             filter: grayscale(100%);
