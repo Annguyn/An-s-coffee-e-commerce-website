@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>An Coffee</title>
-    <link rel="stylesheet" href="dist/main.css">
+    <link rel="stylesheet" href="{{ url_for('static',filename='dist/main.css') }}">
 </head>
 
 <body>
@@ -82,7 +82,7 @@
                 <div class="d-none d-lg-block">
                     <nav class="menu-area d-flex align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="dist/images/logo/logo.png" alt="logo" /></a>
+                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="logo" /></a>
                         </div>
                         <ul class="main-menu d-flex align-items-center">
                             <li><a class="active" href="index.html">Home</a></li>
@@ -231,7 +231,7 @@
                     </div>
                     <div class="mobile-nav d-flex align-items-center justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="dist/images/logo/logo.png" alt="logo" /></a>
+                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="logo" /></a>
                         </div>
                         <div class="search-bar">
                             <input type="text" placeholder="Search for product...">
@@ -477,7 +477,7 @@
             <div class="row main-footer">
                 <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                     <div class="main-footer-info">
-                        <img src="dist/images/logo/white.png" alt="Logo" class="img-fluid">
+                        <img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="Logo" class="img-fluid">
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam molestie malesuada
                             metus, non molestie ligula laoreet vitae. Ut et fringilla risus, vel.
@@ -523,7 +523,7 @@
                 <div class="col-lg-12">
                     <div class="copyright d-flex justify-content-between align-items-center">
                         <div class="copyright-text order-2 order-lg-1">
-                            <p>&copy; 2020. Design and Developed by <a href="#">Zakir Soft</a></p>
+                            <p>&copy; 2024. Design and Developed by <a href="#">Nguyen Ba Xuan An</a></p>
                         </div>
                         <div class="copyright-links order-1 order-lg-2">
                             <a href="#" class="ml-0"><i class="fab fa-facebook-f"></i></a>
@@ -539,10 +539,10 @@
     <!-- Footer -->
 
 
-    <script src="src/js/jquery.min.js"></script>
-    <script src="src/js/bootstrap.min.js"></script>
-    <script src="src/scss/vendors/plugin/js/jquery.nice-select.min.js"></script>
-    <script src="dist/main.js"></script>
+    <script src="../static/src/js/jquery.min.js"></script>
+    <script src="../static/src/js/bootstrap.min.js"></script>
+    <script src="../static/src/scss/vendors/plugin/js/jquery.nice-select.min.js"></script>
+    <script src="../static/dist/main.js"></script>
     <script>
         function openNav() {
 
