@@ -13,7 +13,7 @@ class User(db.Model, UserMixin):
     __tablename__ = 'user'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(255), unique=True, nullable=False)
-    password = db.Column(db.String(255), nullable=False)
+    password = db.Column(db.String(255), nullable=True)
     first_name = db.Column(db.Unicode(255))  # Support Vietnamese characters
     last_name = db.Column(db.Unicode(255))
     telephone = db.Column(db.String(20))

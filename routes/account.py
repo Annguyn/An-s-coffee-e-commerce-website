@@ -3,13 +3,13 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from flask_security import Security, SQLAlchemyUserDatastore, login_user
 from flask_login import LoginManager, login_required, current_user
 from werkzeug.security import generate_password_hash
-
 from models.user import User
 from extensions import db
 from utils import get_logged_in_user
 
-# Define the Blueprint
 account_bp = Blueprint('account', __name__)
+
+
 
 # Initialize Flask-Security
 user_datastore = SQLAlchemyUserDatastore(db, User, None)
@@ -20,6 +20,8 @@ security = Security()
 @login_required
 def dashboard():
     return render_template('user-dashboard.html')
+
+
 @account_bp.route('/account/update-details', methods=['POST'])
 @login_required
 def update_account_details():
@@ -38,6 +40,7 @@ def update_account_details():
     db.session.commit()
     flash('Account details updated successfully', 'success')
     return redirect(url_for('account.account'))
+
 
 @account_bp.route('/account/update-password', methods=['POST'])
 @login_required
@@ -58,6 +61,8 @@ def update_account_password():
     db.session.commit()
     flash('Password updated successfully', 'success')
     return redirect(url_for('account.account'))
+
+
 @account_bp.route('/account')
 def account():
     user = get_logged_in_user()
@@ -80,6 +85,7 @@ def sign_in():
     else:
         flash('Invalid username or password', 'danger')
     return redirect(url_for('account.account'))
+
 
 # routes/account.py
 # routes/account.py
