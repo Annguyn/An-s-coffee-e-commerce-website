@@ -17,4 +17,6 @@ def show_product(product_id):
     product = Product.query.get(product_id)
     images = ProductImage.query.filter_by(product_id=product_id).all()
     products = Product.query.all()
-    return render_template('product-details.html', product=product, products=products, images=images)
+    categories = ProductCategory.query.all()
+    return render_template('product-details.html', categories=categories,
+                           product=product, images=images)

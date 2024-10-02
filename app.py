@@ -118,6 +118,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{dir}/database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECURITY_LOGIN_URL'] = '/account'
 app.config['SECURITY_POST_LOGIN_VIEW'] = '/account'
+SECURITY_PASSWORD_HASH = 'pbkdf2_sha256'
 
 mail.init_app(app)
 db.init_app(app)

@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>An Coffee</title>
     <link rel="stylesheet" href="../static/dist/main.css">
+    <link rel="icon" href="../static/dist/images/logo/coffe.png" type="image/x-icon">
 </head>
 
 <body>
@@ -82,13 +83,13 @@
                 <div class="d-none d-lg-block">
                     <nav class="menu-area d-flex align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="../static/dist/images/logo/AnDakLak.png" alt="logo" /></a>
+                            <a href="{{ url_for('index.home') }}"><img src="../static/dist/images/logo/AnDakLak.png" alt="logo" /></a>
                         </div>
                         <ul class="main-menu d-flex align-items-center">
-                            <li><a class="active" href="index.html">Home</a></li>
-                            <li><a href="shop.html">Men</a></li>
-                            <li><a href="shop.html">Women</a></li>
-                            <li><a href="shop.html">Shop</a></li>
+                            <li><a class="active" href="{{ url_for('index.home') }}">Home</a></li>
+{#                            <li><a href=""></a></li>#}
+                            <li><a href="{{ url_for('order.show_order') }}">Order</a></li>
+                            <li><a href="{{ url_for('shop.home') }}">Shop</a></li>
                             <li>
                                 <a href="javascript:void(0)">Category
                                     <svg xmlns="http://www.w3.org/2000/svg" width="9.98" height="5.69"
@@ -101,11 +102,9 @@
                                     </svg>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li><a href="javascript:void(0)">Category 1</a></li>
-                                    <li><a href="javascript:void(0)">Category 2</a></li>
-                                    <li><a href="javascript:void(0)">Category 3</a></li>
-                                    <li><a href="javascript:void(0)">Category 4</a></li>
-                                    <li><a href="javascript:void(0)">Category 5</a></li>
+                                    {% for category in categories %}
+                                        <li><a href="{{ url_for('shop.filter_products', category_filter=category.id) }}">{{ category.name }}</a></li>
+                                    {% endfor %}
                                 </ul>
                             </li>
                             <li><a href="javascript:void(0)">Sales</a></li>
@@ -168,7 +167,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="{{ url_for('account.account') if not user else '#' }}"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                    <a href="{{ url_for('account.dashboard') if  current_user.is_authenticated else url_for('account.account') }}"><svg xmlns="http://www.w3.org/2000/svg" width="18"
                                             height="20" viewBox="0 0 18 20">
                                             <g id="Account" transform="translate(1 1)">
                                                 <path id="Path_86" data-name="Path 86"
@@ -208,10 +207,9 @@
                                 </svg>
                             </div>
                         </div>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="shop.html">Men</a></li>
-                        <li><a href="shop.html">Women</a></li>
-                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="{{ url_for('index.home') }}">Home</a></li>
+                        <li><a href="{{ url_for('order.show_order') }}">Order</a></li>
+                        <li><a href="{{ 'shop.home' }}">Shop</a></li>
                         <li>
                             <a href="javascript:void(0)">Category
                                 <svg xmlns="http://www.w3.org/2000/svg" width="9.98" height="5.69"
@@ -224,18 +222,16 @@
                                 </svg>
                             </a>
                             <ul class="sub-menu">
-                                <li><a href="javascript:void(0)">Category 1</a></li>
-                                <li><a href="javascript:void(0)">Category 2</a></li>
-                                <li><a href="javascript:void(0)">Category 3</a></li>
-                                <li><a href="javascript:void(0)">Category 4</a></li>
-                                <li><a href="javascript:void(0)">Category 5</a></li>
+                                {% for category in categories %}
+{#                                <li><a href="{{ url_for('shop.filter_products') }}">{{ category.name }}</a></li>#}
+                                {% endfor %}
                             </ul>
                         </li>
                         <li><a href="javascript:void(0)">Sales</a></li>
                     </div>
                     <div class="mobile-nav d-flex align-items-center justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="dist/images/logo/logo.png" alt="logo" /></a>
+                            <a href="index.html"><img src="../static/dist/images/logo/logo.png" alt="logo" /></a>
                         </div>
                         <div class="search-bar">
                             <input type="text" placeholder="Search for product...">
@@ -327,9 +323,8 @@
                 <div class="row align-items-center">
                     <div class="col-lg-6 order-2 order-lg-1">
                         <div class="banner-area__content">
-                            <h2>"Awaken Your Senses, One Sip at a Time."</h2>
-                            <p>Let's try our best Coffee </p>
-                            <a class="btn bg-primary" href="#">Shop Now</a>
+                            <h2 class="marquee">"Awaken Your Senses, One Sip at a Time."</h2>                            <p>Let's try our best Coffee </p>
+                            <a class="btn bg-primary" href="{{ url_for('shop.home') }}">Shop Now</a>
                         </div>
                     </div>
                     <div class="col-lg-6 order-1 order-lg-2">
@@ -381,7 +376,7 @@
                         {% for product in products %}
                         <div class="product-item">
                             <div class="product-item-image">
-                                <a href="product-details.html">
+                                <a href="{{ url_for('product.show_product', product_id=product.id) }}">
                                     <img src="{{ product.image | b64encode }}" alt="{{ product.name }}" class="img-fluid">
                                 </a>
                                 <div class="cart-icon">
@@ -411,7 +406,7 @@
                                 </div>
                             </div>
                             <div class="product-item-info">
-                                <a href="product-details.html">{{  product.name }}</a>
+                                <a href="{{ url_for('product.show_product',product_id = product.id )}}">{{  product.name }}</a>
                                 <span>{{ product.price }}</span> <del>200000</del>
                             </div>
                         </div>
@@ -440,7 +435,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="features-morebutton text-center">
-                            <a class="btn bt-glass" href="#">View All Products</a>
+{#                            <a class="btn bt-glass" href="{{ url_for('shop.home') }}">View All Products</a>#}
                         </div>
                     </div>
                 </div>
@@ -505,7 +500,7 @@
                     <div class="col-md-4 col-sm-6">
                         <div class="product-item">
                             <div class="product-item-image">
-                                <a href="product-details.html">
+                                <a href="{{ url_for('product.show_product',product_id=product.id) }}">
                                     <img src="{{ product.image | b64encode }}" alt="{{ product.name }}" class="img-fluid">
                                 <div class="cart-icon">
                                     <a href="#"><i class="far fa-heart"></i></a>
@@ -534,7 +529,7 @@
                                 </div>
                             </div>
                             <div class="product-item-info">
-                                <a href="product-details.html">{{ product.name }}</a>
+                                <a  href="{{ url_for('product.show_product', product_id=product.id)}}">{{ product.name }}</a>
                                 <span>{{ product.price }}</span> <del>200000</del>
                             </div>
                         </div>
@@ -560,7 +555,7 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-6">
                         <div class="productcategory text-center">
                             <div class="productcategory-img">
-                                <a href="#"><img src="{{ category.image | b64encode }}" alt="images" class="small-img"> </a>
+                                <a href="{{ url_for('shop.filter_products', category_filter=category.id) }}"><img src="{{ category.image | b64encode }}" alt="images" class="small-img"> </a>
                                 <div class="productcategory-text">
                                 <a href="#">
                                     <h6>{{ category.name }}</h6>
@@ -787,6 +782,11 @@
             document.getElementById('chatboxModal').style.display = 'none';
         }
 
+        document.getElementById('chatInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
         function sendMessage() {
             const input = document.getElementById('chatInput');
             const message = input.value;

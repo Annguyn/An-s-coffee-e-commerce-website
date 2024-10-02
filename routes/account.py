@@ -121,3 +121,10 @@ def sign_up():
         flash('Sign up successful!', 'success')
         return redirect(url_for('account.account'))
     return redirect(url_for('account.account'))
+
+@account_bp.route('/account/sign-out')
+@login_required
+def sign_out():
+    session.clear()
+    flash('Sign out successful!', 'success')
+    return redirect(url_for('account.account'))

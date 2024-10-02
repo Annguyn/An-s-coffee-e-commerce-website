@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, url_for
 from models import db, Product, CartItem, ShoppingSession
 from extensions import db
 from flask_login import current_user
@@ -43,7 +43,9 @@ def chat():
         product_name = user_message.split("product")[-1].strip()
         product = Product.query.filter(Product.name.ilike(f"%{product_name}%")).first()
         if product:
-            bot_reply = f"The product {product.name} costs {product.price} and we have {product.inventory.quantity} in stock."
+            bot_reply = (
+                f"The product {product.name} costs {product.price} and we have {product.inventory.quantity} in stock. "
+            )
         else:
             bot_reply = "Sorry, I couldn't find that product."
     else:

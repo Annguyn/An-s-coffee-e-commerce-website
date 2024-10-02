@@ -82,13 +82,12 @@
                 <div class="d-none d-lg-block">
                     <nav class="menu-area d-flex align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="logo" /></a>
+                            <a href="{{ url_for('index.home') }}"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="logo" /></a>
                         </div>
                         <ul class="main-menu d-flex align-items-center">
-                            <li><a class="active" href="index.html">Home</a></li>
-                            <li><a href="shop.html">Men</a></li>
-                            <li><a href="shop.html">Women</a></li>
-                            <li><a href="shop.html">Shop</a></li>
+                            <li><a class="active" href="{{ url_for('index.home') }}">Home</a></li>
+                            <li><a href="{{ url_for('order.show_order') }}">Order</a></li>
+                            <li><a href="{{ url_for('shop.home') }}">Shop</a></li>
                             <li>
                                 <a href="javascript:void(0)">Category
                                     <svg xmlns="http://www.w3.org/2000/svg" width="9.98" height="5.69"
@@ -101,11 +100,9 @@
                                     </svg>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li><a href="javascript:void(0)">Category 1</a></li>
-                                    <li><a href="javascript:void(0)">Category 2</a></li>
-                                    <li><a href="javascript:void(0)">Category 3</a></li>
-                                    <li><a href="javascript:void(0)">Category 4</a></li>
-                                    <li><a href="javascript:void(0)">Category 5</a></li>
+                                    {% for category in categories %}
+                                    <li><a href="{{ url_for('shop.filter_products',category_filter=category.id)}}">{{ category.name }}</a></li>
+                                    {% endfor %}
                                 </ul>
                             </li>
                             <li><a href="javascript:void(0)">Sales</a></li>
@@ -377,24 +374,24 @@
                                 </div>
                             </div>
                             <p>{{ product.desc }}</p>
-                            <div class="product-pricelist-selector">
-                                <div class="product-pricelist-selector-size">
-                                    <h6>Sizes</h6>
-                                    <div class="sizes" id="sizes">
-                                        <li class="sizes-all">S</li>
-                                        <li class="sizes-all active">M</li>
-                                        <li class="sizes-all">L</li>
-                                        <li class="sizes-all">XL</li>
-                                        <li class="sizes-all">XXL</li>
-                                    </div>
-                                </div>
-                                <div class="product-pricelist-selector-color">
-                                    <h6>Colors</h6>
-                                    <div class="colors" id="colors">
-                                        <li class="colorall color-1 active"></li>
-                                        <li class="colorall color-2"></li>
-                                    </div>
-                                </div>
+{#                            <div class="product-pricelist-selector">#}
+{#                                <div class="product-pricelist-selector-size">#}
+{#                                    <h6>Sizes</h6>#}
+{#                                    <div class="sizes" id="sizes">#}
+{#                                        <li class="sizes-all">S</li>#}
+{#                                        <li class="sizes-all active">M</li>#}
+{#                                        <li class="sizes-all">L</li>#}
+{#                                        <li class="sizes-all">XL</li>#}
+{#                                        <li class="sizes-all">XXL</li>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="product-pricelist-selector-color">#}
+{#                                    <h6>Colors</h6>#}
+{#                                    <div class="colors" id="colors">#}
+{#                                        <li class="colorall color-1 active"></li>#}
+{#                                        <li class="colorall color-2"></li>#}
+{#                                    </div>#}
+{#                                </div>#}
                                 <div class="product-pricelist-selector-quantity">
                                     <h6>quantity</h6>
                                     <div class="wan-spinner wan-spinner-4">
@@ -527,7 +524,7 @@
                         {% for product in products %}
                         <div class="product-item">
                             <div class="product-item-image">
-                                <a href="product-details.html"><img src="{{ product.image|b64encode }}" alt="Product Name"
+                                <a href="{{ url_for('product.show_product',product_id=product.id )}}"><img src="{{ product.image|b64encode }}" alt="Product Name"
                                             class="img-fluid"></a>
                                 <div class="cart-icon" >
                                     <a href="#" class="add-to-favourites" data-product-id="{{ product.id }}"><i class="far fa-heart"></i></a>
@@ -556,7 +553,7 @@
                                 </div>
                             </div>
                             <div class="product-item-info">
-                                <a href="product-details.html">{{ product.name }}</a>
+                                <a href="{{ url_for('product.show_product',product_id=product.id) }}">{{ product.name }}</a>
                                 <span>{{ product.price }}</span> <del>200.000</del>
                             </div>
                         </div>
@@ -585,7 +582,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="features-morebutton text-center">
-                            <a class="btn bt-glass" href="#">View All Products</a>
+                            <a class="btn bt-glass" href="{{ url_for('shop.home') }}">View All Products</a>
                         </div>
                     </div>
                 </div>

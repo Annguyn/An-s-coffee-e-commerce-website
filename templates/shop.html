@@ -85,12 +85,12 @@
                 <div class="d-none d-lg-block">
                     <nav class="menu-area d-flex align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="{{ url_for('static', filename='dist/images/logo/AnDakLak.png') }}" alt="logo" /></a>                        </div>
+                            <a href="{{ url_for('index.home') }}"><img src="{{ url_for('static', filename='dist/images/logo/AnDakLak.png') }}" alt="logo" /></a>                        </div>
                         <ul class="main-menu d-flex align-items-center">
-                            <li><a class="active" href="index.html">Home</a></li>
-                            <li><a href="shop.html">Men</a></li>
+                            <li><a class="active" href="{{ url_for('index.home') }}">Home</a></li>
+{#                            <li><a href="shop.html">Men</a></li>#}
                             <li><a href="shop.html">Women</a></li>
-                            <li><a href="shop.html">Shop</a></li>
+                            <li><a href="{{ url_for('shop.home') }}">Shop</a></li>
                             <li>
                                 <a href="javascript:void(0)">Category
                                     <svg xmlns="http://www.w3.org/2000/svg" width="9.98" height="5.69"
@@ -211,10 +211,10 @@
                                 </svg>
                             </div>
                         </div>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="shop.html">Men</a></li>
-                        <li><a href="shop.html">Women</a></li>
-                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="{{ url_for('index.home') }}">Home</a></li>
+                        <li><a href="{{ url_for('order.show_order') }}">Order</a></li>
+{#                        <li><a href="shop.html">Women</a></li>#}
+                        <li><a href="{{ url_for('shop.home') }}">Shop</a></li>
                         <li>
                             <a href="javascript:void(0)">Category
                                 <svg xmlns="http://www.w3.org/2000/svg" width="9.98" height="5.69"
@@ -238,7 +238,7 @@
                     </div>
                     <div class="mobile-nav d-flex align-items-center justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png')}}" alt="logo" /></a>
+                            <a href="{{ url_for('index.home') }}"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png')}}" alt="logo" /></a>
                         </div>
                         <div class="search-bar">
                             <input type="text" placeholder="Search for product...">
@@ -353,8 +353,8 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="search-wrapper">
-                        <form class="search-wrapper-box">
-                            <input type="text" placeholder="Search Heare.">
+                        <form class="search-wrapper-box" method="GET" action="{{ url_for('shop.home') }}">
+                            <input type="text" name="keySearch" placeholder="Search Heare.">
                             <button class="btn bg-primary" type="submit">SEARCH</button>
                         </form>
                     </div>
@@ -366,47 +366,51 @@
         <!-- Catagory item start -->
         <section class="categoryitem">
             <div class="container">
+                <form method="GET" action="{{ url_for('shop.filter_products') }}" id="category_form">
                 <div class="row justify-content-center">
                     <div class="categoryitem-wrapper">
+
                         <div class="categoryitem-wrapper-itembox">
                             <h6>Category</h6>
-                            <select>
-                                <option data-display="Men">Men</option>
-                                <option value="1">Men</option>
-                                <option value="2">Men</option>
-                                <option value="4">Men</option>
+                            <select id="category_filter" name="category_filter" onchange="document.getElementById('category_form').submit();">
+                                <option value="">Select a category</option>
+                                {% for category in categories %}
+                                    <option value="{{ category.id }}" {% if request.args.get('category_filter') == category.id %}selected{% endif %}>
+                                        {{ category.name }}
+                                    </option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="categoryitem-wrapper-itembox">
                             <h6>Brand</h6>
-                            <select>
-                                <option data-display="Men">Men</option>
-                                <option value="1">Men</option>
-                                <option value="2">Men</option>
-                                <option value="4">Men</option>
+                            <select id="brand_filter" name="brand_filter" >
+                                {% for brand in brands %}
+                                    <option value="{{ brand.id }}">{{ brand.name }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="categoryitem-wrapper-price">
                             <h6>Price</h6>
                             <form class="price-item">
-                                <input type="number" placeholder="$ Min">
+                                <input type="number" name="price_min" placeholder="$ Min">
                                 <span>|</span>
-                                <input type="number" placeholder="$ Max">
+                                <input type="number" name="price_max" placeholder="$ Max">
                             </form>
                         </div>
                         <div class="categoryitem-wrapper-itembox">
                             <h6>Sort By</h6>
-                            <select>
-                                <option data-display="Men">Men</option>
-                                <option value="1">Men</option>
-                                <option value="2">Men</option>
-                                <option value="4">Men</option>
+                            <select id="sort_by" name="sort_by">
+                                <option value="name">Name</option>
+                                <option value="price">Price</option>
+                                <option value="date">Date</option>
                             </select>
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
         </section>
+
         <!-- Catagory item End -->
 
         <!-- Populer Product Strat -->
@@ -417,7 +421,7 @@
                     <div class="col-md-4 col-sm-6">
                         <div class="product-item">
                             <div class="product-item-image">
-                                <a href="product-details.html">
+                                <a href="{{ url_for('product.show_product',product_id=product.id) }}">
                                     <img src="{{ product.image | b64encode }}" alt="{{ product.name }}" class="img-fluid">
                                 </a>
                                 <div class="cart-icon">
@@ -447,330 +451,17 @@
                                 </div>
                             </div>
                             <div class="product-item-info">
-                                <a href="product-details.html">{{ product.name }}</a>
+                                <a href="{{ url_for('product.show_product',product_id=product.id) }}">{{ product.name }}</a>
                                 <span>{{ product.price }}</span><del>200.000</del>
                             </div>
                         </div>
                     </div>
                     {% endfor %}
+                    <div id="product_container">
+                        <!-- Products will be dynamically loaded here -->
+                    </div>
                 </div>
-
-
-{#                    <div class="pagination">#}
-{#                        {% if current_page > 1 %}#}
-{#                            <a href="{{ url_for('shop.home', page=current_page-1) }}">&laquo; Previous</a>#}
-{#                        {% endif %}#}
-{#                        {% for page in range(1, total_pages + 1) %}#}
-{#                            {% if page == current_page %}#}
-{#                                <span>{{ page }}</span>#}
-{#                            {% else %}#}
-{#                                <a href="{{ url_for('shop.home', page=page) }}">{{ page }}</a>#}
-{#                            {% endif %}#}
-{#                        {% endfor %}#}
-{#                        {% if current_page < total_pages %}#}
-{#                            <a href="{{ url_for('shop.home', page=current_page+1) }}">Next &raquo;</a>#}
-{#                        {% endif %}#}
-{#                    </div>#}
-
-
-{#                    <div class="col-md-4 col-sm-6">#}
-{#                        <div class="product-item">#}
-{#                            <div class="product-item-image">#}
-{#                                <a href="product-details.html"><img src="{{ url_for('static',filename='dist/images/product/02.jpg') }}" alt="Product Name"#}
-{#                                        class="img-fluid"></a>#}
-{#                                <div class="cart-icon">#}
-{#                                    <a href="#"><i class="far fa-heart"></i></a>#}
-{#                                    <a href="#">#}
-{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"#}
-{#                                            viewBox="0 0 16.75 16.75">#}
-{#                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">#}
-{#                                                <g id="Icon" transform="translate(0 1)">#}
-{#                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <path id="Path_3" data-name="Path 3"#}
-{#                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"#}
-{#                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"#}
-{#                                                        stroke-linecap="round" stroke-linejoin="round"#}
-{#                                                        stroke-width="1.5" />#}
-{#                                                </g>#}
-{#                                            </g>#}
-{#                                        </svg>#}
-{#                                    </a>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="product-item-info">#}
-{#                                <a href="product-details.html">Echo Studio. Amazon Echo Studio</a>#}
-{#                                <span>$175</span> <del>$199</del>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-md-4 col-sm-6">#}
-{#                        <div class="product-item">#}
-{#                            <div class="product-item-image">#}
-{#                                <a href="product-details.html"><img src="{{ url_for('static',filename='dist/images/product/03.jpg') }}" alt="Product Name"#}
-{#                                        class="img-fluid"></a>#}
-{#                                <div class="cart-icon">#}
-{#                                    <a href="#"><i class="far fa-heart"></i></a>#}
-{#                                    <a href="#">#}
-{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"#}
-{#                                            viewBox="0 0 16.75 16.75">#}
-{#                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">#}
-{#                                                <g id="Icon" transform="translate(0 1)">#}
-{#                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <path id="Path_3" data-name="Path 3"#}
-{#                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"#}
-{#                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"#}
-{#                                                        stroke-linecap="round" stroke-linejoin="round"#}
-{#                                                        stroke-width="1.5" />#}
-{#                                                </g>#}
-{#                                            </g>#}
-{#                                        </svg>#}
-{#                                    </a>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="product-item-info">#}
-{#                                <a href="product-details.html">Corning Sunglasses for Men.</a>#}
-{#                                <span>$175</span> <del>$199</del>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-md-4 col-sm-6">#}
-{#                        <div class="product-item">#}
-{#                            <div class="product-item-image">#}
-{#                                <a href="product-details.html"><img src="{{ url_for('static',filename='dist/images/product/04.jpg') }}" alt="Product Name"#}
-{#                                        class="img-fluid"></a>#}
-{#                                <div class="cart-icon">#}
-{#                                    <a href="#"><i class="far fa-heart"></i></a>#}
-{#                                    <a href="#">#}
-{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"#}
-{#                                            viewBox="0 0 16.75 16.75">#}
-{#                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">#}
-{#                                                <g id="Icon" transform="translate(0 1)">#}
-{#                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <path id="Path_3" data-name="Path 3"#}
-{#                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"#}
-{#                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"#}
-{#                                                        stroke-linecap="round" stroke-linejoin="round"#}
-{#                                                        stroke-width="1.5" />#}
-{#                                                </g>#}
-{#                                            </g>#}
-{#                                        </svg>#}
-{#                                    </a>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="product-item-info">#}
-{#                                <a href="product-details.html">Canon PowerShot SX540</a>#}
-{#                                <span>$175</span> <del>$199</del>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-md-4 col-sm-6">#}
-{#                        <div class="product-item">#}
-{#                            <div class="product-item-image">#}
-{#                                <a href="product-details.html"><img src="{{ url_for('static',filename='dist/images/product/05.jpg' )}}" alt="Product Name"#}
-{#                                        class="img-fluid"></a>#}
-{#                                <div class="cart-icon">#}
-{#                                    <a href="#"><i class="far fa-heart"></i></a>#}
-{#                                    <a href="#">#}
-{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"#}
-{#                                            viewBox="0 0 16.75 16.75">#}
-{#                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">#}
-{#                                                <g id="Icon" transform="translate(0 1)">#}
-{#                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <path id="Path_3" data-name="Path 3"#}
-{#                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"#}
-{#                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"#}
-{#                                                        stroke-linecap="round" stroke-linejoin="round"#}
-{#                                                        stroke-width="1.5" />#}
-{#                                                </g>#}
-{#                                            </g>#}
-{#                                        </svg>#}
-{#                                    </a>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="product-item-info">#}
-{#                                <a href="product-details.html">BERRY TYPE-II: C1N Backpack</a>#}
-{#                                <span>$175</span> <del>$199</del>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-md-4 col-sm-6">#}
-{#                        <div class="product-item">#}
-{#                            <div class="product-item-image">#}
-{#                                <a href="product-details.html"><img src="{{ url_for('static',filename='dist/images/product/06.jpg') }}" alt="Product Name"#}
-{#                                        class="img-fluid"></a>#}
-{#                                <div class="cart-icon">#}
-{#                                    <a href="#"><i class="far fa-heart"></i></a>#}
-{#                                    <a href="#">#}
-{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"#}
-{#                                            viewBox="0 0 16.75 16.75">#}
-{#                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">#}
-{#                                                <g id="Icon" transform="translate(0 1)">#}
-{#                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <path id="Path_3" data-name="Path 3"#}
-{#                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"#}
-{#                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"#}
-{#                                                        stroke-linecap="round" stroke-linejoin="round"#}
-{#                                                        stroke-width="1.5" />#}
-{#                                                </g>#}
-{#                                            </g>#}
-{#                                        </svg>#}
-{#                                    </a>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="product-item-info">#}
-{#                                <a href="product-details.html">Kauri Marine Blue (Green Sole)</a>#}
-{#                                <span>$175</span> <del>$199</del>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-md-4 col-sm-6">#}
-{#                        <div class="product-item">#}
-{#                            <div class="product-item-image">#}
-{#                                <a href="product-details.html"><img src="{{ url_for('static',filename='dist/images/product/07.jpg') }}" alt="Product Name"#}
-{#                                        class="img-fluid"></a>#}
-{#                                <div class="cart-icon">#}
-{#                                    <a href="#"><i class="far fa-heart"></i></a>#}
-{#                                    <a href="#">#}
-{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"#}
-{#                                            viewBox="0 0 16.75 16.75">#}
-{#                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">#}
-{#                                                <g id="Icon" transform="translate(0 1)">#}
-{#                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <path id="Path_3" data-name="Path 3"#}
-{#                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"#}
-{#                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"#}
-{#                                                        stroke-linecap="round" stroke-linejoin="round"#}
-{#                                                        stroke-width="1.5" />#}
-{#                                                </g>#}
-{#                                            </g>#}
-{#                                        </svg>#}
-{#                                    </a>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="product-item-info">#}
-{#                                <a href="product-details.html">Full Set for photographer</a>#}
-{#                                <span>$175</span> <del>$199</del>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-md-4 col-sm-6">#}
-{#                        <div class="product-item">#}
-{#                            <div class="product-item-image">#}
-{#                                <a href="product-details.html"><img src="{{ url_for('static', filename='dist/images/product/08.jpg') }}" alt="Product Name" class="img-fluid"></a>#}
-{#                                <div class="cart-icon">#}
-{#                                    <a href="#"><i class="far fa-heart"></i></a>#}
-{#                                    <a href="#">#}
-{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"#}
-{#                                            viewBox="0 0 16.75 16.75">#}
-{#                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">#}
-{#                                                <g id="Icon" transform="translate(0 1)">#}
-{#                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <path id="Path_3" data-name="Path 3"#}
-{#                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"#}
-{#                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"#}
-{#                                                        stroke-linecap="round" stroke-linejoin="round"#}
-{#                                                        stroke-width="1.5" />#}
-{#                                                </g>#}
-{#                                            </g>#}
-{#                                        </svg>#}
-{#                                    </a>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="product-item-info">#}
-{#                                <a href="product-details.html">Face Masks,Face Masks of 50 Pack</a>#}
-{#                                <span>$175</span> <del>$199</del>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                    <div class="col-md-4 col-sm-6">#}
-{#                        <div class="product-item">#}
-{#                            <div class="product-item-image">#}
-{#                                <a href="product-details.html"><img src="{{ url_for('static',filename='dist/images/product/09.jpg') }}" alt="Product Name"#}
-{#                                        class="img-fluid"></a>#}
-{#                                <div class="cart-icon">#}
-{#                                    <a href="#"><i class="far fa-heart"></i></a>#}
-{#                                    <a href="#">#}
-{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"#}
-{#                                            viewBox="0 0 16.75 16.75">#}
-{#                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">#}
-{#                                                <g id="Icon" transform="translate(0 1)">#}
-{#                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"#}
-{#                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"#}
-{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
-{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
-{#                                                    <path id="Path_3" data-name="Path 3"#}
-{#                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"#}
-{#                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"#}
-{#                                                        stroke-linecap="round" stroke-linejoin="round"#}
-{#                                                        stroke-width="1.5" />#}
-{#                                                </g>#}
-{#                                            </g>#}
-{#                                        </svg>#}
-{#                                    </a>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="product-item-info">#}
-{#                                <a href="product-details.html">Fossil Men's Nate Stainless Steel Chronograph Quartz#}
-{#                                    Watch</a>#}
-{#                                <span>$175</span> <del>$199</del>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
                 </div>
-            </div>
         </section>
         <!-- Populer Product End -->
 
@@ -905,5 +596,6 @@
             document.getElementById("mySidenav").style.width = "0";
             $('#overlayy').removeClass("active");
         }
+
     </script>
 </body>

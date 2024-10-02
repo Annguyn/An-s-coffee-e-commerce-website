@@ -29,6 +29,7 @@ class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     name = db.Column(db.String(255), nullable=False)
     desc = db.Column(db.Text)
+    brand_id = db.Column(db.Integer, db.ForeignKey('brand.id'))
     SKU = db.Column(db.String(100), nullable=False)
     category_id = db.Column(db.Integer, db.ForeignKey('product_category.id'), nullable=False)
     inventory_id = db.Column(db.Integer, db.ForeignKey('product_inventory.id'), nullable=False)
@@ -41,3 +42,13 @@ class Product(db.Model):
     category = db.relationship('ProductCategory', backref='products')
     inventory = db.relationship('ProductInventory', backref='products')
     discount = db.relationship('Discount', backref='products')
+
+class Brand(db.Model):
+    __tablename__ = 'brand'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(255), nullable=False)
+    desc = db.Column(db.Text)
+    image = db.Column(db.LargeBinary)
+    created_at = db.Column(db.DateTime)
+    modified_at = db.Column(db.DateTime)
+    deleted_at = db.Column(db.DateTime)
