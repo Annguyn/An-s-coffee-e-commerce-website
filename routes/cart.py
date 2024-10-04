@@ -10,13 +10,15 @@ add_to_cart_bp = Blueprint('add_to_cart', __name__)
 @login_required
 def show_cart():
     shopping_session = ShoppingSession.query.filter_by(user_id=current_user.id).first()
-    cart_items = CartItem.query.filter_by(session_id=shopping_session.id).all()
-    products = {}
-    for item in cart_items:
-        product = Product.query.get(item.product_id)
-        products[item.product_id] = product
-    return render_template('cart.html', user=current_user, cart_items=cart_items,
+    if shopping_session:
+        cart_items = CartItem.query.filter_by(session_id=shopping_session.id).all()
+        products = {}
+        for item in cart_items:
+            product = Product.query.get(item.product_id)
+            products[item.product_id] = product
+        return render_template('cart.html', user=current_user, cart_items=cart_items,
                            session=shopping_session, products=products)
+    return render_template('cart.html', user=current_user, session=shopping_session)
 
 @add_to_cart_bp.route('/add_to_cart', methods=['POST'])
 @login_required

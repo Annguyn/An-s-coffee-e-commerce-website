@@ -34,44 +34,44 @@ def show_payment():
                            shipping_method=shipping_method)
 
 
-@payment_bp.route('/payment', methods=['POST'])
-@login_required
-def update_payment():
-    billing_information = BillingInformation.query.filter_by(user_id=current_user.id).first()
-    cart_items = ShoppingSession.query.filter_by(user_id=current_user.id).first().cart_items
-    order_detail = OrderDetails(
-        user_id=current_user.id,
-        total=sum([item.quantity * Product.query.get(item.product_id).price for item in
-                   cart_items]) + ShippingMethod.query.get(billing_information.shipping_method_id).price,
-        created_at=datetime.now(),
-        payment_id=0
-    )
-    db.session.add(order_detail)
-    db.session.commit()
-    payment_detail = PaymentDetails(
-        order_id=order_detail.id,
-        amount=order_detail.total,
-        created_at=datetime.now(),
-        modified_at=datetime.now(),
-        provider="GHTK",
-        status="pending"
-    )
-    order_items = []
-    for item in cart_items:
-        order_item = OrderItems(
-            order_id=order_detail.id,
-            product_id=item.product_id,
-            quantity=item.quantity,
-            created_at=datetime.now(),
-            modified_at=datetime.now()
-        )
-        order_items.append(order_item)
-
-    db.session.add(payment_detail)
-    db.session.add_all(order_items)
-    db.session.commit()
-
-    return redirect(url_for('payment.process_payment'))
+# @payment_bp.route('/payment', methods=['POST'])
+# @login_required
+# def update_payment():
+#     billing_information = BillingInformation.query.filter_by(user_id=current_user.id).first()
+#     cart_items = ShoppingSession.query.filter_by(user_id=current_user.id).first().cart_items
+#     order_detail = OrderDetails(
+#         user_id=current_user.id,
+#         total=sum([item.quantity * Product.query.get(item.product_id).price for item in
+#                    cart_items]) + ShippingMethod.query.get(billing_information.shipping_method_id).price,
+#         created_at=datetime.now(),
+#         payment_id=0
+#     )
+#     db.session.add(order_detail)
+#     db.session.commit()
+#     payment_detail = PaymentDetails(
+#         order_id=order_detail.id,
+#         amount=order_detail.total,
+#         created_at=datetime.now(),
+#         modified_at=datetime.now(),
+#         provider="GHTK",
+#         status="pending"
+#     )
+#     order_items = []
+#     for item in cart_items:
+#         order_item = OrderItems(
+#             order_id=order_detail.id,
+#             product_id=item.product_id,
+#             quantity=item.quantity,
+#             created_at=datetime.now(),
+#             modified_at=datetime.now()
+#         )
+#         order_items.append(order_item)
+#
+#     db.session.add(payment_detail)
+#     db.session.add_all(order_items)
+#     db.session.commit()
+#
+#     return redirect(url_for('payment.process_payment'))
 
 
 from services.zalopay import create_zalopay_order
@@ -131,7 +131,7 @@ def process_payment():
         if result['return_code'] == 1:
             payment_detail.status = 'Success'
             db.session.commit()
-            return redirect(url_for('index.home'))
+            return redirect(result['order_url'])
         else:
             return jsonify({'error': 'Payment failed'}), 400
     else:

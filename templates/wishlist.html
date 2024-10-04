@@ -82,10 +82,10 @@
                 <div class="d-none d-lg-block">
                     <nav class="menu-area d-flex align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="logo" /></a>
+                            <a href="{{ url_for('index.home') }}"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="logo" /></a>
                         </div>
                         <ul class="main-menu d-flex align-items-center">
-                            <li><a class="active" href="index.html">Home</a></li>
+                            <li><a class="active" href="{{ url_for('index.home') }}">Home</a></li>
                             <li><a href="shop.html">Men</a></li>
                             <li><a href="shop.html">Women</a></li>
                             <li><a href="shop.html">Shop</a></li>

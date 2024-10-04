@@ -17,6 +17,7 @@ from models.payment import PaymentDetails
 from routes.account import account_bp
 from routes.cart import add_to_cart_bp
 from routes.chat import chat_bp
+from routes.deliver import deliver_bp
 from routes.favourie import favourite_bp
 from routes.index import index_bp
 from extensions import db
@@ -149,7 +150,7 @@ app.register_blueprint(add_to_favourite_bp)
 app.register_blueprint(account_bp)
 app.register_blueprint(index_bp)
 app.register_blueprint(shop_bp)
-
+app.register_blueprint(deliver_bp)
 # Create tables
 with app.app_context():
     db.create_all()

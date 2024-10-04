@@ -82,13 +82,12 @@
                 <div class="d-none d-lg-block">
                     <nav class="menu-area d-flex align-items-center">
                         <div class="logo">
-                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png')}}" alt="logo" /></a>
+                            <a href="{{ url_for('index.home') }}"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png')}}" alt="logo" /></a>
                         </div>
                         <ul class="main-menu d-flex align-items-center">
-                            <li><a class="active" href="index.html">Home</a></li>
-                            <li><a href="shop.html">Men</a></li>
-                            <li><a href="shop.html">Women</a></li>
-                            <li><a href="shop.html">Shop</a></li>
+                            <li><a class="active" href="{{ url_for('static',filename='index.home') }}">Home</a></li>
+                            <li><a href="{{ url_for('order.show_order') }}">Order</a></li>
+                            <li><a href="{{ url_for('shop.home') }}">Shop</a></li>
                             <li>
                                 <a href="javascript:void(0)">Category
                                     <svg xmlns="http://www.w3.org/2000/svg" width="9.98" height="5.69"
@@ -204,10 +203,9 @@
                                 </svg>
                             </div>
                         </div>
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="shop.html">Men</a></li>
-                        <li><a href="shop.html">Women</a></li>
-                        <li><a href="shop.html">Shop</a></li>
+                        <li><a href="{{ url_for('index.home') }}">Home</a></li>
+                        <li><a href="{{ url_for('order.show_order') }}">Order</a></li>
+                        <li><a href="{{ url_for('shop.home') }}">Shop</a></li>
                         <li>
                             <a href="javascript:void(0)">Category
                                 <svg xmlns="http://www.w3.org/2000/svg" width="9.98" height="5.69"
@@ -231,7 +229,7 @@
                     </div>
                     <div class="mobile-nav d-flex align-items-center justify-content-between">
                         <div class="logo">
-                            <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png')}}" alt="logo" /></a>
+                            <a href="{{ url_for('index.home') }}"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png')}}" alt="logo" /></a>
                         </div>
                         <div class="search-bar">
                             <input type="text" placeholder="Search for product...">
@@ -483,7 +481,7 @@
                                 <p>Shipping Cast</p>
                             </div>
                             <div class="price">
-                                <p>$55</p>
+                                <p>0</p>
                             </div>
                         </div>
                         <div class="card-price-list d-flex justify-content-between align-items-center">
@@ -491,7 +489,7 @@
                                 <p>Discount</p>
                             </div>
                             <div class="price">
-                                <p>8%</p>
+                                <p>0</p>
                             </div>
                         </div>
                         <div class="card-price-list d-flex justify-content-between align-items-center">
@@ -499,7 +497,7 @@
                                 <p>Taxes</p>
                             </div>
                             <div class="price">
-                                <p>$5.49</p>
+                                <p>0</p>
                             </div>
                         </div>
                         <div class="card-price-subtotal d-flex justify-content-between align-items-center">

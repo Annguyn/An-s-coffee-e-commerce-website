@@ -30,4 +30,4 @@ def update_shipping():
     if billing_information:
         billing_information.shipping_method_id = request.form['shipping']
         db.session.commit()
-    return redirect(url_for('shipping.show_shipping'))
+    return redirect(url_for('payment.show_payment'))

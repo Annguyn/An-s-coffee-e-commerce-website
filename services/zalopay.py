@@ -27,6 +27,7 @@ def create_zalopay_order(amount, description):
         "item": json.dumps([{}]),
         "amount": amount,
         "description": description,
+        # "callback_url": "http://127.0.0.1:5000",
         "bank_code": "zalopayapp"
     }
 
