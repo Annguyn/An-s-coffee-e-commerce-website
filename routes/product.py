@@ -19,4 +19,4 @@ def show_product(product_id):
     products = Product.query.all()
     categories = ProductCategory.query.all()
     return render_template('product-details.html', categories=categories,
-                           product=product, images=images)
+                           product=product, images=images , products=products)

@@ -395,7 +395,19 @@
                                             </g>
                                         </svg>
                                     </a>
-                                    <a class="del" href="#">Delete</a>
+                                    <a class="del" href="#" onclick="deleteFromCart('{{ item.product_id }}')">Delete</a>
+
+                                    <script>
+                                        function deleteFromCart(productId) {
+                                            $.post("{{ url_for('add_to_cart.delete_from_cart') }}", { product_id: productId })
+                                                .done(function(data) {
+                                                    location.reload();
+                                                })
+                                                .fail(function(xhr) {
+                                                    alert(xhr.responseJSON.error);
+                                                });
+                                        }
+                                    </script>
                                 </div>
                             </div>
                             <div class="price">
@@ -456,12 +468,12 @@
                 <div class="col-lg-6">
                     <div class="apply-coupon">
                         <h6>Apply Coupon</h6>
-                        <form action="#">
+                        <form action="{{ url_for('add_to_cart.show_cart') }}" method="POST">
                             <div class="form__div">
-                                <input type="text" class="form__input" placeholder=" ">
+                                <input type="text" name="coupon_code" class="form__input" placeholder=" ">
                                 <label for="" class="form__label">Coupon Code</label>
                             </div>
-                            <button class="btn bg-primary" type="submit">apply COUPON</button>
+                            <button class="btn bg-primary" type="submit">Apply COUPON</button>
                         </form>
                     </div>
                 </div>
@@ -473,7 +485,7 @@
                                 <p>{{ cart_items|length }} items</p>
                             </div>
                             <div class="price">
-                                <p>{{ session.total }}</p>
+                                <p>{{ session.total_before_discount }}</p>
                             </div>
                         </div>
                         <div class="card-price-list d-flex justify-content-between align-items-center">
@@ -489,7 +501,7 @@
                                 <p>Discount</p>
                             </div>
                             <div class="price">
-                                <p>0</p>
+                                <p>{{ total_discount }}</p>
                             </div>
                         </div>
                         <div class="card-price-list d-flex justify-content-between align-items-center">

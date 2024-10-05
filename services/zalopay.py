@@ -1,5 +1,3 @@
-# services/zalopay.py
-
 import json
 import hmac
 import hashlib
@@ -9,11 +7,14 @@ import random
 from time import time
 from datetime import datetime
 
+from flask import jsonify, request
+
 config = {
     "app_id": 2553,
     "key1": "PcY4iZIKFCIdgZvA6ueMcMHHUbRLYjPL",
     "key2": "kLtgPl8HHhfvMuDHPwKfgfsY4Ydm9eIz",
-    "endpoint": "https://sb-openapi.zalopay.vn/v2/create"
+    "endpoint": "https://sb-openapi.zalopay.vn/v2/create",
+    "callback_url": "https://239c-2402-800-6294-4bc7-98e2-eabb-8ac8-207b.ngrok-free.app/callback",  # Update with your ngrok URL
 }
 
 def create_zalopay_order(amount, description):
@@ -23,12 +24,15 @@ def create_zalopay_order(amount, description):
         "app_trans_id": "{:%y%m%d}_{}".format(datetime.today(), transID),
         "app_user": "user123",
         "app_time": int(round(time() * 1000)),
-        "embed_data": json.dumps({}),
+        "embed_data": json.dumps({
+            "redirecturl": "http://127.0.0.1:5000/order",
+        }),
         "item": json.dumps([{}]),
         "amount": amount,
         "description": description,
-        # "callback_url": "http://127.0.0.1:5000",
-        "bank_code": "zalopayapp"
+        "bank_code": "zalopayapp",
+        "callback_url": config["callback_url"]
+
     }
 
     data = "{}|{}|{}|{}|{}|{}|{}".format(order["app_id"], order["app_trans_id"], order["app_user"],
@@ -40,3 +44,18 @@ def create_zalopay_order(amount, description):
     result = json.loads(response.read())
 
     return result
+
+def query_zalopay_order(app_trans_id):
+    params = {
+        "app_id": config["app_id"],
+        "app_trans_id": app_trans_id
+    }
+
+    data = "{}|{}|{}".format(config["app_id"], params["app_trans_id"], config["key1"])
+    params["mac"] = hmac.new(config['key1'].encode(), data.encode(), hashlib.sha256).hexdigest()
+
+    response = urllib.request.urlopen(url="https://sb-openapi.zalopay.vn/v2/query", data=urllib.parse.urlencode(params).encode())
+    result = json.loads(response.read())
+
+    return result
+

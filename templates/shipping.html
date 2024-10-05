@@ -466,10 +466,10 @@
                         <h6>Check Summery</h6>
                         <div class="card-price-list d-flex justify-content-between align-items-center">
                             <div class="item">
-                                <p>{{ quantity }} items</p>
+                                <p>{{ cart_items|length }} items</p>
                             </div>
                             <div class="price">
-                                <p>{{ total }} VND</p>
+                                <p>{{ session.total_before_discount }} VND</p>
                             </div>
                         </div>
                         <div class="card-price-list d-flex justify-content-between align-items-center">
@@ -477,7 +477,7 @@
                                 <p>Shipping Cast</p>
                             </div>
                             <div class="price">
-                                <p>$55</p>
+                                <p>0</p>
                             </div>
                         </div>
                         <div class="card-price-list d-flex justify-content-between align-items-center">
@@ -485,7 +485,7 @@
                                 <p>Discount</p>
                             </div>
                             <div class="price">
-                                <p>8%</p>
+                                <p>{{ session.total_before_discount - session.total }}</p>
                             </div>
                         </div>
 {#                        <div class="card-price-list d-flex justify-content-between align-items-center">#}
@@ -501,7 +501,7 @@
                                 <p>Total Price</p>
                             </div>
                             <div class="total-price">
-                                <p>{{  total }}</p>
+                                <p>{{  session.total }}</p>
                             </div>
 
                         </div>

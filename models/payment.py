@@ -25,6 +25,7 @@ class PaymentDetails(db.Model):
     order_id = db.Column(db.Integer, db.ForeignKey('order_details.id'))
     amount = db.Column(db.Float, nullable=False)
     provider = db.Column(db.String(255), nullable=False)
+    transaction_id = db.Column(db.String(100), nullable=True)
     status = db.Column(db.String(100), nullable=False)
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)

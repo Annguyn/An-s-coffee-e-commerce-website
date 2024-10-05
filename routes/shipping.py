@@ -18,10 +18,8 @@ def show_shipping():
     for item in cart_items:
         product = Product.query.get(item.product_id)
         products[item.product_id] = product
-    quantity = sum([item.quantity for item in cart_items])
-    total = sum([item.quantity * products[item.product_id].price for item in cart_items])
     return render_template('shipping.html', user=current_user, billing_information=billing_information,
-                           cart_items=cart_items, quantity=quantity, total=total, products=products)
+                           session=shopping_session)
 
 @shipping_bp.route('/shipping', methods=['POST'])
 @login_required
