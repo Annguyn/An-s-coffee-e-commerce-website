@@ -1,6 +1,7 @@
 import hashlib
 import hmac
 import traceback
+import urllib
 from datetime import datetime
 
 from flask import Blueprint, render_template, request, redirect, url_for, flash, jsonify, json
@@ -132,6 +133,32 @@ def callback():
 
     # thông báo kết quả cho ZaloPay server
     return jsonify(result)
+
+@payment_bp.route('/payment_status/', methods=['POST'])
+def payment_status():
+    try:
+        data = request.json
+        app_trans_id = data.get('app_trans_id')
+
+        if not app_trans_id:
+            return jsonify({'error': 'app_trans_id is required'}), 400
+
+        params = {
+            "app_id": config["app_id"],
+            "app_trans_id": app_trans_id
+        }
+
+        data = "{}|{}|{}".format(config["app_id"], params["app_trans_id"], config["key1"])  # app_id|app_trans_id|key1
+        params["mac"] = hmac.new(config['key1'].encode(), data.encode(), hashlib.sha256).hexdigest()
+
+        response = urllib.request.urlopen(url='https://sb-openapi.zalopay.vn/v2/query', data=urllib.parse.urlencode(params).encode())
+        result = json.loads(response.read())
+
+        return jsonify(result)
+    except Exception as e:
+        logging.error('Error querying payment status')
+        logging.error(traceback.format_exc())
+        return jsonify({'error': str(e)}), 500
 
 def generate_order_id():
     return datetime.now().strftime('%Y%m%d%H%M%S')
