@@ -13967,3 +13967,9 @@ footer {
   background-color: #f8d7da;
   color: #842029;
 }
+body {
+  top: 0px !important;
+}
+iframe {
+  display: none !important;
+}

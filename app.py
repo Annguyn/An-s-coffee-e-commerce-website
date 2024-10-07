@@ -2,10 +2,11 @@ import secrets
 from datetime import datetime
 
 from authlib.integrations.flask_client import OAuth
-from flask import Flask, render_template, session, url_for, flash, redirect
+from flask import Flask, render_template, session, url_for, flash, redirect, request, jsonify
 from flask_login import LoginManager, login_user
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
+from langchain import requests
 from livereload import Server
 from sqlalchemy import create_engine
 from models.discount import Discount

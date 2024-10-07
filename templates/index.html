@@ -8,9 +8,11 @@
     <title>An Coffee</title>
     <link rel="stylesheet" href="../static/dist/main.css">
     <link rel="icon" href="../static/dist/images/logo/coffe.png" type="image/x-icon">
+    <link rel="stylesheet" href="../static/src/scss/vendors/plugin/css/jquery.exzoom.css">
 </head>
 
 <body>
+<div id="content">
     <!-- Header Area Start -->
     <header class="header">
         <div class="header-top">
@@ -56,14 +58,14 @@
                                 </div>
                             </div>
                             <div class="header-top-switcher">
-                                <div class="language">
-                                    <select>
-                                        <option data-display="English">English</option>
-                                        <option value="1">Arabic</option>
-                                        <option value="2">Aramaic</option>
-                                        <option value="4">Bangla</option>
-                                    </select>
-                                </div>
+{#                                <div class="language">#}
+{#                                    <select onchange="translatePage()">#}
+{#                                        <option data-display="English">English</option>#}
+{#                                        <option value="vi">Vietnamese</option>#}
+{#                                        <option value="ja">Japanese</option>#}
+{#                                    </select>#}
+{#                                </div>#}
+                                <div id="google_translate_element"></div>
                                 <div class="currency">
                                     <select>
                                         <option data-display="Currency">USD</option>
@@ -767,12 +769,19 @@
             </div>
         </div>
     </div>
-
+</div>
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    }
+</script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script src="../static/src/js/jquery.min.js"></script>
     <script src="../static/src/js/bootstrap.min.js"></script>
     <script src="../static/src/scss/vendors/plugin/js/slick.min.js"></script>
     <script src="../static/src/scss/vendors/plugin/js/jquery.nice-select.min.js"></script>
     <script src="../static/dist/main.js"></script>
+<script src="../static/src/scss/vendors/plugin/js/jquery.exzoom.js"></script>
     <script>
         function openChat() {
             document.getElementById('chatboxModal').style.display = 'block';
