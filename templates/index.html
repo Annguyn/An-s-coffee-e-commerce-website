@@ -67,11 +67,13 @@
 {#                                </div>#}
                                 <div id="google_translate_element"></div>
                                 <div class="currency">
-                                    <select>
-                                        <option data-display="Currency">USD</option>
-                                        <option value="1">BDT</option>
-                                        <option value="2">SNG</option>
-                                        <option value="4">ERU</option>
+                                    <select id="currency-select">
+                                        <option data-display="Currency" value="USD">USD</option>
+                                        <option value="VND">VND</option>
+                                        <option value="JPY">JPY</option>
+                                        <option value="BDT">BDT</option>
+                                        <option value="SNG">SNG</option>
+                                        <option value="EUR">EUR</option>
                                     </select>
                                 </div>
                             </div>
@@ -409,7 +411,7 @@
                             </div>
                             <div class="product-item-info">
                                 <a href="{{ url_for('product.show_product',product_id = product.id )}}">{{  product.name }}</a>
-                                <span>{{ product.price }}</span> <del>200000</del>
+                                <span id="product-price" data-price="{{ product.price }}">Loading...</span> <del>200000</del>
                             </div>
                         </div>
                         {% endfor %}
@@ -783,6 +785,52 @@
     <script src="../static/dist/main.js"></script>
 <script src="../static/src/scss/vendors/plugin/js/jquery.exzoom.js"></script>
     <script>
+        async function convertCurrency(amount, fromCurrency, toCurrency) {
+            const apiKey = 'cur_live_vXt9LBVsr8W7fBbqby4RWMrfjNCltmzVF25Q1zCe';
+            const url = `https://api.currencyapi.com/v3/latest?apikey=${apiKey}&base_currency=${fromCurrency}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.data) {
+                    const rate = data.data[toCurrency].value;
+                    const convertedAmount = amount * rate;
+                    return convertedAmount;
+                } else {
+                    throw new Error('Failed to fetch exchange rates');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                return null;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const defaultCurrency = 'VND';
+            const priceElement = document.getElementById('product-price');
+            const originalPrice = parseFloat(priceElement.getAttribute('data-price'));
+            const convertedPrice = await convertCurrency(originalPrice, 'VND', defaultCurrency);
+
+            if (convertedPrice !== null) {
+                priceElement.textContent = convertedPrice.toFixed(2);
+            } else {
+                priceElement.textContent = 'Conversion Error';
+            }
+        });
+
+        document.getElementById('currency-select').addEventListener('change', async (event) => {
+            const selectedCurrency = event.target.value;
+            const priceElement = document.getElementById('product-price');
+            const originalPrice = parseFloat(priceElement.getAttribute('data-price'));
+            const convertedPrice = await convertCurrency(originalPrice, 'VND', selectedCurrency);
+
+            if (convertedPrice !== null) {
+                priceElement.textContent = convertedPrice.toFixed(2);
+            } else {
+                priceElement.textContent = 'Conversion Error';
+            }
+        });
         function openChat() {
             document.getElementById('chatboxModal').style.display = 'block';
         }
@@ -889,6 +937,7 @@
                 });
             });
         });
+
     </script>
 
 </body>
