@@ -8,18 +8,20 @@ from datetime import datetime
 
 shop_bp = Blueprint('shop', __name__)
 
+
 @shop_bp.route('/shop', methods=['GET'])
 @login_required
 def home():
-    keySearch = request.args.get('keySearch')
-    if keySearch:
-        products = Product.query.filter(Product.name.contains(keySearch)).all()
+    key_search = request.args.get('keySearch')
+    if key_search:
+        products = Product.query.filter(Product.name.contains(key_search)).all()
     else:
         products = Product.query.all()
 
     brands = Brand.query.all()
     categories = ProductCategory.query.all()
     return render_template('shop.html', user=current_user, products=products, brands=brands, categories=categories)
+
 
 @shop_bp.route('/filter-products', methods=['GET'])
 @login_required
@@ -45,6 +47,7 @@ def filter_products():
     brands = Brand.query.all()
 
     return render_template('shop.html', products=products, categories=categories, brands=brands, user=current_user)
+
 
 @shop_bp.route('/upload', methods=['GET', 'POST'])
 @login_required

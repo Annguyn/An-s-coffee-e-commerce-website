@@ -12,7 +12,7 @@ order_bp = Blueprint('order', __name__)
 def show_order():
     user = current_user
     orders = OrderDetails.query.filter_by(user_id=user.id).join(PaymentDetails).filter(PaymentDetails.status == "success").all()
-
+    categories= ProductCategory.query.all()
     orders_with_items = []
 
     for order in orders:
@@ -23,4 +23,5 @@ def show_order():
             'created_at': order.created_at.isoformat()
         })
 
-    return render_template('order.html', user=user, orders_with_items=orders_with_items)
+    return render_template('order.html', user=user,
+                           orders_with_items=orders_with_items, categories=categories)

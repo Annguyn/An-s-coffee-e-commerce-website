@@ -373,7 +373,8 @@
                     </div>
                     <div class="body">
                         {% for item in cart_items %}
-                        <div class="item">
+                            <form action="{{ url_for('add_to_cart.update_quantity') }}" method="POST">
+                            <div class="item">
                             <div class="image">
 {#                                <img src="{{ url_for('static',filename='dist/images/nike-shoe.jpg') }}">#}
                                 <img src="{{ products[item.product_id].image | b64encode }}" alt="{{ products[item.product_id].name }}" class="img-fluid">
@@ -436,30 +437,28 @@
                                         <h6>quantity</h6>
                                         <div class="wan-spinner wan-spinner-4">
                                             <a href="javascript:void(0)" class="minus">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="11.98" height="6.69"
-                                                    viewBox="0 0 11.98 6.69">
-                                                    <path id="Arrow" d="M1474.286,26.4l5,5,5-5"
-                                                        transform="translate(-1473.296 -25.41)" fill="none"
-                                                        stroke="#989ba7" stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="1.4" />
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="11.98" height="6.69" viewBox="0 0 11.98 6.69">
+                                                    <path id="Arrow" d="M1474.286,26.4l5,5,5-5" transform="translate(-1473.296 -25.41)" fill="none"
+                                                          stroke="#989ba7" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" />
                                                 </svg>
                                             </a>
-                                            <input type="text" value="1" min="1">
-                                            <a href="javascript:void(0)" class="plus"><svg
-                                                    xmlns="http://www.w3.org/2000/svg" width="11.98" height="6.69"
-                                                    viewBox="0 0 11.98 6.69">
+                                            <input type="hidden" name="product_id" value="{{ item.product_id }}">
+                                            <input type="text" name="quantity" value="{{ item.quantity }}" min="1">
+                                            <a href="javascript:void(0)" class="plus">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="11.98" height="6.69" viewBox="0 0 11.98 6.69">
                                                     <g id="Arrow" transform="translate(10.99 5.7) rotate(180)">
-                                                        <path id="Arrow-2" data-name="Arrow" d="M1474.286,26.4l5,5,5-5"
-                                                            transform="translate(-1474.286 -26.4)" fill="none"
-                                                            stroke="#1a2224" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="1.4" />
+                                                        <path id="Arrow-2" data-name="Arrow" d="M1474.286,26.4l5,5,5-5" transform="translate(-1474.286 -26.4)"
+                                                              fill="none" stroke="#1a2224" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" />
                                                     </g>
-                                                </svg></a>
+                                                </svg>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
+                                <button type="submit" style="display: none;"></button>
                             </div>
-                        </div>
+                            </div>
+                            </form>
                         {% endfor %}
                     </div>
                 </div>
@@ -635,5 +634,28 @@
             document.getElementById("mySidenav").style.width = "0";
             $('#overlayy').removeClass("active");
         }
+        document.addEventListener('DOMContentLoaded', () => {
+            const minusButtons = document.querySelectorAll('.minus');
+            const plusButtons = document.querySelectorAll('.plus');
+            const quantityInputs = document.querySelectorAll('.wan-spinner input[type="text"]');
+
+            minusButtons.forEach((button, index) => {
+                button.addEventListener('click', () => {
+                    let quantity = parseInt(quantityInputs[index].value);
+                    if (quantity > 1) {
+                        quantityInputs[index].value = quantity - 1;
+                        quantityInputs[index].form.submit();
+                    }
+                });
+            });
+
+            plusButtons.forEach((button, index) => {
+                button.addEventListener('click', () => {
+                    let quantity = parseInt(quantityInputs[index].value);
+                    quantityInputs[index].value = quantity + 1;
+                    quantityInputs[index].form.submit();
+                });
+            });
+        });
     </script>
 </body>

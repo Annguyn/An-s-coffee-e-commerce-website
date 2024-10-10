@@ -85,10 +85,9 @@
                             <a href="index.html"><img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="logo" /></a>
                         </div>
                         <ul class="main-menu d-flex align-items-center">
-                            <li><a class="active" href="index.html">Home</a></li>
-                            <li><a href="shop.html">Men</a></li>
-                            <li><a href="shop.html">Women</a></li>
-                            <li><a href="shop.html">Shop</a></li>
+                            <li><a class="active" href="{{ url_for('index.home') }}">Home</a></li>
+                            <li><a href="{{ url_for('index.home') }}">Order</a></li>
+                            <li><a href="{{ url_for('shop.home') }}">Shop</a></li>
                             <li>
                                 <a href="javascript:void(0)">Category
                                     <svg xmlns="http://www.w3.org/2000/svg" width="9.98" height="5.69"
@@ -101,11 +100,11 @@
                                     </svg>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li><a href="javascript:void(0)">Category 1</a></li>
-                                    <li><a href="javascript:void(0)">Category 2</a></li>
-                                    <li><a href="javascript:void(0)">Category 3</a></li>
-                                    <li><a href="javascript:void(0)">Category 4</a></li>
-                                    <li><a href="javascript:void(0)">Category 5</a></li>
+                                    {% for category in categories %}
+                                    <li>
+                                        <a href="{{ url_for('shop.filter_products', category_filter=category.id) }}"> {{ category.name }} </a>
+                                    </li>
+                                    {% endfor %}
                                 </ul>
                             </li>
                             <li><a href="javascript:void(0)">Sales</a></li>
@@ -342,10 +341,9 @@
                         <!-- Dashboard-Nav  Start-->
                         <div class="dashboard-nav">
                             <ul class="list-inline">
-                                <li class="list-inline-item"><a href="user-dashboard.html">Account
-                                        settings</a></li>
-                                <li class="list-inline-item"><a href="deliver-info.html">Billing information</a></li>
-                                <li class="list-inline-item"><a href="wishlist.html">My wishlist</a></li>
+                            <li class="list-inline-item"><a href="{{ url_for('account.account') if current_user.is_authenticated else url_for('account.dashboard')}}">Account settings</a></li>
+                                <li class="list-inline-item"><a href="{{ url_for('billing_information.show_billing_information') }}">Billing information</a></li>
+                                <li class="list-inline-item"><a href="{{ url_for('favourite.show_favourite') }}">My wishlist</a></li>
                                 <li class="list-inline-item"><a href="cart.html">My cart</a></li>
                                 <li class="list-inline-item"><a href="order.html" class="active">Order</a></li>
                                 <li class="list-inline-item"><a href="account.html" class="mr-0">Log-out</a></li>

@@ -98,7 +98,6 @@ def process_payment():
         return jsonify({'error': 'Invalid payment method'}), 400
 
 
-
 @payment_bp.route('/callback', methods=['POST'])
 def callback():
     result = {}
