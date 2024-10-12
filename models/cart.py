@@ -10,7 +10,7 @@ class ShoppingSession(db.Model):  # Thay vì Base
     total_before_discount = db.Column(db.Float, nullable=False, default=0.0)
     applied_coupons = db.Column(db.String, nullable=True)
 
-user = db.relationship('User', backref='shopping_sessions')
+    user = db.relationship('User', backref='shopping_sessions')
 
 
 class CartItem(db.Model):  # Thay vì Base

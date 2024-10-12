@@ -20,6 +20,7 @@ class OrderDetails(db.Model):
     total = db.Column(db.Float)
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
+    transaction_id = db.Column(db.String(100), nullable=True)
     payment_id = db.Column(db.Integer, db.ForeignKey('payment_method.id'))
 
     user = db.relationship('User', backref='orders')

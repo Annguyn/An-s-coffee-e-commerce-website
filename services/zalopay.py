@@ -14,14 +14,14 @@ config = {
     "key1": "PcY4iZIKFCIdgZvA6ueMcMHHUbRLYjPL",
     "key2": "kLtgPl8HHhfvMuDHPwKfgfsY4Ydm9eIz",
     "endpoint": "https://sb-openapi.zalopay.vn/v2/create",
-    "callback_url": "https://239c-2402-800-6294-4bc7-98e2-eabb-8ac8-207b.ngrok-free.app/callback",  # Update with your ngrok URL
+    "callback_url": "https://bb8f-2402-800-6294-4bc7-68a9-fb0c-5dff-9b6.ngrok-free.app/callback",
 }
 
-def create_zalopay_order(amount, description):
+def create_zalopay_order(amount, description, app_trans_id):
     transID = random.randrange(1000000)
     order = {
         "app_id": config["app_id"],
-        "app_trans_id": "{:%y%m%d}_{}".format(datetime.today(), transID),
+        "app_trans_id": app_trans_id,
         "app_user": "user123",
         "app_time": int(round(time() * 1000)),
         "embed_data": json.dumps({

@@ -19,7 +19,7 @@ def query_zalopay_order(app_trans_id):
         "app_trans_id": app_trans_id
     }
 
-    data = "{}|{}|{}".format(config["app_id"], params["app_trans_id"], config["key1"])  # app_id|app_trans_id|key1
+    data = "{}|{}|{}".format(config["app_id"], params["app_trans_id"], config["key1"])
     params["mac"] = hmac.new(config['key1'].encode(), data.encode(), hashlib.sha256).hexdigest()
 
     response = urllib.request.urlopen(url=config["endpoint"], data=urllib.parse.urlencode(params).encode())

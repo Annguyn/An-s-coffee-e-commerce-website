@@ -11,7 +11,7 @@ order_bp = Blueprint('order', __name__)
 @login_required
 def show_order():
     user = current_user
-    orders = OrderDetails.query.filter_by(user_id=user.id).join(PaymentDetails).filter(PaymentDetails.status == "success").all()
+    orders = OrderDetails.query.filter_by(user_id=user.id).join(PaymentDetails).filter(PaymentDetails.status == "Success").all()
     categories= ProductCategory.query.all()
     orders_with_items = []
 

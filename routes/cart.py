@@ -146,7 +146,6 @@ def update_quantity():
     if not cart_item:
         return jsonify({'error': 'Product not found in cart'}), 404
 
-    # Update quantity
     cart_item.quantity = quantity
     cart_item.modified_at = datetime.now()
 
