@@ -36,7 +36,6 @@ from routes.product import product_bp
 from routes.shipping import shipping_bp
 from routes.shop import shop_bp
 from flask_login import LoginManager
-from routes.styleguide import styleguide_bp
 from routes.verify import verify_bp
 
 app = Flask(__name__)
@@ -138,7 +137,6 @@ engine = create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 
 oauth.init_app(app)
 app.register_blueprint(verify_bp)
-app.register_blueprint(styleguide_bp)
 app.register_blueprint(order_bp)
 app.register_blueprint(chat_bp)
 app.register_blueprint(product_bp)

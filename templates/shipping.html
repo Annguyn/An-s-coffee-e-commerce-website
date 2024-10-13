@@ -477,7 +477,7 @@
                                 <p>Shipping Cast</p>
                             </div>
                             <div class="price">
-                                <p>0</p>
+                                <p>{{ billing_information.shipping_fee }}</p>
                             </div>
                         </div>
                         <div class="card-price-list d-flex justify-content-between align-items-center">
@@ -501,7 +501,7 @@
                                 <p>Total Price</p>
                             </div>
                             <div class="total-price">
-                                <p>{{  session.total }}</p>
+                                <p>{{  session.total + billing_information.shipping_fee }}</p>
                             </div>
 
                         </div>

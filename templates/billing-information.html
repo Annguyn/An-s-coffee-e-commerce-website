@@ -595,6 +595,7 @@
                         <div class="deliver-info-form">
                             <h6>Billing information</h6>
                             <form method="POST" action="{{ url_for('billing_information.update_billing_information') }}">
+                                <input type="hidden" name="hidden-shipping-cost" id="hidden-shipping-cost" value="0">
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form__div">
@@ -625,8 +626,13 @@
                                         </select>
                                     </div>
                                     <div class="col-lg-4 col-md-4 col-12 mt-30">
-                                        <select name="commune" id="commune" required>
+                                        <select name="ward" id="ward" required>
                                             <option value="">Commune/Ward</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-12 mt-30">
+                                        <select name="service" id="service" required>
+                                            <option value="">Select Service</option>
                                         </select>
                                     </div>
                                     <div class="col-12">
@@ -665,10 +671,10 @@
                             </div>
                             <div class="card-price-list d-flex justify-content-between align-items-center">
                                 <div class="item">
-                                    <p>Shipping Cast</p>
+                                    <p>Shipping Cost</p>
                                 </div>
                                 <div class="price">
-                                    <p>0</p>
+                                    <p name="shipping-cost" id="shipping-cost">0</p>
                                 </div>
                             </div>
                             <div class="card-price-list d-flex justify-content-between align-items-center">
@@ -676,7 +682,7 @@
                                     <p>Discount</p>
                                 </div>
                                 <div class="price">
-                                    <p>{{ session.total_before_discount - session.total }}</p>
+                                    <p>{{ session.total_before_discount - session.total  }}</p>
                                 </div>
                             </div>
                             <div class="card-price-subtotal d-flex justify-content-between align-items-center">
@@ -684,7 +690,7 @@
                                     <p>Total Price</p>
                                 </div>
                                 <div class="total-price">
-                                    <p>{{session.total}}</p>
+                                    <p>{{session.total + session.shipping_fee}}</p>
                                 </div>
 
                             </div>
@@ -802,53 +808,146 @@
             document.getElementById("mySidenav").style.width = "0";
             $('#overlayy').removeClass("active");
         }
+
         $(document).ready(function() {
-            // Lấy tỉnh thành
-            $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function(data_tinh) {
-                if (data_tinh.error == 0) {
-                    $.each(data_tinh.data, function(key_tinh, val_tinh) {
-                        // Store full_name as value and id as a data attribute
-                        $("#province").append('<option value="' + val_tinh.full_name + '" data-id="' + val_tinh.id + '">' + val_tinh.full_name + '</option>');
-                    });
-
-                    // When a province is selected
-                    $("#province").change(function(e) {
-                        // Get the province id from the selected option's data-id attribute
-                        var idtinh = $("#province option:selected").data("id");
-
-                        // Lấy quận huyện (districts)
-                        $.getJSON('https://esgoo.net/api-tinhthanh/2/' + idtinh + '.htm', function(data_quan) {
-                            if (data_quan.error == 0) {
-                                $("#district").html('<option value="0">Quận Huyện</option>'); // Reset district dropdown
-                                $("#commune").html('<option value="0">Phường Xã</option>');   // Reset commune dropdown
-
-                                $.each(data_quan.data, function(key_quan, val_quan) {
-                                    // Store full_name as value and id as a data attribute
-                                    $("#district").append('<option value="' + val_quan.full_name + '" data-id="' + val_quan.id + '">' + val_quan.full_name + '</option>');
-                                });
-
-                                // When a district is selected
-                                $("#district").change(function(e) {
-                                    // Get the district id from the selected option's data-id attribute
-                                    var idquan = $("#district option:selected").data("id");
-
-                                    // Lấy phường xã (wards)
-                                    $.getJSON('https://esgoo.net/api-tinhthanh/3/' + idquan + '.htm', function(data_phuong) {
-                                        if (data_phuong.error == 0) {
-                                            $("#commune").html('<option value="0">Phường Xã</option>'); // Reset commune dropdown
-
-                                            $.each(data_phuong.data, function(key_phuong, val_phuong) {
-                                                // Store full_name as value and id as a data attribute
-                                                $("#commune").append('<option value="' + val_phuong.full_name + '" data-id="' + val_phuong.id + '">' + val_phuong.full_name + '</option>');
-                                            });
-                                        }
-                                    });
-                                });
-                            }
+            // Fetch provinces
+            $.ajax({
+                url: 'https://online-gateway.ghn.vn/shiip/public-api/master-data/province',
+                type: 'GET',
+                headers: {
+                    'Token': '73a4d96c-8919-11ef-a76b-8ef8cf9ed7dc'
+                },
+                success: function(response) {
+                    if (response.code === 200) {
+                        response.data.forEach(function(province) {
+                            $('#province').append('<option value="' + province.ProvinceID + '">' + province.ProvinceName + '</option>');
                         });
-                    });
+                    }
                 }
             });
+
+            // Fetch districts when a province is selected
+            $('#province').change(function() {
+                var provinceId = $(this).val();
+                $.ajax({
+                    url: 'https://online-gateway.ghn.vn/shiip/public-api/master-data/district',
+                    type: 'GET',
+                    headers: {
+                        'Token': '73a4d96c-8919-11ef-a76b-8ef8cf9ed7dc'
+                    },
+                    data: {
+                        'shop_id': 4484824,
+                        'province_id': provinceId
+                    },
+                    success: function(response) {
+                        if (response.code === 200) {
+                            $('#district').html('<option value="">Select District</option>');
+                            response.data.forEach(function(district) {
+                                $('#district').append('<option value="' + district.DistrictID + '">' + district.DistrictName + '</option>');
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Fetch wards when a district is selected
+            $('#district').change(function() {
+                var districtId = $(this).val();
+                $.ajax({
+                    url: 'https://online-gateway.ghn.vn/shiip/public-api/master-data/ward',
+                    type: 'GET',
+                    headers: {
+                        'Token': '73a4d96c-8919-11ef-a76b-8ef8cf9ed7dc'
+                    },
+                    data: {
+                        'district_id': districtId
+                    },
+                    success: function(response) {
+                        if (response.code === 200) {
+                            $('#ward').html('<option value="">Select Ward</option>');
+                            response.data.forEach(function(ward) {
+                                $('#ward').append('<option value="' + ward.WardCode + '">' + ward.WardName + '</option>');
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Fetch available services when a ward is selected
+            $('#ward').change(function() {
+                var districtId = $('#district').val();
+                var wardCode = $(this).val();
+                $.ajax({
+                    url: 'https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/available-services',
+                    type: 'POST',
+                    headers: {
+                        'Token': '73a4d96c-8919-11ef-a76b-8ef8cf9ed7dc'
+                    },
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        "from_district": 1785,
+                        "to_district": parseInt(districtId),
+                        "shop_id": 4484824,
+                    }),
+                    success: function(response) {
+                        if (response.code === 200) {
+                            $('#service').html('<option value="">Select Service</option>');
+                            response.data.forEach(function(service) {
+                                $('#service').append('<option value="' + service.service_id + '">' + service.short_name + '</option>');
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Calculate shipping fee when any select element changes
+            $('#province, #district, #ward, #service').change(function() {
+                calculateShippingFee();
+            });
+
+            function calculateShippingFee() {
+                var provinceId = parseInt($('#province').val());
+                var districtId = parseInt($('#district').val());
+                var wardCode = $('#ward').val();
+                var serviceId = parseInt($('#service').val());
+                var weight = 1000; // Example weight in grams
+
+                if (!provinceId || !districtId || !wardCode || !serviceId) {
+                    return;
+                }
+
+                $.ajax({
+                    url: 'https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee',
+                    type: 'POST',
+                    headers: {
+                        'Token': '73a4d96c-8919-11ef-a76b-8ef8cf9ed7dc'
+                    },
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        "from_district_id": 1785,
+                        "service_id": serviceId,
+                        "to_district_id": districtId,
+                        "to_ward_code": wardCode,
+                        "height": 10,
+                        "length": 20,
+                        "weight": weight,
+                        "width": 15,
+                        "insurance_value": 1000000,
+                        "coupon": null
+                    }),
+                    success: function(response) {
+                        if (response.code === 200) {
+                            var shippingFee = response.data.total;
+                            $('#shipping-cost').text(shippingFee);
+                            $('#hidden-shipping-cost').val(shippingFee);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('An error occurred:', xhr.responseJSON.message);
+                        alert('Error: ' + xhr.responseJSON.message);
+                    }
+                });
+            }
         });
 
     </script>

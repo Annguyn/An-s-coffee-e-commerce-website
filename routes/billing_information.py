@@ -4,6 +4,7 @@ from models import db, favourite, Product, CartItem, ShoppingSession
 from extensions import db
 from flask_login import current_user
 from datetime import datetime
+import requests
 
 from models.payment import BillingInformation
 
@@ -23,8 +24,7 @@ def show_billing_information():
 @billing_information_bp.route('/billing_information', methods=['POST'])
 @login_required
 def update_billing_information():
-    try:
-        session = BillingInformation.query.filter_by(user_id=current_user.id).first()
+        session = BillingInformation.query.filter_by(user_id=current_user.id).order_by(BillingInformation.created_at.desc()).first()
         if session is None:
             session = BillingInformation()
             session.user_id = current_user.id
@@ -32,7 +32,8 @@ def update_billing_information():
             session.modified_at = datetime.now()
             db.session.add(session)
 
-        required_fields = ['first_name', 'last_name', 'email1', 'address','province','district', 'commune', 'telephone']
+        required_fields = ['first_name', 'last_name', 'email1', 'address',
+                           'province', 'district', 'ward', 'telephone', 'hidden-shipping-cost']
         for field in required_fields:
             if field not in request.form:
                 return f"Missing form data: {field}", 400
@@ -43,10 +44,10 @@ def update_billing_information():
         session.address = request.form['address']
         session.city = request.form['province']
         session.district = request.form['district']
-        session.ward = request.form['commune']
+        session.ward = request.form['ward']
         session.telephone = request.form['telephone']
         session.modified_at = datetime.now()
+        session.shipping_fee = request.form['hidden-shipping-cost']
+
         db.session.commit()
-    except KeyError as e:
-        return f"Missing form data: {e}", 400
-    return redirect(url_for('shipping.show_shipping'))
+        return redirect(url_for('shipping.show_shipping'))

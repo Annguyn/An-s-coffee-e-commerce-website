@@ -66,7 +66,7 @@ def add_to_cart():
     if not product:
         return jsonify({'error': 'Product not found'}), 404
 
-    if product.ProductInventory.quantity < quantity:
+    if product.inventory.quantity < quantity:
         return jsonify({'error': 'Insufficient stock available'}), 400
 
     session = ShoppingSession.query.filter_by(user_id=current_user.id).first()
@@ -78,7 +78,7 @@ def add_to_cart():
 
     cart_item = CartItem.query.filter_by(session_id=session.id, product_id=product_id).first()
     if cart_item:
-        if product.ProductInventory.quantity < cart_item.quantity + quantity:
+        if product.inventory.quantity < cart_item.quantity + quantity:
             return jsonify({'error': 'Insufficient stock available'}), 400
         cart_item.quantity += quantity
         cart_item.modified_at = datetime.now()

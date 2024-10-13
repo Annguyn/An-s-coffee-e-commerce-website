@@ -54,7 +54,7 @@ def process_payment():
         cart_items = shopping_session.cart_items
         order_detail = OrderDetails(
             user_id=current_user.id,
-            total=calculate_order_amount(data),
+            total=calculate_order_amount(billing_information,shopping_session),
             created_at=datetime.now(),
             modified_at=None,
             transaction_id=None,
@@ -65,7 +65,7 @@ def process_payment():
 
         payment_detail = PaymentDetails(
             order_id=order_detail.id,
-            amount=calculate_order_amount(data),
+            amount=calculate_order_amount(billing_information,shopping_session),
             provider='ZaloPay',
             transaction_id=None,
             status='Pending',
@@ -89,7 +89,7 @@ def process_payment():
         db.session.add_all(order_items)
         db.session.commit()
 
-        amount = calculate_order_amount(data)
+        amount = calculate_order_amount(billing_information,shopping_session)
         order_id = generate_order_id(payment_detail.id)
         print(f"OrderID : {order_id}")
         description = "Payment for order {}".format(order_id)
@@ -180,10 +180,9 @@ def generate_order_id(payment_id):
     return datetime.now().strftime('%y%m%d') + f"_{payment_id}"
 
 
-def calculate_order_amount(data):
-    order_detail = OrderDetails.query.filter_by(user_id=current_user.id).order_by(OrderDetails.id.desc()).first()
-    if order_detail:
-        return int(order_detail.total)
+def calculate_order_amount(billing,session):
+    if billing and session:
+        return int(session.total) + int(billing.shipping_fee)
     return 0
 
 

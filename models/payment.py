@@ -12,6 +12,7 @@ class BillingInformation(db.Model):
     address = db.Column(db.String(255))
     shipping_method_id = db.Column(db.Integer, db.ForeignKey('shipping_method.id'))
     city = db.Column(db.String(255))
+    shipping_fee = db.Column(db.Float, nullable=True, default=0)
     district = db.Column(db.String(255))
     ward = db.Column(db.String(255))
     telephone = db.Column(db.String(20))

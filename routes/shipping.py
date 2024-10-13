@@ -11,8 +11,8 @@ shipping_bp = Blueprint('shipping', __name__)
 @shipping_bp.route('/shipping')
 @login_required
 def show_shipping():
-    billing_information = BillingInformation.query.filter_by(user_id=current_user.id).first()
-    shopping_session = ShoppingSession.query.filter_by(user_id=current_user.id).first()
+    billing_information = BillingInformation.query.filter_by(user_id=current_user.id).order_by(BillingInformation.modified_at.desc()).first()
+    shopping_session = ShoppingSession.query.filter_by(user_id=current_user.id).order_by(ShoppingSession.modified_at.desc()).first()
     cart_items = shopping_session.cart_items
     products = {}
     for item in cart_items:
