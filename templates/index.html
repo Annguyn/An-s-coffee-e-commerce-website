@@ -58,13 +58,6 @@
                                 </div>
                             </div>
                             <div class="header-top-switcher">
-{#                                <div class="language">#}
-{#                                    <select onchange="translatePage()">#}
-{#                                        <option data-display="English">English</option>#}
-{#                                        <option value="vi">Vietnamese</option>#}
-{#                                        <option value="ja">Japanese</option>#}
-{#                                    </select>#}
-{#                                </div>#}
                                 <div id="google_translate_element"></div>
                                 <div class="currency">
                                     <select id="currency-select">
@@ -91,7 +84,6 @@
                         </div>
                         <ul class="main-menu d-flex align-items-center">
                             <li><a class="active" href="{{ url_for('index.home') }}">Home</a></li>
-{#                            <li><a href=""></a></li>#}
                             <li><a href="{{ url_for('order.show_order') }}">Order</a></li>
                             <li><a href="{{ url_for('shop.home') }}">Shop</a></li>
                             <li>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>An Coffe -Error Page</title>
+</head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="{{ url_for('static',filename='assets/css/error.css')}}">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<body>
+
+<main>
+    <div class="main-text">
+        <h3>ERROR CODE: 404</h3>
+        <h1>OOOPS!!</h1>
+        <h2>The page you are looking for may have been moved, deleted, or possibly never existed.</h2>
+        <a href="{{ url_for('index.home') }}">Go Home</a>
+    </div>
+    <div class="main-image">
+        <img src="{{ url_for('static',filename='img/404.png') }}" alt="">
+    </div>
+</main>
+</body>
+</html></title>
+</head>
+</html>
