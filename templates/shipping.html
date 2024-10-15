@@ -395,59 +395,7 @@
                             </div>
                         </div>
                         <div class="form">
-                            <h6>Shipping method</h6>
                             <form action="{{ url_for('shipping.update_shipping') }}" method="POST">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="select-button">
-                                            <div class="button-area">
-                                                <div class="radio-button">
-                                                    <input type="radio" name="shipping" id="shippingMethod1" value="0" {% if billing_information.shipping_method == '0' %}checked{% endif %}>
-                                                </div>
-                                                <div class="text-area">
-                                                    <p>Fast Shipping (Delivered in 8-12 days, includes 3-4 days for processing)</p>
-                                                </div>
-                                            </div>
-                                            <div class="select-button-text">
-                                                <span>Free</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="select-button modifier">
-                                            <div class="button-area">
-                                                <div class="radio-button">
-                                                    <input type="radio" name="shipping" id="shippingMethod2" value="1" {% if billing_information.shipping_method == '1' %}checked{% endif %}>
-                                                </div>
-                                                <div class="text-area">
-                                                    <p>Faster Shipping (Delivered in 4-6 days, includes 2 days for processing)</p>
-                                                </div>
-                                            </div>
-                                            <div class="select-button-text">
-                                                <span>$19.99</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="select-button">
-                                            <div class="button-area">
-                                                <div class="radio-button">
-                                                    <input type="radio" name="shipping" id="shippingMethod3" value="2" {% if billing_information.shipping_method == '2' %}checked{% endif %}>
-                                                </div>
-                                                <div class="text-area">
-                                                    <p>Fastest Shipping (Delivered in 2-3 days, includes 1 day for processing)</p>
-                                                </div>
-                                            </div>
-                                            <div class="select-button-text">
-                                                <span>$29.99</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class="col-12 d-flex align-items-center justify-content-between bottom flex-wrap">
                                         <a href="billing-information.html">

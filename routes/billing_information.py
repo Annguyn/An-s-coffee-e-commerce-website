@@ -24,30 +24,30 @@ def show_billing_information():
 @billing_information_bp.route('/billing_information', methods=['POST'])
 @login_required
 def update_billing_information():
-        session = BillingInformation.query.filter_by(user_id=current_user.id).order_by(BillingInformation.created_at.desc()).first()
-        if session is None:
-            session = BillingInformation()
-            session.user_id = current_user.id
-            session.created_at = datetime.now()
-            session.modified_at = datetime.now()
-            db.session.add(session)
-
-        required_fields = ['first_name', 'last_name', 'email1', 'address',
-                           'province', 'district', 'ward', 'telephone', 'hidden-shipping-cost']
-        for field in required_fields:
-            if field not in request.form:
-                return f"Missing form data: {field}", 400
-
-        session.first_name = request.form['first_name']
-        session.last_name = request.form['last_name']
-        session.email = request.form['email1']
-        session.address = request.form['address']
-        session.city = request.form['province']
-        session.district = request.form['district']
-        session.ward = request.form['ward']
-        session.telephone = request.form['telephone']
+    session = BillingInformation.query.filter_by(user_id=current_user.id).order_by(BillingInformation.created_at.desc()).first()
+    if session is None:
+        session = BillingInformation()
+        session.user_id = current_user.id
+        session.created_at = datetime.now()
         session.modified_at = datetime.now()
-        session.shipping_fee = request.form['hidden-shipping-cost']
+        db.session.add(session)
 
-        db.session.commit()
-        return redirect(url_for('shipping.show_shipping'))
+    required_fields = ['first_name', 'last_name', 'email1', 'address',
+                       'province', 'province_name', 'district', 'district_name', 'ward', 'ward_name', 'telephone', 'hidden-shipping-cost']
+    for field in required_fields:
+        if field not in request.form:
+            return f"Missing form data: {field}", 400
+
+    session.first_name = request.form['first_name']
+    session.last_name = request.form['last_name']
+    session.email = request.form['email1']
+    session.address = request.form['address']
+    session.city = request.form['province_name']
+    session.district = request.form['district_name']
+    session.ward = request.form['ward_name']
+    session.telephone = request.form['telephone']
+    session.modified_at = datetime.now()
+    session.shipping_fee = request.form['hidden-shipping-cost']
+
+    db.session.commit()
+    return redirect(url_for('shipping.show_shipping'))

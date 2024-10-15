@@ -24,8 +24,8 @@ def show_shipping():
 @shipping_bp.route('/shipping', methods=['POST'])
 @login_required
 def update_shipping():
-    billing_information = BillingInformation.query.filter_by(user_id=current_user.id).first()
-    if billing_information:
-        billing_information.shipping_method_id = request.form['shipping']
-        db.session.commit()
+    # billing_information = BillingInformation.query.filter_by(user_id=current_user.id).first()
+    # if billing_information:
+        # billing_information.shipping_method_id = request.form['shipping']
+        # db.session.commit()
     return redirect(url_for('payment.show_payment'))

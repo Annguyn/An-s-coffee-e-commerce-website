@@ -615,6 +615,9 @@
                                             <label for="" class="form__label">Address</label>
                                         </div>
                                     </div>
+                                    <input type="hidden" name="province_name" id="province_name" />
+                                    <input type="hidden" name="district_name" id="district_name" />
+                                    <input type="hidden" name="ward_name" id="ward_name" />
                                     <div class="col-lg-4 col-md-4 col-12 mt-30">
                                         <select name="province" id="province" required>
                                             <option value="">Province/City</option>
@@ -828,7 +831,11 @@
 
             // Fetch districts when a province is selected
             $('#province').change(function() {
-                var provinceId = $(this).val();
+                var selectedOption = $(this).find("option:selected");
+                var provinceId = selectedOption.val();
+                var provinceName = selectedOption.text();
+                $('#province_name').val(provinceName);  // Lưu tên tỉnh vào trường ẩn
+
                 $.ajax({
                     url: 'https://online-gateway.ghn.vn/shiip/public-api/master-data/district',
                     type: 'GET',
@@ -852,7 +859,11 @@
 
             // Fetch wards when a district is selected
             $('#district').change(function() {
-                var districtId = $(this).val();
+                var selectedOption = $(this).find("option:selected");
+                var districtId = selectedOption.val();
+                var districtName = selectedOption.text();
+                $('#district_name').val(districtName);  // Lưu tên huyện vào trường ẩn
+
                 $.ajax({
                     url: 'https://online-gateway.ghn.vn/shiip/public-api/master-data/ward',
                     type: 'GET',
@@ -873,31 +884,43 @@
                 });
             });
 
-            // Fetch available services when a ward is selected
+            // Save ward name when a ward is selected
+            // Save ward name when a ward is selected and fetch available services
             $('#ward').change(function() {
+                var selectedOption = $(this).find("option:selected");
+                var wardCode = selectedOption.val();
                 var districtId = $('#district').val();
-                var wardCode = $(this).val();
-                $.ajax({
-                    url: 'https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/available-services',
-                    type: 'POST',
-                    headers: {
-                        'Token': '73a4d96c-8919-11ef-a76b-8ef8cf9ed7dc'
-                    },
-                    contentType: 'application/json',
-                    data: JSON.stringify({
-                        "from_district": 1785,
-                        "to_district": parseInt(districtId),
-                        "shop_id": 4484824,
-                    }),
-                    success: function(response) {
-                        if (response.code === 200) {
-                            $('#service').html('<option value="">Select Service</option>');
-                            response.data.forEach(function(service) {
-                                $('#service').append('<option value="' + service.service_id + '">' + service.short_name + '</option>');
-                            });
+                $('#ward_name').val(selectedOption.text());  // Lưu tên xã vào trường ẩn
+
+                // Fetch available services
+                if (districtId && wardCode) {
+                    $.ajax({
+                        url: 'https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/available-services',
+                        type: 'POST',
+                        headers: {
+                            'Token': '73a4d96c-8919-11ef-a76b-8ef8cf9ed7dc'
+                        },
+                        contentType: 'application/json',
+                        data: JSON.stringify({
+                            "from_district": 1785,  // ID mặc định của khu vực gốc
+                            "to_district": parseInt(districtId),
+                            "shop_id": 4484824
+                        }),
+                        success: function(response) {
+                            if (response.code === 200) {
+                                $('#service').html('<option value="">Select Service</option>');
+                                response.data.forEach(function(service) {
+                                    $('#service').append('<option value="' + service.service_id + '">' + service.short_name + '</option>');
+                                });
+                            } else {
+                                $('#service').html('<option value="">No Services Available</option>');
+                            }
+                        },
+                        error: function() {
+                            $('#service').html('<option value="">Error Fetching Services</option>');
                         }
-                    }
-                });
+                    });
+                }
             });
 
             // Calculate shipping fee when any select element changes
@@ -906,13 +929,12 @@
             });
 
             function calculateShippingFee() {
-                var provinceId = parseInt($('#province').val());
                 var districtId = parseInt($('#district').val());
                 var wardCode = $('#ward').val();
                 var serviceId = parseInt($('#service').val());
                 var weight = 1000; // Example weight in grams
 
-                if (!provinceId || !districtId || !wardCode || !serviceId) {
+                if (!districtId || !wardCode || !serviceId) {
                     return;
                 }
 
