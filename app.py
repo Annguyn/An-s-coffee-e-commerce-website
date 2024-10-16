@@ -59,6 +59,57 @@ google = oauth.register(
         'token_endpoint_auth_method': 'client_secret_basic',
     }
 )
+github = oauth.register(
+    name='github',
+    client_id='Ov23li4ixtLEFhaxDyuR',
+    client_secret='28074e5d134de2170fbeb38836018253817d37f7',
+    authorize_url='https://github.com/login/oauth/authorize',
+    authorize_params=None,
+    access_token_url='https://github.com/login/oauth/access_token',
+    access_token_params=None,
+    userinfo_endpoint='https://api.github.com/user',
+    client_kwargs={'scope': 'user:email'},
+)
+
+
+@app.route('/login/github')
+def login_github():
+    redirect_uri = url_for('github_authorized', _external=True)
+    return github.authorize_redirect(redirect_uri)
+
+@app.route('/login/github/authorized')
+def github_authorized():
+    token = github.authorize_access_token()
+    if not token:
+        flash('Failed to log in with GitHub', 'danger')
+        return redirect(url_for('login'))
+
+    user_info = github.get('https://api.github.com/user').json()
+    if not user_info:
+        flash('Failed to fetch user info', 'danger')
+        return redirect(url_for('login'))
+
+    username = user_info.get('login')
+    name = user_info.get('name', '')
+
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        user = User(
+            username=username,
+            first_name=name.split()[0] if name else '',
+            last_name=' '.join(name.split()[1:]) if name else '',
+            created_at=datetime.now(),
+            modified_at=datetime.now(),
+            is_admin=False,
+            active=True,
+            roles=[]
+        )
+        db.session.add(user)
+        db.session.commit()
+    login_user(user)
+    flash('You were successfully logged in with GitHub.', 'success')
+    return redirect(url_for('index.home'))
+
 
 @account_bp.route('/login/google')
 def login_google():
@@ -101,6 +152,9 @@ def google_authorized():
     login_user(user)
     flash('You were successfully logged in with Google.', 'success')
     return redirect(url_for('index.home'))
+
+
+
 
 @app.errorhandler(404)
 def page_not_found(e):
