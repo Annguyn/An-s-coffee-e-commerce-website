@@ -16,6 +16,7 @@ from models.user import User
 from models.order import OrderDetails, OrderItems
 from models.payment import PaymentDetails
 from routes.account import account_bp
+from routes.admin import admin_bp
 from routes.cart import add_to_cart_bp
 from routes.chat import chat_bp
 from routes.deliver import deliver_bp
@@ -203,6 +204,7 @@ app.register_blueprint(billing_information_bp)
 app.register_blueprint(favourite_bp)
 app.register_blueprint(add_to_cart_bp)
 app.register_blueprint(add_to_favourite_bp)
+app.register_blueprint(admin_bp)
 app.register_blueprint(account_bp)
 app.register_blueprint(index_bp)
 app.register_blueprint(shop_bp)

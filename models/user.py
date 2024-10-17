@@ -14,16 +14,17 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=True)
-    first_name = db.Column(db.Unicode(255))  # Support Vietnamese characters
+    first_name = db.Column(db.Unicode(255))
     last_name = db.Column(db.Unicode(255))
     telephone = db.Column(db.String(20))
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
     is_admin = db.Column(db.Boolean, default=False)
     email_verified = db.Column(db.Boolean, default=False)
-    active = db.Column(db.Boolean, default=True)  # Add the 'active' field
+    active = db.Column(db.Boolean, default=True)
     fs_uniquifier = db.Column(db.String(255), unique=True, nullable=False, default=lambda: str(uuid.uuid4()))
 
+    billing_information = db.relationship('BillingInformation', backref='user_billing', uselist=False)
     roles = db.relationship('Role', secondary='user_roles', backref=db.backref('users', lazy='dynamic'))
 
     def set_password(self, password):

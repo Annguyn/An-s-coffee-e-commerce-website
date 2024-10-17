@@ -19,7 +19,9 @@ class BillingInformation(db.Model):
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
 
-    user = db.relationship('User', backref='billing_information')
+    user = db.relationship('User', backref='billing_info')
+
+
 class PaymentDetails(db.Model):
     __tablename__ = 'payment_details'
     id = db.Column(db.Integer, primary_key=True)

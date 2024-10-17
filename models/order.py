@@ -18,6 +18,7 @@ class OrderDetails(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     total = db.Column(db.Float)
+    status = db.Column(db.String(100))
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
     transaction_id = db.Column(db.String(100), nullable=True)
