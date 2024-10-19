@@ -49,16 +49,17 @@ def process_payment():
     logging.debug(f"Received payment method: {payment_method}")
 
     if payment_method == 'zalopay-method':
-        billing_information = BillingInformation.query.filter_by(user_id=current_user.id).first()
+        billing_information = BillingInformation.query.filter_by(user_id=current_user.id).order_by(
+            BillingInformation.created_at.desc()).first()
         shopping_session = ShoppingSession.query.filter_by(user_id=current_user.id).first()
         cart_items = shopping_session.cart_items
         order_detail = OrderDetails(
             user_id=current_user.id,
+            billing_id=billing_information.id,
             total=calculate_order_amount(billing_information,shopping_session),
             created_at=datetime.now(),
             modified_at=None,
-            transaction_id=None,
-            payment_id=0
+            transaction_id=None
         )
         db.session.add(order_detail)
         db.session.commit()
@@ -72,6 +73,8 @@ def process_payment():
             created_at=datetime.now(),
             modified_at=None
         )
+        order_detail.payment_id=payment_detail.id
+
         db.session.add(payment_detail)
         db.session.commit()
 
@@ -132,7 +135,7 @@ def callback():
             payment_detail = PaymentDetails.query.filter_by(transaction_id=app_trans_id).first()
             if order_detail:
                 payment_detail.status = 'Success'
-                shopping_session = ShoppingSession.query.filter_by(user_id=payment_detail.order.user_id).first()
+                shopping_session = ShoppingSession.query.filter_by(user_id=order_detail.user_id).first()
                 db.session.delete(shopping_session)
 
                 db.session.commit()

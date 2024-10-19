@@ -24,13 +24,11 @@ def show_billing_information():
 @billing_information_bp.route('/billing_information', methods=['POST'])
 @login_required
 def update_billing_information():
-    session = BillingInformation.query.filter_by(user_id=current_user.id).order_by(BillingInformation.created_at.desc()).first()
-    if session is None:
-        session = BillingInformation()
-        session.user_id = current_user.id
-        session.created_at = datetime.now()
-        session.modified_at = datetime.now()
-        db.session.add(session)
+    session = BillingInformation()
+    session.user_id = current_user.id
+    session.created_at = datetime.now()
+    session.modified_at = datetime.now()
+    db.session.add(session)
 
     required_fields = ['first_name', 'last_name', 'email1', 'address',
                        'province', 'province_name', 'district', 'district_name', 'ward', 'ward_name', 'telephone', 'hidden-shipping-cost']

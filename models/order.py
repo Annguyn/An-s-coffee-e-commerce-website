@@ -21,9 +21,12 @@ class OrderDetails(db.Model):
     status = db.Column(db.String(100))
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
+    billing_id = db.Column(db.Integer, db.ForeignKey('billing_information.id'))
     transaction_id = db.Column(db.String(100), nullable=True)
-    payment_id = db.Column(db.Integer, db.ForeignKey('payment_method.id'))
+    payment_id = db.Column(db.Integer, db.ForeignKey('payment_details.id'))
 
+    payment = db.relationship('PaymentDetails', backref='order')
+    billing = db.relationship('BillingInformation', backref='order')
     user = db.relationship('User', backref='orders')
 
 

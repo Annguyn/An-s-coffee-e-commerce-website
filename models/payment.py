@@ -25,7 +25,6 @@ class BillingInformation(db.Model):
 class PaymentDetails(db.Model):
     __tablename__ = 'payment_details'
     id = db.Column(db.Integer, primary_key=True)
-    order_id = db.Column(db.Integer, db.ForeignKey('order_details.id'))
     amount = db.Column(db.Float, nullable=False)
     provider = db.Column(db.String(255), nullable=False)
     transaction_id = db.Column(db.String(100), nullable=True)
@@ -33,4 +32,3 @@ class PaymentDetails(db.Model):
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
 
-    order = db.relationship('OrderDetails', backref='payment_details')

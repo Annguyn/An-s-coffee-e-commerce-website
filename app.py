@@ -217,6 +217,9 @@ with app.app_context():
 user_datastore = SQLAlchemyUserDatastore(db, User, None)
 security = Security(app, user_datastore)
 
+@app.route('/style')
+def style():
+    return render_template('styleguide.html')
 @app.route('/')
 def hello_world():
     return render_template('index.html')

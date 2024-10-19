@@ -359,8 +359,9 @@
                             <div class="card-body">
                                 <h5 class="card-title">Order ID: {{ order.id }}</h5>
                                 <p class="card-text"><strong>Customer:</strong> {{ order.user.first_name + " " + order.user.last_name }}</p>
-                                <p class="card-text"><strong>Address:</strong> {{ order.user.billing_information.city }}</p>
-                                <p class="card-text"><strong>Total:</strong> ${{ order.total }}</p>
+                                <p class="card-text"><strong>Address:</strong> {{ order.billing.address + "," +order.billing.city + ", " +
+                                        order.billing.district + ", " + order.billing.ward }}</p>
+                                <p class="card-text"><strong>Total:</strong> {{ order.total }}</p>
                                 <h6 class="card-subtitle mb-2 text-muted">Products:</h6>
                                 <ul class="list-group list-group-flush">
                                     {% for product in order.products %}
@@ -370,10 +371,16 @@
                                         </li>
                                     {% endfor %}
                                 </ul>
+                                <p class="cart-text"><strong>Order status: </strong>{{ order.status }}</p>
+                                <p class="cart-text"><strong>Payment status: </strong>{{ order.payment.status }}</p>
                             </div>
                             <div class="card-footer text-muted">
-                                <a href="#" class="btn btn-sm btn-outline-primary"><i class="far fa-heart"></i> Ready to delivery</a>
-                                <a href="#" class="btn btn-sm btn-outline-secondary"><i class="fas fa-shopping-cart"></i>...</a>
+                                <a href="#" class="btn btn-sm btn-outline-primary"><svg style="width: 30px ; height: 30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                                    <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/></svg>
+                                    Ready to delivery</a>
+                                <a href="#" class="btn btn-sm btn-outline-secondary"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-view-stacked" viewBox="0 0 16 16">
+                                    <path d="M3 0h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm0 8h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2m0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z"/>
+                                </svg>View order items </a>
                             </div>
                         </div>
                     </div>
