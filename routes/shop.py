@@ -5,6 +5,7 @@ from models import CartItem, ShoppingSession
 from models.favourite import Favourite
 from models.product import Product, ProductCategory, ProductInventory, ProductImage, Brand
 from datetime import datetime
+from flask_paginate import Pagination, get_page_parameter
 
 shop_bp = Blueprint('shop', __name__)
 
@@ -13,15 +14,19 @@ shop_bp = Blueprint('shop', __name__)
 @login_required
 def home():
     key_search = request.args.get('keySearch')
+    page = request.args.get(get_page_parameter(), type=int, default=1)
+    per_page = 9
+
+    query = Product.query
     if key_search:
-        products = Product.query.filter(Product.name.contains(key_search)).all()
-    else:
-        products = Product.query.all()
+        query = query.filter(Product.name.contains(key_search))
+
+    pagination = query.paginate(page=page, per_page=per_page, error_out=False)
+    products = pagination.items
 
     brands = Brand.query.all()
     categories = ProductCategory.query.all()
-    return render_template('shop.html', user=current_user, products=products, brands=brands, categories=categories)
-
+    return render_template('shop.html', user=current_user, products=products, brands=brands, categories=categories, pagination=pagination)
 
 @shop_bp.route('/filter-products', methods=['GET'])
 @login_required

@@ -61,17 +61,7 @@
                                 <div class="language">
                                     <select>
                                         <option data-display="English">English</option>
-                                        <option value="1">Arabic</option>
-                                        <option value="2">Aramaic</option>
-                                        <option value="4">Bangla</option>
-                                    </select>
-                                </div>
-                                <div class="currency">
-                                    <select>
-                                        <option data-display="Currency">USD</option>
-                                        <option value="1">BDT</option>
-                                        <option value="2">SNG</option>
-                                        <option value="4">ERU</option>
+                                        <option value="4">Vietnamese</option>
                                     </select>
                                 </div>
                             </div>
@@ -89,28 +79,26 @@
                         <ul class="main-menu d-flex align-items-center">
                             <li><a class="active" href="{{ url_for('index.home') }}">Home</a></li>
 {#                            <li><a href="shop.html">Men</a></li>#}
-                            <li><a href="shop.html">Women</a></li>
+                            <li><a href="{{ url_for('admin.admin_orders') if user.is_admin else url_for('order.show_order') }}">Order</a></li>
                             <li><a href="{{ url_for('shop.home') }}">Shop</a></li>
                             <li>
                                 <a href="javascript:void(0)">Category
                                     <svg xmlns="http://www.w3.org/2000/svg" width="9.98" height="5.69"
-                                        viewBox="0 0 9.98 5.69">
+                                         viewBox="0 0 9.98 5.69">
                                         <g id="Arrow" transform="translate(0.99 0.99)">
                                             <path id="Arrow-2" data-name="Arrow" d="M1474.286,26.4l4,4,4-4"
-                                                transform="translate(-1474.286 -26.4)" fill="none" stroke="#1a2224"
-                                                stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" />
+                                                  transform="translate(-1474.286 -26.4)" fill="none" stroke="#1a2224"
+                                                  stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" />
                                         </g>
                                     </svg>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li><a href="javascript:void(0)">Category 1</a></li>
-                                    <li><a href="javascript:void(0)">Category 2</a></li>
-                                    <li><a href="javascript:void(0)">Category 3</a></li>
-                                    <li><a href="javascript:void(0)">Category 4</a></li>
-                                    <li><a href="javascript:void(0)">Category 5</a></li>
+                                    {% for category in categories %}
+                                        <li><a href="{{ url_for('shop.filter_products', category_filter=category.id) }}">{{ category.name }}</a></li>
+                                    {% endfor %}
                                 </ul>
                             </li>
-                            <li><a href="javascript:void(0)">Sales</a></li>
+                            <li><a href="javascript:void(0)">Statistics</a></li>
                         </ul>
                         {% if session.get('is_admin') %}
                             <div class="container">
@@ -470,21 +458,33 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="pagination-group">
-                        <a href="#!-1" class="p_prev"><svg xmlns="http://www.w3.org/2000/svg" width="9.414" height="16.828" viewBox="0 0 9.414 16.828">
-                            <path id="Icon_feather-chevron-left" data-name="Icon feather-chevron-left" d="M20.5,23l-7-7,7-7" transform="translate(-12.5 -7.586)" fill="none" stroke="#1a2224" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
-                        </svg></a>
-                        <a href="#!1" class="cdp_i active">01</a>
-                        <a href="#!2" class="cdp_i">02</a>
-                        <a href="#!3" class="cdp_i">03</a>
-                        <a href="#!4" class="cdp_i">...</a>
-                        <a href="#!5" class="cdp_i">658</a>
-                        <a href="#!+1" class="p_next">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="9.414" height="16.829" viewBox="0 0 9.414 16.829">
-                              <g id="Arrow" transform="translate(1.414 15.414) rotate(-90)">
-                                <path id="Arrow-2" data-name="Arrow" d="M1474.286,26.4l7,7,7-7" transform="translate(-1474.286 -26.4)" fill="none" stroke="#1a2224" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
-                              </g>
-                            </svg>
+                        {% if pagination.has_prev %}
+                            <a href="{{ url_for('shop.home', page=pagination.prev_num, keySearch=request.args.get('keySearch')) }}" class="p_prev">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="9.414" height="16.828" viewBox="0 0 9.414 16.828">
+                                    <path id="Icon_feather-chevron-left" data-name="Icon feather-chevron-left" d="M20.5,23l-7-7,7-7" transform="translate(-12.5 -7.586)" fill="none" stroke="#1a2224" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+                                </svg>
                             </a>
+                        {% endif %}
+
+                        {% for page_num in pagination.iter_pages() %}
+                            {% if page_num %}
+                                <a href="{{ url_for('shop.home', page=page_num, keySearch=request.args.get('keySearch')) }}" class="cdp_i {% if page_num == pagination.page %}active{% endif %}">
+                                    {{ "%02d" % page_num }}
+                                </a>
+                            {% else %}
+                                <span class="cdp_i">...</span>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if pagination.has_next %}
+                            <a href="{{ url_for('shop.home', page=pagination.next_num, keySearch=request.args.get('keySearch')) }}" class="p_next">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="9.414" height="16.829" viewBox="0 0 9.414 16.829">
+                                    <g id="Arrow" transform="translate(1.414 15.414) rotate(-90)">
+                                        <path id="Arrow-2" data-name="Arrow" d="M1474.286,26.4l7,7,7-7" transform="translate(-1474.286 -26.4)" fill="none" stroke="#1a2224" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+                                    </g>
+                                </svg>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

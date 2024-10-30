@@ -59,16 +59,6 @@
                             </div>
                             <div class="header-top-switcher">
                                 <div id="google_translate_element"></div>
-                                <div class="currency">
-                                    <select id="currency-select">
-                                        <option data-display="Currency" value="USD">USD</option>
-                                        <option value="VND">VND</option>
-                                        <option value="JPY">JPY</option>
-                                        <option value="BDT">BDT</option>
-                                        <option value="SNG">SNG</option>
-                                        <option value="EUR">EUR</option>
-                                    </select>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -84,7 +74,7 @@
                         </div>
                         <ul class="main-menu d-flex align-items-center">
                             <li><a class="active" href="{{ url_for('index.home') }}">Home</a></li>
-                            <li><a href="{{ url_for('order.show_order') }}">Order</a></li>
+                            <li><a href="{{ url_for('admin.admin_orders') if user.is_admin else url_for('order.show_order') }}">Order</a></li>
                             <li><a href="{{ url_for('shop.home') }}">Shop</a></li>
                             <li>
                                 <a href="javascript:void(0)">Category
@@ -103,7 +93,7 @@
                                     {% endfor %}
                                 </ul>
                             </li>
-                            <li><a href="javascript:void(0)">Sales</a></li>
+                            <li><a href="javascript:void(0)">Statistics</a></li>
                         </ul>
                         <form id="search-bar" method="GET" action="{{ url_for('shop.home') }}">
                         <div class="search-bar">
@@ -405,7 +395,7 @@
                             </div>
                             <div class="product-item-info">
                                 <a href="{{ url_for('product.show_product',product_id = product.id )}}">{{  product.name }}</a>
-                                <span id="product-price" data-price="{{ product.price }}">Loading...</span> <del>200000</del>
+                                <span id="product-price" data-price="{{ product.price }}">{{ product.price }}</span> <del>200000</del>
                             </div>
                         </div>
                         {% endfor %}
@@ -466,7 +456,7 @@
                                     </div>
                                     <div class="icon-area">
                                         <i class="far fa-check-circle"></i>
-                                        <span>Shop in 2 languages</span>
+                                        <span>Shop in every languages</span>
                                     </div>
 {#                                    <div class="icon-area">#}
 {#                                        <i class="far fa-check-circle"></i>#}
@@ -832,18 +822,6 @@
             }
         });
 
-        document.getElementById('currency-select').addEventListener('change', async (event) => {
-            const selectedCurrency = event.target.value;
-            const priceElement = document.getElementById('product-price');
-            const originalPrice = parseFloat(priceElement.getAttribute('data-price'));
-            const convertedPrice = await convertCurrency(originalPrice, 'VND', selectedCurrency);
-
-            if (convertedPrice !== null) {
-                priceElement.textContent = convertedPrice.toFixed(2);
-            } else {
-                priceElement.textContent = 'Conversion Error';
-            }
-        });
         function openChat() {
             document.getElementById('chatboxModal').style.display = 'block';
         }
@@ -862,7 +840,6 @@
             const message = input.value;
             if (message.trim() === '') return;
 
-            // Display the user's message
             const chatboxBody = document.getElementById('chatboxBody');
             const userMessage = document.createElement('div');
             userMessage.className = 'chat-message user-message';
@@ -896,14 +873,13 @@
             $('#overlayy').removeClass("active");
         }
         $(document).ready(function() {
-            // Function to show the modal with a custom message
             function showModal(message) {
-                $('#modalMessage').text(message);   // Set the modal message
-                $('#notificationModal').modal('show');  // Show the modal
+                $('#modalMessage').text(message);
+                $('#notificationModal').modal('show');
             }
 
             $('.add-to-favourites').on('click', function(e) {
-                e.preventDefault(); // Prevent the default behavior of the anchor tag
+                e.preventDefault();
 
                 var productId = $(this).data('product-id');
 
@@ -915,12 +891,12 @@
                     },
                     success: function(response) {
                         if (response.message) {
-                            showModal(response.message);  // Show modal instead of alert
+                            showModal(response.message);
                         }
                     },
                     error: function(xhr, status, error) {
                         if (xhr.responseJSON && xhr.responseJSON.error) {
-                            showModal(xhr.responseJSON.error);  // Show modal with error message
+                            showModal(xhr.responseJSON.error);
                         } else {
                             showModal('An error occurred. Please try again.');
                         }
@@ -929,7 +905,7 @@
             });
 
             $('.add-to-cart').on('click', function(e) {
-                e.preventDefault(); // Prevent the default behavior of the anchor tag
+                e.preventDefault();
 
                 var productId = $(this).data('product-id');
                 var quantity = $(this).data('quantity') || 1;
@@ -943,12 +919,12 @@
                     },
                     success: function(response) {
                         if (response.message) {
-                            showModal(response.message);  // Show modal instead of alert
+                            showModal(response.message);
                         }
                     },
                     error: function(xhr, status, error) {
                         if (xhr.responseJSON && xhr.responseJSON.error) {
-                            showModal(xhr.responseJSON.error);  // Show modal with error message
+                            showModal(xhr.responseJSON.error);
                         } else {
                             showModal('An error occurred. Please try again.');
                         }

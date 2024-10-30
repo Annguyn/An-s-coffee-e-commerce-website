@@ -32,16 +32,21 @@ def update_status(order_id):
     action = request.form.get('action')
     order = OrderDetails.query.get_or_404(order_id)
 
-    if action == 'ready_to_delivery':
-        order.status = 'Delivery'
-    elif action == 'finish':
-        order.status = 'Finished'
-    elif action == 'view_order_items':
-        pass
+    if order.status == 'Finished':
+        if action == 'view_order_items':
+            pass
+        else:
+            flash('This order is already finished and cannot be modified.', 'danger')
+            return redirect(url_for('admin.admin_orders'))
+    else:
+        if action == 'ready_to_delivery':
+            order.status = 'Delivery'
+        elif action == 'finish':
+            order.status = 'Finished'
 
     db.session.commit()
     flash('Order status updated successfully', 'success')
-    return redirect(url_for('order.show_order'))
+    return redirect(url_for('admin.admin_orders'))
 
 import base64
 
