@@ -107,7 +107,7 @@
                                     {% endfor %}
                                 </ul>
                             </li>
-                            <li><a href="javascript:void(0)">Sales</a></li>
+                            <li><a href="javascript:void(0)">Statistics</a></li>
                         </ul>
                         <div class="search-bar">
                             <input type="text" placeholder="Search for product...">
@@ -163,7 +163,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="account.html"><svg xmlns="http://www.w3.org/2000/svg" width="18"
+                                    <a href="{{ url_for('account.account') }}"><svg xmlns="http://www.w3.org/2000/svg" width="18"
                                             height="20" viewBox="0 0 18 20">
                                             <g id="Account" transform="translate(1 1)">
                                                 <path id="Path_86" data-name="Path 86"
@@ -344,9 +344,9 @@
                             <li class="list-inline-item"><a href="{{ url_for('account.account') if current_user.is_authenticated else url_for('account.dashboard')}}">Account settings</a></li>
                                 <li class="list-inline-item"><a href="{{ url_for('billing_information.show_billing_information') }}">Billing information</a></li>
                                 <li class="list-inline-item"><a href="{{ url_for('favourite.show_favourite') }}">My wishlist</a></li>
-                                <li class="list-inline-item"><a href="cart.html">My cart</a></li>
-                                <li class="list-inline-item"><a href="order.html" class="active">Order</a></li>
-                                <li class="list-inline-item"><a href="account.html" class="mr-0">Log-out</a></li>
+                                <li class="list-inline-item"><a href="{{ url_for('add_to_cart.show_cart') }}">My cart</a></li>
+                                <li class="list-inline-item"><a href="{{ url_for('order.show_order') }}" class="active">Order</a></li>
+                                <li class="list-inline-item"><a href="{{ url_for('account.account') }}" class="mr-0">Log-out</a></li>
                             </ul>
                         </div>
                         <!-- Dashboard-Nav  End-->

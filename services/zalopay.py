@@ -14,7 +14,7 @@ config = {
     "key1": "PcY4iZIKFCIdgZvA6ueMcMHHUbRLYjPL",
     "key2": "kLtgPl8HHhfvMuDHPwKfgfsY4Ydm9eIz",
     "endpoint": "https://sb-openapi.zalopay.vn/v2/create",
-    "callback_url": "https://bb8f-2402-800-6294-4bc7-68a9-fb0c-5dff-9b6.ngrok-free.app/callback",
+    "callback_url": "https://fb07-2402-800-6294-f18-dd63-d740-6bf1-39e8.ngrok-free.app/callback",
 }
 
 def create_zalopay_order(amount, description, app_trans_id):

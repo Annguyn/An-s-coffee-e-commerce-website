@@ -21,4 +21,4 @@ def home():
                                categories=categories, num_favorite_products=num_favorite_products,
                                num_cart_items=num_cart_items)
     else:
-        return render_template('index.html', products=products, categories=categories)
+        return render_template('index.html',user=current_user, products=products, categories=categories)

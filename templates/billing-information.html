@@ -91,23 +91,23 @@
                             <li>
                                 <a href="javascript:void(0)">Category
                                     <svg xmlns="http://www.w3.org/2000/svg" width="9.98" height="5.69"
-                                        viewBox="0 0 9.98 5.69">
+                                         viewBox="0 0 9.98 5.69">
                                         <g id="Arrow" transform="translate(0.99 0.99)">
                                             <path id="Arrow-2" data-name="Arrow" d="M1474.286,26.4l4,4,4-4"
-                                                transform="translate(-1474.286 -26.4)" fill="none" stroke="#1a2224"
-                                                stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" />
+                                                  transform="translate(-1474.286 -26.4)" fill="none" stroke="#1a2224"
+                                                  stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" />
                                         </g>
                                     </svg>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li><a href="javascript:void(0)">Category 1</a></li>
-                                    <li><a href="javascript:void(0)">Category 2</a></li>
-                                    <li><a href="javascript:void(0)">Category 3</a></li>
-                                    <li><a href="javascript:void(0)">Category 4</a></li>
-                                    <li><a href="javascript:void(0)">Category 5</a></li>
+                                    {% for category in categories %}
+                                        <li>
+                                            <a href="{{ url_for('shop.filter_products', category_filter=category.id) }}"> {{ category.name }} </a>
+                                        </li>
+                                    {% endfor %}
                                 </ul>
                             </li>
-                            <li><a href="javascript:void(0)">Sales</a></li>
+                            <li><a href="javascript:void(0)">Statistics</a></li>
                         </ul>
                         <div class="search-bar">
                             <input type="text" placeholder="Search for product...">
@@ -813,7 +813,6 @@
         }
 
         $(document).ready(function() {
-            // Fetch provinces
             $.ajax({
                 url: 'https://online-gateway.ghn.vn/shiip/public-api/master-data/province',
                 type: 'GET',
@@ -829,12 +828,11 @@
                 }
             });
 
-            // Fetch districts when a province is selected
             $('#province').change(function() {
                 var selectedOption = $(this).find("option:selected");
                 var provinceId = selectedOption.val();
                 var provinceName = selectedOption.text();
-                $('#province_name').val(provinceName);  // Lưu tên tỉnh vào trường ẩn
+                $('#province_name').val(provinceName);
 
                 $.ajax({
                     url: 'https://online-gateway.ghn.vn/shiip/public-api/master-data/district',
@@ -857,12 +855,11 @@
                 });
             });
 
-            // Fetch wards when a district is selected
             $('#district').change(function() {
                 var selectedOption = $(this).find("option:selected");
                 var districtId = selectedOption.val();
                 var districtName = selectedOption.text();
-                $('#district_name').val(districtName);  // Lưu tên huyện vào trường ẩn
+                $('#district_name').val(districtName);
 
                 $.ajax({
                     url: 'https://online-gateway.ghn.vn/shiip/public-api/master-data/ward',
@@ -884,15 +881,12 @@
                 });
             });
 
-            // Save ward name when a ward is selected
-            // Save ward name when a ward is selected and fetch available services
             $('#ward').change(function() {
                 var selectedOption = $(this).find("option:selected");
                 var wardCode = selectedOption.val();
                 var districtId = $('#district').val();
-                $('#ward_name').val(selectedOption.text());  // Lưu tên xã vào trường ẩn
+                $('#ward_name').val(selectedOption.text());
 
-                // Fetch available services
                 if (districtId && wardCode) {
                     $.ajax({
                         url: 'https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/available-services',
@@ -902,7 +896,7 @@
                         },
                         contentType: 'application/json',
                         data: JSON.stringify({
-                            "from_district": 1785,  // ID mặc định của khu vực gốc
+                            "from_district": 1785,
                             "to_district": parseInt(districtId),
                             "shop_id": 4484824
                         }),
@@ -923,7 +917,6 @@
                 }
             });
 
-            // Calculate shipping fee when any select element changes
             $('#province, #district, #ward, #service').change(function() {
                 calculateShippingFee();
             });
@@ -932,7 +925,7 @@
                 var districtId = parseInt($('#district').val());
                 var wardCode = $('#ward').val();
                 var serviceId = parseInt($('#service').val());
-                var weight = 1000; // Example weight in grams
+                var weight = 1000;
 
                 if (!districtId || !wardCode || !serviceId) {
                     return;

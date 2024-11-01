@@ -31,4 +31,5 @@ class PaymentDetails(db.Model):
     status = db.Column(db.String(100), nullable=False)
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
+    zp_trans_id = db.Column(db.String(100), nullable=True)
 

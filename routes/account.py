@@ -65,10 +65,9 @@ def update_account_password():
 
 @account_bp.route('/account')
 def account():
-    user = get_logged_in_user()
-    return render_template('account.html', user=user)
-
-
+    if current_user.is_authenticated:
+        return redirect(url_for('account.dashboard'))
+    return render_template('account.html',user=current_user)
 @account_bp.route('/account/sign-in', methods=['POST'])
 def sign_in():
     username = request.form['username']
@@ -87,8 +86,6 @@ def sign_in():
     return redirect(url_for('account.account'))
 
 
-# routes/account.py
-# routes/account.py
 @account_bp.route('/account/sign-up', methods=['POST'])
 def sign_up():
     full_name = request.form['full_name']
@@ -113,8 +110,8 @@ def sign_up():
             created_at=time,
             modified_at=time,
             is_admin=is_admin,
-            active=True,  # Set active to True
-            roles=[]  # Initialize with an empty list of roles
+            active=True,
+            roles=[]
         )
         new_user.set_password(password)
         db.session.commit()

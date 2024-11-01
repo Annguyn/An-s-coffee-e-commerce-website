@@ -91,23 +91,23 @@
                             <li>
                                 <a href="javascript:void(0)">Category
                                     <svg xmlns="http://www.w3.org/2000/svg" width="9.98" height="5.69"
-                                        viewBox="0 0 9.98 5.69">
+                                         viewBox="0 0 9.98 5.69">
                                         <g id="Arrow" transform="translate(0.99 0.99)">
                                             <path id="Arrow-2" data-name="Arrow" d="M1474.286,26.4l4,4,4-4"
-                                                transform="translate(-1474.286 -26.4)" fill="none" stroke="#1a2224"
-                                                stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" />
+                                                  transform="translate(-1474.286 -26.4)" fill="none" stroke="#1a2224"
+                                                  stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4" />
                                         </g>
                                     </svg>
                                 </a>
                                 <ul class="sub-menu">
-                                    <li><a href="javascript:void(0)">Category 1</a></li>
-                                    <li><a href="javascript:void(0)">Category 2</a></li>
-                                    <li><a href="javascript:void(0)">Category 3</a></li>
-                                    <li><a href="javascript:void(0)">Category 4</a></li>
-                                    <li><a href="javascript:void(0)">Category 5</a></li>
+                                    {% for category in categories %}
+                                        <li>
+                                            <a href="{{ url_for('shop.filter_products', category_filter=category.id) }}"> {{ category.name }} </a>
+                                        </li>
+                                    {% endfor %}
                                 </ul>
                             </li>
-                            <li><a href="javascript:void(0)">Sales</a></li>
+                            <li><a href="javascript:void(0)">Statistics</a></li>
                         </ul>
                         <div class="search-bar">
                             <input type="text" placeholder="Search for product...">
@@ -340,13 +340,12 @@
                     <!-- Dashboard-Nav  Start-->
                     <div class="dashboard-nav">
                         <ul class="list-inline">
-                            <li class="list-inline-item"><a href="user-dashboard.html">Account
-                                    settings</a></li>
-                            <li class="list-inline-item"><a href="deliver-info.html">Billing information</a></li>
-                            <li class="list-inline-item"><a href="wishlist.html">My wishlist</a></li>
-                            <li class="list-inline-item"><a href="cart.html" class="active">My cart</a></li>
-                            <li class="list-inline-item"><a href="order.html">Order</a></li>
-                            <li class="list-inline-item"><a href="account.html" class="mr-0">Log-out</a></li>
+                            <li class="list-inline-item"><a href="{{ url_for('account.account') if current_user.is_authenticated else url_for('account.dashboard')}}">Account settings</a></li>
+                            <li class="list-inline-item"><a href="{{ url_for('billing_information.show_billing_information') }}">Billing information</a></li>
+                            <li class="list-inline-item"><a href="{{ url_for('favourite.show_favourite') }}">My wishlist</a></li>
+                            <li class="list-inline-item"><a href="{{ url_for('add_to_cart.show_cart') }}"class="active">My cart</a></li>
+                            <li class="list-inline-item"><a href="{{ url_for('order.show_order') }}" >Order</a></li>
+                            <li class="list-inline-item"><a href="{{ url_for('account.account') }}" class="mr-0">Log-out</a></li>
                         </ul>
                     </div>
                     <!-- Dashboard-Nav  End-->

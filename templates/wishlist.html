@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Olog -Wishlist</title>
+    <title>An Coffee-Wishlist</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='dist/main.css') }}">
 </head>
 
@@ -342,13 +342,12 @@
                     <!-- Dashboard-Nav  Start-->
                     <div class="dashboard-nav">
                         <ul class="list-inline">
-                            <li class="list-inline-item"><a href="user-dashboard.html">Account
-                                    settings</a></li>
-                            <li class="list-inline-item"><a href="deliver-info.html">Billing information</a></li>
-                            <li class="list-inline-item"><a href="wishlist.html" class="active">My wishlist</a></li>
-                            <li class="list-inline-item"><a href="cart.html">My cart</a></li>
-                            <li class="list-inline-item"><a href="order.html">Order</a></li>
-                            <li class="list-inline-item"><a href="account.html" class="mr-0">Log-out</a></li>
+                            <li class="list-inline-item"><a href="{{ url_for('account.account') if current_user.is_authenticated else url_for('account.dashboard')}}">Account settings</a></li>
+                            <li class="list-inline-item"><a href="{{ url_for('billing_information.show_billing_information') }}">Billing information</a></li>
+                            <li class="list-inline-item"><a href="{{ url_for('favourite.show_favourite') }}"class="active">My wishlist</a></li>
+                            <li class="list-inline-item"><a href="{{ url_for('add_to_cart.show_cart') }}">My cart</a></li>
+                            <li class="list-inline-item"><a href="{{ url_for('order.show_order') }}" >Order</a></li>
+                            <li class="list-inline-item"><a href="{{ url_for('account.account') }}" class="mr-0">Log-out</a></li>
                         </ul>
                     </div>
                     <!-- Dashboard-Nav  End-->
@@ -421,48 +420,7 @@
                                 <i class="fas fa-star"></i> 5.0
                             </div>
                             <div class="info">
-                                <div class="size">
-                                    <div class="product-pricelist-selector-size">
-                                        <h6>Sizes</h6>
-                                        <div class="sizes" id="sizes">
-                                            <li class="sizes-all active">M</li>
-                                        </div>
-                                    </div>
-                                    <div class="product-pricelist-selector-color">
-                                        <h6>Colors</h6>
-                                        <div class="colors" id="colors">
-                                            <li class="colorall color-1 active"></li>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="quantity">
-                                    <div class="product-pricelist-selector-quantity">
-                                        <h6>quantity</h6>
-                                        <div class="wan-spinner wan-spinner-4">
-                                            <a href="javascript:void(0)" class="minus">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="11.98" height="6.69"
-                                                    viewBox="0 0 11.98 6.69">
-                                                    <path id="Arrow" d="M1474.286,26.4l5,5,5-5"
-                                                        transform="translate(-1473.296 -25.41)" fill="none"
-                                                        stroke="#989ba7" stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="1.4" />
-                                                </svg>
-                                            </a>
-                                            <input type="text" value="1" min="1">
-                                            <a href="javascript:void(0)" class="plus">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="11.98" height="6.69"
-                                                    viewBox="0 0 11.98 6.69">
-                                                    <g id="Arrow" transform="translate(10.99 5.7) rotate(180)">
-                                                        <path id="Arrow-2" data-name="Arrow" d="M1474.286,26.4l5,5,5-5"
-                                                            transform="translate(-1474.286 -26.4)" fill="none"
-                                                            stroke="#1a2224" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="1.4" />
-                                                    </g>
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
+                                <a href="{{ url_for('product.show_product',product_id=product.id) }}">View</a>
                             </div>
                         </div>
                         {% endfor %}
@@ -501,8 +459,9 @@
             <div class="row main-footer">
                 <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                     <div class="main-footer-info">
-                        <img src="{{ url_for('static',filename='dist/images/logo/AnDakLak') }}" alt="Logo" class="img-fluid">
-                        <p>
+                        <div class="logo">
+                            <a href="{{ url_for('index.home') }}"><img src="../static/dist/images/logo/AnDakLak.png" alt="logo" /></a>
+                        </div>                        <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam molestie malesuada
                             metus, non molestie ligula laoreet vitae. Ut et fringilla risus, vel.
                         </p>

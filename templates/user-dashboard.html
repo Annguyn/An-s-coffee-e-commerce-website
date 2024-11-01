@@ -426,8 +426,9 @@
             <div class="row main-footer">
                 <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                     <div class="main-footer-info">
-                        <img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="Logo" class="img-fluid">
-                        <p>
+                        <div class="logo">
+                            <a href="{{ url_for('index.home') }}"><img src="../static/dist/images/logo/AnDakLak.png" alt="logo" /></a>
+                        </div>                        <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam molestie malesuada
                             metus, non molestie ligula laoreet vitae. Ut et fringilla risus, vel.
                         </p>

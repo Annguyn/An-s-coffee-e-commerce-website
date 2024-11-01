@@ -34,6 +34,7 @@ from routes.cart import add_to_cart_bp
 from routes.order import order_bp
 from routes.payment import payment_bp
 from routes.product import product_bp
+from routes.refund import refund_bp
 from routes.shipping import shipping_bp
 from routes.shop import shop_bp
 from flask_login import LoginManager
@@ -209,6 +210,7 @@ app.register_blueprint(account_bp)
 app.register_blueprint(index_bp)
 app.register_blueprint(shop_bp)
 app.register_blueprint(deliver_bp)
+app.register_blueprint(refund_bp)
 # Create tables
 with app.app_context():
     db.create_all()

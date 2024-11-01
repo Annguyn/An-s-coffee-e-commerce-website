@@ -65,7 +65,7 @@ def process_payment():
         db.session.commit()
 
         payment_detail = PaymentDetails(
-            order_id=order_detail.id,
+            # order_id=order_detail.id,
             amount=calculate_order_amount(billing_information,shopping_session),
             provider='ZaloPay',
             transaction_id=None,
@@ -135,6 +135,7 @@ def callback():
             payment_detail = PaymentDetails.query.filter_by(transaction_id=app_trans_id).first()
             if order_detail:
                 payment_detail.status = 'Success'
+                payment_detail.zp_trans_id = dataJson['zp_trans_id']
                 shopping_session = ShoppingSession.query.filter_by(user_id=order_detail.user_id).first()
                 db.session.delete(shopping_session)
 
