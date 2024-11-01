@@ -379,7 +379,7 @@
                                     <script>
                                         (function() {
                                             const createdTime = new Date('{{ order_with_items['order'].created_at }}'); // Use created_at from backend
-                                            const orderId = '{{ order_with_items['order'].id }}'; // Unique order ID
+                                            const orderId = '{{ order_with_items['order'].id }}';
 
                                             function updateTimeDifference() {
                                                 const now = new Date();
@@ -412,7 +412,7 @@
                                                     <p>{{ item.product.name }}</p>
                                                 </div>
                                                 <div class="button">
-                                                    <a class="btn bg-primary" href="billing-information.html">Checkout now</a>
+                                                    <a class="btn bg-primary" href="{{ url_for('product.show_product',product_id=item.product.id) }}">View product</a>
                                                     <a class="cart-btn" href="#">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 20 18">
                                                             <g id="Heart" transform="translate(1 1)">
@@ -423,7 +423,7 @@
                                                             </g>
                                                         </svg>
                                                     </a>
-                                                    <a class="del" href="#">Delete</a>
+                                                    <a class="del" href="{{ url_for('order.cancel_order',order_id=item.id) }}">Cancel order</a>
                                                 </div>
                                             </div>
                                             <div class="price">

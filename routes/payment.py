@@ -65,7 +65,6 @@ def process_payment():
         db.session.commit()
 
         payment_detail = PaymentDetails(
-            # order_id=order_detail.id,
             amount=calculate_order_amount(billing_information,shopping_session),
             provider='ZaloPay',
             transaction_id=None,
@@ -73,9 +72,12 @@ def process_payment():
             created_at=datetime.now(),
             modified_at=None
         )
+        db.session.add(payment_detail)
+        db.session.commit()
+
         order_detail.payment_id=payment_detail.id
 
-        db.session.add(payment_detail)
+
         db.session.commit()
 
         order_items = []

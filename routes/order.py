@@ -11,7 +11,9 @@ order_bp = Blueprint('order', __name__)
 @login_required
 def show_order():
     user = current_user
-    orders = OrderDetails.query.filter_by(user_id=user.id).join(PaymentDetails).filter(PaymentDetails.status == "Success").all()
+    successful_payments = PaymentDetails.query.all()
+    successful_payment_ids = [payment.id for payment in successful_payments]
+    orders = OrderDetails.query.filter(OrderDetails.payment_id.in_(successful_payment_ids)).all()
     categories= ProductCategory.query.all()
     orders_with_items = []
 
@@ -70,3 +72,12 @@ def get_order_items(order_id):
             'price': float(item.product.price)
         })
     return jsonify({'items': items})
+
+
+@order_bp.route('/order/cancel/<int:order_id>', methods=['POST'])
+@login_required
+def cancel_order(order_id):
+    order = OrderDetails.query.get_or_404(order_id)
+    order.status = 'Cancelled'
+    db.session.commit()
+    flash('Order cancelled successfully', 'success')
