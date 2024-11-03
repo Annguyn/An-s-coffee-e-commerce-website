@@ -11,6 +11,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="axios" level="application" />
     <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="chart.js" level="application" />
+    <orderEntry type="library" name="flatpickr" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />

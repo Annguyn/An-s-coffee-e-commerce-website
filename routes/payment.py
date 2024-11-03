@@ -59,6 +59,7 @@ def process_payment():
             total=calculate_order_amount(billing_information,shopping_session),
             created_at=datetime.now(),
             modified_at=None,
+            status='Pending',
             transaction_id=None
         )
         db.session.add(order_detail)

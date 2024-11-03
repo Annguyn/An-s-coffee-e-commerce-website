@@ -38,6 +38,8 @@ from routes.refund import refund_bp
 from routes.shipping import shipping_bp
 from routes.shop import shop_bp
 from flask_login import LoginManager
+
+from routes.statistics import statistics_bp
 from routes.verify import verify_bp
 
 app = Flask(__name__)
@@ -211,11 +213,10 @@ app.register_blueprint(index_bp)
 app.register_blueprint(shop_bp)
 app.register_blueprint(deliver_bp)
 app.register_blueprint(refund_bp)
-# Create tables
+app.register_blueprint(statistics_bp)
 with app.app_context():
     db.create_all()
 
-# Setup Flask-Security
 user_datastore = SQLAlchemyUserDatastore(db, User, None)
 security = Security(app, user_datastore)
 
