@@ -51,7 +51,9 @@ def show_statistics():
         orders_by_status=orders_by_status,
         best_sellers=best_sellers,
         best_ratings=best_ratings,
-        chart_data=chart_data
+        chart_data=chart_data,
+        user=current_user,
+        categories=ProductCategory.query.all()
     )
 
 @statistics_bp.route('/statistics')
@@ -135,5 +137,7 @@ def show_user_statistics():
         total_money_paid=total_money_paid,
         favorite_products=favorite_products,
         favorite_categories=favorite_categories,
-        chart_data=chart_data
+        chart_data=chart_data,
+        user=current_user,
+        categories=ProductCategory.query.all()
     )

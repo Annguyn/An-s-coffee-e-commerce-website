@@ -474,58 +474,58 @@
         <!-- About Area End -->
 
         <!-- Populer Product Strat -->
-        <section class="populerproduct">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="section-title">
-                            <h2>Popular Products</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    {% for product in products %}
-                    <div class="col-md-4 col-sm-6">
-                        <div class="product-item">
-                            <div class="product-item-image">
-                                <a href="{{ url_for('product.show_product',product_id=product.id) }}">
-                                    <img src="{{ product.image | b64encode }}" alt="{{ product.name }}" class="img-fluid">
-                                <div class="cart-icon">
-                                    <a href="#"><i class="far fa-heart"></i></a>
-                                    <a href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"
-                                            viewBox="0 0 16.75 16.75">
-                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">
-                                                <g id="Icon" transform="translate(0 1)">
-                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"
-                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"
-                                                        fill="none" stroke="#1a2224" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="1.5" />
-                                                    <path id="Path_3" data-name="Path 3"
-                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"
-                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"
-                                                        stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="1.5" />
-                                                </g>
-                                            </g>
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-item-info">
-                                <a  href="{{ url_for('product.show_product', product_id=product.id)}}">{{ product.name }}</a>
-                                <span>{{ product.price }}</span> <del>200000</del>
-                            </div>
-                        </div>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </section>
+{#        <section class="populerproduct">#}
+{#            <div class="container">#}
+{#                <div class="row">#}
+{#                    <div class="col-sm-12">#}
+{#                        <div class="section-title">#}
+{#                            <h2>Popular Products</h2>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="row">#}
+{#                    {% for product in products %}#}
+{#                    <div class="col-md-4 col-sm-6">#}
+{#                        <div class="product-item">#}
+{#                            <div class="product-item-image">#}
+{#                                <a href="{{ url_for('product.show_product',product_id=product.id) }}">#}
+{#                                    <img src="{{ product.image | b64encode }}" alt="{{ product.name }}" class="img-fluid">#}
+{#                                <div class="cart-icon">#}
+{#                                    <a href="#" class="add-to-favourites" data-product-id="{{ product.id }}"><i class="far fa-heart"></i></a>#}
+{#                                    <a href="#" class="add-to-cart" data-product-id="{{ product.id }}">#}
+{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16.75" height="16.75"#}
+{#                                            viewBox="0 0 16.75 16.75">#}
+{#                                            <g id="Your_Bag" data-name="Your Bag" transform="translate(0.75)">#}
+{#                                                <g id="Icon" transform="translate(0 1)">#}
+{#                                                    <ellipse id="Ellipse_2" data-name="Ellipse 2" cx="0.682" cy="0.714"#}
+{#                                                        rx="0.682" ry="0.714" transform="translate(4.773 13.571)"#}
+{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
+{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
+{#                                                    <ellipse id="Ellipse_3" data-name="Ellipse 3" cx="0.682" cy="0.714"#}
+{#                                                        rx="0.682" ry="0.714" transform="translate(12.273 13.571)"#}
+{#                                                        fill="none" stroke="#1a2224" stroke-linecap="round"#}
+{#                                                        stroke-linejoin="round" stroke-width="1.5" />#}
+{#                                                    <path id="Path_3" data-name="Path 3"#}
+{#                                                        d="M1,1H3.727l1.827,9.564a1.38,1.38,0,0,0,1.364,1.15h6.627a1.38,1.38,0,0,0,1.364-1.15L16,4.571H4.409"#}
+{#                                                        transform="translate(-1 -1)" fill="none" stroke="#1a2224"#}
+{#                                                        stroke-linecap="round" stroke-linejoin="round"#}
+{#                                                        stroke-width="1.5" />#}
+{#                                                </g>#}
+{#                                            </g>#}
+{#                                        </svg>#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="product-item-info">#}
+{#                                <a  href="{{ url_for('product.show_product', product_id=product.id)}}">{{ product.name }}</a>#}
+{#                                <span>{{ product.price }}</span> <del>200000</del>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{#            </div>#}
+{#        </section>#}
         <!-- Populer Product End -->
 
         <!-- Categorys Section Start -->
@@ -562,6 +562,7 @@
                     </div>
                 </div>
             </div>
+            </div>
         </section>
         <!-- Categorys Section End -->
 
@@ -578,51 +579,45 @@
                 <div class="customersreview-wrapper">
                     <div class="customersreview-active">
                         <div class="customersreview-item">
-                            <p>It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout.</p>
+                            <p>The aroma and taste of this coffee are simply amazing. It has become my daily go-to!</p>
                             <div class="name">
                                 <h6>Ryan Ford</h6>
-                                <span>Content Writer</span>
+                                <span>Coffee Enthusiast</span>
                             </div>
                         </div>
                         <div class="customersreview-item">
-                            <p>It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout.</p>
+                            <p>This coffee has a rich flavor that I absolutely love. Highly recommend to all coffee lovers!</p>
                             <div class="name">
                                 <h6>Tyler Wood</h6>
-                                <span>Fashion Designer</span>
+                                <span>Barista</span>
                             </div>
                         </div>
                         <div class="customersreview-item">
-                            <p>It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout.</p>
+                            <p>I've tried many brands, but this one stands out. The quality is top-notch.</p>
                             <div class="name">
                                 <h6>Ryan Ford</h6>
-                                <span>Content Writer</span>
+                                <span>Coffee Connoisseur</span>
                             </div>
                         </div>
                         <div class="customersreview-item">
-                            <p>It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout.</p>
+                            <p>The perfect blend of flavors. This coffee has become a staple in my morning routine.</p>
                             <div class="name">
                                 <h6>Tyler Wood</h6>
-                                <span>Fashion Designer</span>
+                                <span>Coffee Lover</span>
                             </div>
                         </div>
                         <div class="customersreview-item">
-                            <p>It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout.</p>
+                            <p>Exceptional quality and taste. I can't start my day without it!</p>
                             <div class="name">
                                 <h6>Ryan Ford</h6>
-                                <span>Content Writer</span>
+                                <span>Coffee Aficionado</span>
                             </div>
                         </div>
                         <div class="customersreview-item">
-                            <p>It is a long established fact that a reader will be distracted by the readable
-                                content of a page when looking at its layout.</p>
+                            <p>This coffee is simply the best. The flavor is unmatched and always fresh.</p>
                             <div class="name">
                                 <h6>Tyler Wood</h6>
-                                <span>Fashion Designer</span>
+                                <span>Coffee Expert</span>
                             </div>
                         </div>
                     </div>

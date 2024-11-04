@@ -33,8 +33,8 @@ def home():
 def filter_products():
     category_id = request.args.get('category_filter')
     brand_id = request.args.get('brand_filter')
-    price_min = request.args.get('price_min')
-    price_max = request.args.get('price_max')
+    price_min = request.args.get('price_min', type=float)
+    price_max = request.args.get('price_max', type=float)
     page = request.args.get(get_page_parameter(), type=int, default=1)
     per_page = 9
 
@@ -44,9 +44,9 @@ def filter_products():
         query = query.filter_by(category_id=category_id)
     if brand_id:
         query = query.filter_by(brand_id=brand_id)
-    if price_min:
+    if price_min is not None:
         query = query.filter(Product.price >= price_min)
-    if price_max:
+    if price_max is not None:
         query = query.filter(Product.price <= price_max)
 
     pagination = query.paginate(page=page, per_page=per_page, error_out=False)
@@ -55,7 +55,6 @@ def filter_products():
     brands = Brand.query.all()
 
     return render_template('shop.html', products=products, categories=categories, brands=brands, user=current_user, pagination=pagination)
-
 @shop_bp.route('/upload', methods=['GET', 'POST'])
 @login_required
 def upload_product():

@@ -98,7 +98,7 @@
                                     {% endfor %}
                                 </ul>
                             </li>
-                            <li><a href="javascript:void(0)">Statistics</a></li>
+                            <li><a href="{{ url_for('statistics.show_user_statistics') }}">Statistics</a></li>
                         </ul>
                         {% if session.get('is_admin') %}
                             <div class="container">
@@ -355,46 +355,47 @@
         <section class="categoryitem">
             <div class="container">
                 <form method="GET" action="{{ url_for('shop.filter_products') }}" id="category_form">
-                <div class="row justify-content-center">
-                    <div class="categoryitem-wrapper">
-
-                        <div class="categoryitem-wrapper-itembox">
-                            <h6>Category</h6>
-                            <select id="category_filter" name="category_filter" onchange="document.getElementById('category_form').submit();">
-                                <option value="">Select a category</option>
-                                {% for category in categories %}
-                                    <option value="{{ category.id }}" {% if request.args.get('category_filter') == category.id %}selected{% endif %}>
-                                        {{ category.name }}
-                                    </option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="categoryitem-wrapper-itembox">
-                            <h6>Brand</h6>
-                            <select id="brand_filter" name="brand_filter" >
-                                {% for brand in brands %}
-                                    <option value="{{ brand.id }}">{{ brand.name }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                        <div class="categoryitem-wrapper-price">
-                            <h6>Price</h6>
-                            <form class="price-item">
-                                <input type="number" name="price_min" placeholder="$ Min">
-                                <span>|</span>
-                                <input type="number" name="price_max" placeholder="$ Max">
-                            </form>
-                        </div>
-                        <div class="categoryitem-wrapper-itembox">
-                            <h6>Sort By</h6>
-                            <select id="sort_by" name="sort_by">
-                                <option value="name">Name</option>
-                                <option value="price">Price</option>
-                                <option value="date">Date</option>
-                            </select>
+                    <div class="row justify-content-center">
+                        <div class="categoryitem-wrapper">
+                            <div class="categoryitem-wrapper-itembox">
+                                <h6>Category</h6>
+                                <select id="category_filter" name="category_filter">
+                                    <option value="">All</option>
+                                    {% for category in categories %}
+                                        <option value="{{ category.id }}">{{ category.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="categoryitem-wrapper-itembox">
+                                <h6>Brand</h6>
+                                <select id="brand_filter" name="brand_filter">
+                                    <option value="">All</option>
+                                    {% for brand in brands %}
+                                        <option value="{{ brand.id }}">{{ brand.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="categoryitem-wrapper-price">
+                                <h6>Price</h6>
+                                <div class="price-item">
+                                    <input type="number" name="price_min" placeholder="Min VND">
+                                    <span>|</span>
+                                    <input type="number" name="price_max" placeholder="Max VND">
+                                </div>
+                            </div>
+                            <div class="categoryitem-wrapper-itembox">
+                                <h6>Sort By</h6>
+                                <select id="sort_by" name="sort_by">
+                                    <option value="name">Name</option>
+                                    <option value="price">Price</option>
+                                    <option value="date">Date</option>
+                                </select>
+                            </div>
+                            <div class="categoryitem-wrapper-itembox">
+                                <button type="submit" class="btn btn-primary">Filter</button>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </form>
             </div>
         </section>
@@ -596,6 +597,8 @@
             document.getElementById("mySidenav").style.width = "0";
             $('#overlayy').removeClass("active");
         }
-
+        function submitForm() {
+            document.getElementById('search-bar').submit();
+        }
     </script>
 </body>

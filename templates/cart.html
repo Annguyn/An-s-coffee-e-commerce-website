@@ -63,14 +63,6 @@
                                         <option value="4">Bangla</option>
                                     </select>
                                 </div>
-                                <div class="currency">
-                                    <select>
-                                        <option data-display="Currency">USD</option>
-                                        <option value="1">BDT</option>
-                                        <option value="2">SNG</option>
-                                        <option value="4">ERU</option>
-                                    </select>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -418,18 +410,7 @@
                             </div>
                             <div class="info">
                                 <div class="size">
-                                    <div class="product-pricelist-selector-size">
-                                        <h6>Sizes</h6>
-                                        <div class="sizes" id="sizes">
-                                            <li class="sizes-all active">M</li>
-                                        </div>
-                                    </div>
-                                    <div class="product-pricelist-selector-color">
-                                        <h6>Colors</h6>
-                                        <div class="colors" id="colors">
-                                            <li class="colorall color-1 active"></li>
-                                        </div>
-                                    </div>
+                                    <a href="{{ url_for('product.show_product',product_id=products[item.product_id].id) }}">View</a>
                                 </div>
                                 <div class="quantity">
                                     <div class="product-pricelist-selector-quantity">

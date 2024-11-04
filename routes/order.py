@@ -2,26 +2,39 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from extensions import csrf, db
 from models import ShoppingSession, CartItem, OrderDetails, OrderItems, PaymentDetails
 from models.favourite import Favourite
-from models.product import Product, ProductCategory, ProductInventory
+from models.product import Product, ProductCategory, ProductInventory, Comment
 from flask_login import current_user, login_required
 from routes.cart import show_cart
 
 order_bp = Blueprint('order', __name__)
+from sqlalchemy import func
+
 @order_bp.route('/order')
 @login_required
 def show_order():
     user = current_user
-    successful_payments = PaymentDetails.query.all()
-    successful_payment_ids = [payment.id for payment in successful_payments]
-    orders = OrderDetails.query.filter(OrderDetails.payment_id.in_(successful_payment_ids)).all()
-    categories= ProductCategory.query.all()
+    status_filter = request.args.get('status')
+
+    query = OrderDetails.query
+    if status_filter:
+        query = query.filter(OrderDetails.status == status_filter)
+
+    orders = query.all()
+    categories = ProductCategory.query.all()
     orders_with_items = []
 
     for order in orders:
         order_items = OrderItems.query.filter_by(order_id=order.id).all()
+        items_with_ratings = []
+        for item in order_items:
+            avg_rating = db.session.query(func.avg(Comment.rating)).filter(Comment.product_id == item.product_id).scalar()
+            items_with_ratings.append({
+                'item': item,
+                'avg_rating': avg_rating
+            })
         orders_with_items.append({
             'order': order,
-            'items': order_items,
+            'items': items_with_ratings,
             'created_at': order.created_at.isoformat()
         })
 
@@ -81,3 +94,4 @@ def cancel_order(order_id):
     order.status = 'Cancelled'
     db.session.commit()
     flash('Order cancelled successfully', 'success')
+    return redirect(url_for('order.show_order'))
