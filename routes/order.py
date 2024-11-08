@@ -15,11 +15,10 @@ def show_order():
     user = current_user
     status_filter = request.args.get('status')
 
-    query = OrderDetails.query
     if status_filter:
-        query = query.filter(OrderDetails.status == status_filter)
-
-    orders = query.all()
+        orders = OrderDetails.query.filter_by(user_id=user.id, status=status_filter).all()
+    else:
+        orders = OrderDetails.query.filter_by(user_id=user.id).all()
     categories = ProductCategory.query.all()
     orders_with_items = []
 

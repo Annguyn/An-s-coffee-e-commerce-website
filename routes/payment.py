@@ -44,7 +44,7 @@ logging.basicConfig(level=logging.DEBUG)
 @payment_bp.route('/process_payment', methods=['POST'])
 @login_required
 def process_payment():
-    data = request.form
+    # data = request.form
     payment_method = 'zalopay-method'
     logging.debug(f"Received payment method: {payment_method}")
 
@@ -56,7 +56,7 @@ def process_payment():
         order_detail = OrderDetails(
             user_id=current_user.id,
             billing_id=billing_information.id,
-            total=calculate_order_amount(billing_information,shopping_session),
+            total=calculate_order_amount(billing_information, shopping_session),
             created_at=datetime.now(),
             modified_at=None,
             status='Pending',
@@ -66,7 +66,7 @@ def process_payment():
         db.session.commit()
 
         payment_detail = PaymentDetails(
-            amount=calculate_order_amount(billing_information,shopping_session),
+            amount=calculate_order_amount(billing_information, shopping_session),
             provider='ZaloPay',
             transaction_id=None,
             status='Pending',
@@ -76,9 +76,7 @@ def process_payment():
         db.session.add(payment_detail)
         db.session.commit()
 
-        order_detail.payment_id=payment_detail.id
-
-
+        order_detail.payment_id = payment_detail.id
         db.session.commit()
 
         order_items = []
@@ -95,11 +93,14 @@ def process_payment():
         db.session.add_all(order_items)
         db.session.commit()
 
-        amount = calculate_order_amount(billing_information,shopping_session)
+        amount = calculate_order_amount(billing_information, shopping_session)
         order_id = generate_order_id(payment_detail.id)
         print(f"OrderID : {order_id}")
         description = "Payment for order {}".format(order_id)
-        result = create_zalopay_order(amount, description,order_id)
+        print(f"Description : {description}")
+        print(f"Amount : {amount}")
+        print(f"OrderID : {order_id}")
+        result = create_zalopay_order(amount, description, order_id)
 
         if result['return_code'] == 1:
             result['app_trans_id'] = order_id
@@ -115,8 +116,6 @@ def process_payment():
             return jsonify({'error': 'Payment failed: ZaloPay error'}), 400
     else:
         return jsonify({'error': 'Invalid payment method'}), 400
-
-
 @payment_bp.route('/callback', methods=['POST'])
 def callback():
     result = {}
@@ -141,7 +140,12 @@ def callback():
                 payment_detail.zp_trans_id = dataJson['zp_trans_id']
                 shopping_session = ShoppingSession.query.filter_by(user_id=order_detail.user_id).first()
                 db.session.delete(shopping_session)
-
+                order_items = OrderItems.query.filter_by(order_id=order_detail.id).all()
+                for item in order_items:
+                    product_inventory = ProductInventory.query.filter_by(product_id=item.product_id).first()
+                    if product_inventory:
+                        product_inventory.quantity -= item.quantity
+                        db.session.commit()
                 db.session.commit()
 
             result['return_code'] = 1
@@ -184,8 +188,8 @@ def payment_status():
 
 
 def generate_order_id(payment_id):
-    return datetime.now().strftime('%y%m%d') + f"_{payment_id}"
-
+    transID = payment_id + 1
+    return "{:%y%m%d}_{:04d}".format(datetime.now(), transID)
 
 def calculate_order_amount(billing,session):
     if billing and session:

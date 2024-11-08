@@ -93,7 +93,7 @@
                                     {% endfor %}
                                 </ul>
                             </li>
-                            <li><a href="javascript:void(0)">Statistics</a></li>
+                            <li><a href="{{ url_for('statistics.show_satistics') if user.is_admin else url_for('statistics.show_user_statistics') }}">Statistics</a></li>
                         </ul>
                         <form id="search-bar" method="GET" action="{{ url_for('shop.home') }}">
                         <div class="search-bar">
@@ -744,6 +744,13 @@
             <div class="chatbox-body" id="chatboxBody">
                 <!-- Chat messages will appear here -->
             </div>
+            <div id="price-range-input" class="price-range-input"  style="display: none;">
+                <label for="min-price">Min Price:</label>
+                <input type="number" id="min-price" name="min-price">
+                <label for="max-price">Max Price:</label>
+                <input type="number" id="max-price" name="max-price">
+                <button onclick="submitPriceRange()" class="btn-submit-price">Submit</button>
+            </div>
             <div class="chatbox-footer">
                 <input type="text" id="chatInput" placeholder="Type your message...">
                 <button onclick="sendMessage()">Send</button>
@@ -841,7 +848,6 @@
             userMessage.textContent = message;
             chatboxBody.appendChild(userMessage);
 
-            // Send the message to the backend
             $.ajax({
                 url: '/chat',
                 type: 'POST',
@@ -852,10 +858,45 @@
                     botMessage.className = 'chat-message bot-message';
                     botMessage.textContent = response.reply;
                     chatboxBody.appendChild(botMessage);
+
+                    if (response.intent === "price range inquiry") {
+                        document.getElementById('price-range-input').style.display = 'block';
+                    } else {
+                        document.getElementById('price-range-input').style.display = 'none';
+                    }
                 }
             });
 
             input.value = '';
+        }
+
+        function submitPriceRange() {
+            var minPrice = document.getElementById('min-price').value;
+            var maxPrice = document.getElementById('max-price').value;
+            var userMessage = document.getElementById('chatInput').value;
+
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: userMessage,
+                    min_price: minPrice,
+                    max_price: maxPrice,
+                    intent: "price range inquiry"
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const chatboxBody = document.getElementById('chatboxBody');
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'chat-message bot-message';
+                    botMessage.textContent = data.reply;
+                    chatboxBody.appendChild(botMessage);
+                    document.getElementById('price-range-input').style.display = 'none';
+
+                });
         }
         function openNav() {
 

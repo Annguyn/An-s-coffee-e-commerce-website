@@ -419,6 +419,49 @@
                                 <a class="btn cart-bg " onclick="addToCard()">Add to cart
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                                 </a>
+                                {% if current_user.is_admin %}
+                                    <!-- Update Product Modal -->
+                                    <div class="modal fade" id="updateProductModal" tabindex="-1" role="dialog" aria-labelledby="updateProductModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="updateProductModalLabel">Update Product</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <form action="{{ url_for('product.show_product', product_id=product.id) }}" method="POST">
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            <label for="name">Product Name</label>
+                                                            <input type="text" class="form-control" id="name" name="name" value="{{ product.name }}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="price">Product Price</label>
+                                                            <input type="text" class="form-control" id="price" name="price" value="{{ product.price }}">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="desc">Product Description</label>
+                                                            <textarea class="form-control" id="desc" name="desc">{{ product.desc }}</textarea>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="quantity">Product Quantity</label>
+                                                            <input type="number" class="form-control" id="quantity" name="quantity" value="{{ product.quantity }}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-primary">Update Product</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Button to trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updateProductModal">
+                                        Edit Product
+                                    </button>
+                                {% endif %}
                                 <a class="btn bg-primary cart-hart" href="#" onclick="addToFav()">
                                     <svg id="Heart" xmlns="http://www.w3.org/2000/svg"
                                         xmlns:xlink="http://www.w3.org/1999/xlink" width="22" height="20"
@@ -506,6 +549,7 @@
             </div>
         </section>
         <!-- Product Details Area End -->
+
         <!-- Comment and Rating Section Start -->
         <section class="comments my-5">
             <div class="container">
@@ -534,12 +578,13 @@
                             {% endfor %}
                         </div>
 
-                        <!-- Leave Comment Button -->
-                        <div class="text-center mt-4">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal">
-                                Leave a Comment
-                            </button>
-                        </div>
+                        {% if has_purchased %}
+                            <div class="text-center mt-4">
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal">
+                                    Leave a Comment
+                                </button>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
