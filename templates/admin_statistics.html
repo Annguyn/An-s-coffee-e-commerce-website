@@ -89,7 +89,7 @@
                                 {% endfor %}
                             </ul>
                         </li>
-                        <li><a href="javascript:void(0)">Statistics</a></li>
+                        <li><a href="{{ url_for('statistics.show_satistics') if user.is_admin else url_for('statistics.show_user_statistics') }}">Statistics</a></li>
                     </ul>
                     <form id="search-bar" method="GET" action="{{ url_for('shop.home') }}">
                         <div class="search-bar">
@@ -207,11 +207,11 @@
                         </a>
                         <ul class="sub-menu">
                             {% for category in categories %}
-                                {#                                <li><a href="{{ url_for('shop.filter_products') }}">{{ category.name }}</a></li>#}
+                                <li><a href="{{ url_for('shop.filter_products') }}">{{ category.name }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
-                    <li><a href="javascript:void(0)">Statistics</a></li>
+                    <li><a href="{{ url_for('statistics.show_statistics') if user.is_admin else url_for('statistics.show_user_statistics') }}">Statistics</a></li>
                 </div>
                 <div class="mobile-nav d-flex align-items-center justify-content-between">
                     <div class="logo">
