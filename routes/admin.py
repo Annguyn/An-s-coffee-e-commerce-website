@@ -39,4 +39,4 @@ def admin_orders():
     pagination = query.paginate(page=page, per_page=per_page, error_out=False)
     orders = pagination.items
 
-    return render_template('admin_order.html', orders=orders, pagination=pagination, sort_by=sort_by, sort_order=sort_order, status=status)
+    return render_template('admin_order.html',user=current_user, orders=orders, pagination=pagination, sort_by=sort_by, sort_order=sort_order, status=status)

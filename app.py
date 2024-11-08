@@ -158,7 +158,7 @@ def google_authorized():
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('error.html'), 404
+    return render_template('error.html' ), 404
 
 app.jinja_env.filters['b64encode'] = b64encode
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
