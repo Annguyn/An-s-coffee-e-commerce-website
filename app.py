@@ -1,6 +1,5 @@
 import secrets
 from datetime import datetime
-
 from authlib.integrations.flask_client import OAuth
 from flask import Flask, render_template, session, url_for, flash, redirect, request, jsonify
 from flask_login import LoginManager, login_user
@@ -38,9 +37,11 @@ from routes.refund import refund_bp
 from routes.shipping import shipping_bp
 from routes.shop import shop_bp
 from flask_login import LoginManager
-
 from routes.statistics import statistics_bp
 from routes.verify import verify_bp
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 mail = Mail(app)
@@ -48,8 +49,8 @@ oauth = OAuth(app)
 
 google = oauth.register(
     'google',
-    client_id='164280890426-en4loptnqk1na4mskvem0iqegm7t9gka.apps.googleusercontent.com',
-    client_secret='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',
+    client_id=os.getenv('GOOGLE_ID'),
+    client_secret=os.getenv('GOOGLE_SECRET'),
     authorize_url='https://accounts.google.com/o/oauth2/auth',
     authorize_params=None,
     access_token_url='https://accounts.google.com/o/oauth2/token',
@@ -65,8 +66,8 @@ google = oauth.register(
 )
 github = oauth.register(
     name='github',
-    client_id='Ov23li4ixtLEFhaxDyuR',
-    client_secret='28074e5d134de2170fbeb38836018253817d37f7',
+    client_id=os.getenv('GITHUB_CLIENT_ID'),
+    client_secret=os.getenv('GITHUB_CLIENT_SECRET'),
     authorize_url='https://github.com/login/oauth/authorize',
     authorize_params=None,
     access_token_url='https://github.com/login/oauth/access_token',
@@ -74,7 +75,6 @@ github = oauth.register(
     userinfo_endpoint='https://api.github.com/user',
     client_kwargs={'scope': 'user:email'},
 )
-
 
 @app.route('/login/github')
 def login_github():
@@ -113,7 +113,6 @@ def github_authorized():
     login_user(user)
     flash('You were successfully logged in with GitHub.', 'success')
     return redirect(url_for('index.home'))
-
 
 @account_bp.route('/login/google')
 def login_google():
@@ -157,24 +156,18 @@ def google_authorized():
     flash('You were successfully logged in with Google.', 'success')
     return redirect(url_for('index.home'))
 
-
-
-
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('error.html'), 404
 
 app.jinja_env.filters['b64encode'] = b64encode
-app.config['SECRET_KEY'] = "annguyen"
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
 dir = path.abspath(getcwd())
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'jobhuntly@gmail.com'
-app.config['MAIL_PASSWORD'] = 'swvk rsqn xvsx vbgr'
-
-app.config['GOOGLE_ID'] = '164280890426-en4loptnqk1na4mskvem0iqegm7t9gka.apps.googleusercontent.com'
-app.config['GOOGLE_SECRET'] = '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'
+app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER')
+app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT'))
+app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS') == 'True'
+app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{dir}/database.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

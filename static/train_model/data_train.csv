@@ -1,0 +1,122 @@
+﻿text,label
+Hi there!,greeting
+Hello!,greeting
+"Good afternoon, can you assist me?",greeting
+"Hey, I need some help.",greeting
+"Hi, do you have a moment?",greeting
+Greetings!,greeting
+Hey there!,greeting
+"Hello, can someone help me?",greeting
+"Hi, I’m looking for some assistance.",greeting
+Good morning!,greeting
+"Hi, can you help me find something?",greeting
+"Hey, I have a quick question.",greeting
+"Hi, do you work here?",greeting
+Morning!,greeting
+Hi! Is anyone available?,greeting
+Hello there!,greeting
+Hey!,greeting
+Good evening!,greeting
+Hi! Do you know about this product?,greeting
+Hello! Could I get some info?,greeting
+"Hi, can you guide me?",greeting
+"Hello, looking for some assistance.",greeting
+"Hi there, how are you?",greeting
+"Hello, I need help.",greeting
+"Hi, can I get your advice?",greeting
+Good day!,greeting
+"Hey, what’s up?",greeting
+"Hello, can I ask you something?",greeting
+Hello! Can you help with a question?,greeting
+"Hi, can I speak to someone?",greeting
+"Hello, is this the right place?",greeting
+"Hi, any information would be helpful!",greeting
+"Hi, do you have a moment to assist?",greeting
+"Hey, is anyone available to help?",greeting
+Hello!,greeting
+"Hey, quick question for you!",greeting
+"Hi, I’m curious about something.",greeting
+Good afternoon!,greeting
+"Hello, is anyone there?",greeting
+"Hi, can I ask you a few things?",greeting
+Hey! Is this the support team?,greeting
+"Hello, is it ok to ask a question?",greeting
+Hi! Can I get a moment of your time?,greeting
+"Hey, I’ve got a question.",greeting
+Hi there!,greeting
+Can you describe the product?,description
+Tell me more about this item.,description
+What’s this product made of?,description
+Describe the features of this product.,description
+How does this product work?,description
+Can you explain what this item does?,description
+What materials are used in this item?,description
+What are the main features?,description
+Is this product durable?,description
+Does it come with instructions?,description
+Can you give me a product overview?,description
+How is this product made?,description
+What can you tell me about this item?,description
+Is this product suitable for outdoors?,description
+What’s included with this product?,description
+Can you elaborate on the details?,description
+What’s special about this item?,description
+How long does this product last?,description
+What’s the quality like?,description
+Can you give me the full specs?,description
+Tell me about the design features.,description
+What does the warranty cover?,description
+How do I use this product?,description
+Is this item easy to use?,description
+What can you say about the finish?,description
+How is it packaged?,description
+Does it come with additional parts?,description
+Can I get more information on this?,description
+Is it user-friendly?,description
+What’s the benefit of this product?,description
+Tell me more about its functionality.,description
+Does it have a unique design?,description
+Can you show me similar items?,description
+Does it have any limitations?,description
+Is it customizable?,description
+Can I personalize this product?,description
+How much does this cost?,price inquiry
+What’s the price of this item?,price inquiry
+How much is this?,price inquiry
+What’s the total price?,price inquiry
+What’s the cost of this?,price inquiry
+Can you tell me the exact price?,price inquiry
+How much should I pay for this?,price inquiry
+What’s the price tag on this?,price inquiry
+Is there a set price for this?,price inquiry
+How much would I be paying?,price inquiry
+How does this compare in price?,price inquiry
+What’s the exact amount?,price inquiry
+How much will I be charged?,price inquiry
+Can you give me the exact cost?,price inquiry
+Is there a flat price?,price inquiry
+How much will it cost me?,price inquiry
+Do you offer this for a fixed price?,price inquiry
+What’s the price for a single item?,price inquiry
+Do you have a set price on this?,price inquiry
+What is the current price?,price inquiry
+How much are you selling it for?,price inquiry
+Do you have flexible pricing?,price range inquiry
+Can I see all products under $100?,price range inquiry
+Are there items within $50-$100?,price range inquiry
+Is this within my $150 budget?,price range inquiry
+Show me items between $50 and $200.,price range inquiry
+Can I see lower-priced products?,price range inquiry
+Any items around $75?,price range inquiry
+What’s the cheapest in stock?,price range inquiry
+Is there a price range for this?,price range inquiry
+Are there price reductions on this?,price range inquiry
+Can I see more affordable items?,price range inquiry
+Do you have a discount price?,price range inquiry
+Is there anything below $200?,price range inquiry
+Show me the most affordable products.,price range inquiry
+Can I see products priced above $50?,price range inquiry
+What’s the highest priced item here?,price range inquiry
+Show me products in this budget.,price range inquiry
+I’m looking for items within $500.,price range inquiry
+Do you have items in my price range?,price range inquiry

@@ -1,1 +1,3 @@
 static/models/
+.env
+database.db
