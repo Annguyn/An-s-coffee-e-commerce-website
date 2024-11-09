@@ -127,7 +127,7 @@
                                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
                                             </g>
                                         </svg>
-                                        <span class="heart">{{  num_favorite_products }}</span>
+                                            <span class="heart">{{ session['num_favorite_products'] }}</span>
                                         {% endif %}
                                     </a>
                                 </li>
@@ -150,8 +150,7 @@
                                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
                                             </g>
                                         </svg>
-                                        <span class="cart">{{ num_cart_items }}</span>
-                                        {% endif %}
+                                            <span class="cart">{{ session['num_cart_items'] }}</span>                                        {% endif %}
                                     </a>
                                 </li>
                                 <li>
@@ -317,7 +316,7 @@
                     </div>
                     <div class="col-lg-6 order-1 order-lg-2">
                         <div class="banner-area__img">
-                            <img src="../static/img/rawcf.jpg" alt="banner-img" class="img-fluid">
+                            <img src="../static/dist/images/coffeeTree.jpg" alt="banner-img" class="img-fluid">
                         </div>
                     </div>
                 </div>
@@ -751,6 +750,11 @@
                 <input type="number" id="max-price" name="max-price">
                 <button onclick="submitPriceRange()" class="btn-submit-price">Submit</button>
             </div>
+            <div id="product-name-input" class="product-name-input" style="display: none;">
+                <label for="product-name">Product Name:</label>
+                <input type="text" id="product-name" name="product-name">
+                <button onclick="submitProductName()" class="btn-submit-product">Submit</button>
+            </div>
             <div class="chatbox-footer">
                 <input type="text" id="chatInput" placeholder="Type your message...">
                 <button onclick="sendMessage()">Send</button>
@@ -790,40 +794,6 @@
     <script src="../static/dist/main.js"></script>
 <script src="../static/src/scss/vendors/plugin/js/jquery.exzoom.js"></script>
     <script>
-        async function convertCurrency(amount, fromCurrency, toCurrency) {
-            const apiKey = 'cur_live_vXt9LBVsr8W7fBbqby4RWMrfjNCltmzVF25Q1zCe';
-            const url = `https://api.currencyapi.com/v3/latest?apikey=${apiKey}&base_currency=${fromCurrency}`;
-
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
-
-                if (data.data) {
-                    const rate = data.data[toCurrency].value;
-                    const convertedAmount = amount * rate;
-                    return convertedAmount;
-                } else {
-                    throw new Error('Failed to fetch exchange rates');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                return null;
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            const defaultCurrency = 'VND';
-            const priceElement = document.getElementById('product-price');
-            const originalPrice = parseFloat(priceElement.getAttribute('data-price'));
-            const convertedPrice = await convertCurrency(originalPrice, 'VND', defaultCurrency);
-
-            if (convertedPrice !== null) {
-                priceElement.textContent = convertedPrice.toFixed(2);
-            } else {
-                priceElement.textContent = 'Conversion Error';
-            }
-        });
-
         function openChat() {
             document.getElementById('chatboxModal').style.display = 'block';
         }
@@ -869,7 +839,37 @@
 
             input.value = '';
         }
+        function submitProductName() {
+            var productName = document.getElementById('product-name').value;
+            var userMessage = document.getElementById('chatInput').value;
 
+            fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: userMessage,
+                    product_name: productName,
+                    intent: sessionStorage.getItem('last_intent') || "unknown"
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const chatboxBody = document.getElementById('chatboxBody');
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'chat-message bot-message';
+                    botMessage.textContent = data.reply;
+                    chatboxBody.appendChild(botMessage);
+                    document.getElementById('product-name-input').style.display = 'none';
+
+                    sessionStorage.setItem('last_intent', data.intent);
+
+                    if (!data.product_found) {
+                        document.getElementById('product-name-input').style.display = 'block';
+                    }
+                });
+        }
         function submitPriceRange() {
             var minPrice = document.getElementById('min-price').value;
             var maxPrice = document.getElementById('max-price').value;

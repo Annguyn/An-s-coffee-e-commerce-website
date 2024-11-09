@@ -1,3 +1,4 @@
 static/models/
 .env
 database.db
+__pychache__/

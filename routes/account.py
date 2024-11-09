@@ -19,7 +19,7 @@ security = Security()
 @account_bp.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('user-dashboard.html')
+    return render_template('user-dashboard.html',user=current_user)
 
 
 @account_bp.route('/account/update-details', methods=['POST'])
@@ -78,7 +78,7 @@ def sign_in():
         login_user(user)
         session['user_id'] = user.id
         session['username'] = user.username
-        session['is_admin'] = user.is_admin  # Store admin status in session
+        session['is_admin'] = user.is_admin
         flash('Sign in successful!', 'success')
         return redirect(url_for('hello_world', user=user))
     else:

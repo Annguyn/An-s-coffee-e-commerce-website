@@ -219,30 +219,7 @@ def style():
 @app.route('/')
 def hello_world():
     return render_template('index.html')
-@app.route('/order_check', methods=['GET'])
-def order():
-    amount = request.args.get('amount')
-    appid = request.args.get('appid')
-    apptransid = request.args.get('apptransid')
-    bankcode = request.args.get('bankcode')
-    checksum = request.args.get('checksum')
-    discountamount = request.args.get('discountamount')
-    pmcid = request.args.get('pmcid')
-    status = request.args.get('status')
 
-    print(f"Received order with amount: {amount}, appid: {appid}, apptransid: {apptransid}, bankcode: {bankcode}, checksum: {checksum}, discountamount: {discountamount}, pmcid: {pmcid}, status: {status}")
-
-    return jsonify({
-        'message': 'Order received',
-        'amount': amount,
-        'appid': appid,
-        'apptransid': apptransid,
-        'bankcode': bankcode,
-        'checksum': checksum,
-        'discountamount': discountamount,
-        'pmcid': pmcid,
-        'status': status
-    })
 if __name__ == '__main__':
     server = Server(app.wsgi_app)
     server.watch('templates/*.html')
