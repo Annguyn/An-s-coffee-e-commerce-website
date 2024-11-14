@@ -218,7 +218,7 @@
                     </div>
                     <div class="mobile-nav d-flex align-items-center justify-content-between">
                         <div class="logo">
-                            <a href="{{ url_for('index.home') }}"><img src="../static/dist/images/logo/AnDakLak.png" alt="logo" /></a>
+                            <a  href="{{ url_for('index.home') }}"><img src="../static/dist/images/logo/AnDakLak.png" alt="logo" /></a>
                         </div>
                         <div class="search-bar">
                             <input type="text" placeholder="Search for product...">
@@ -740,6 +740,13 @@
                 <span>Chat with us</span>
                 <button onclick="closeChat()">X</button>
             </div>
+            <div class="chatbox-language">
+                <select id="language">
+                    <option value="ENG">English</option>
+                    <option value="VN">Tiếng Việt</option>
+                </select>
+            </div>
+
             <div class="chatbox-body" id="chatboxBody">
                 <!-- Chat messages will appear here -->
             </div>
@@ -796,11 +803,14 @@
     <script>
         function openChat() {
             document.getElementById('chatboxModal').style.display = 'block';
+            document.querySelector('.chatbox-modal').classList.add('active');
         }
 
         function closeChat() {
             document.getElementById('chatboxModal').style.display = 'none';
+            document.querySelector('.chatbox-modal').classList.remove('active');
         }
+
 
         document.getElementById('chatInput').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
@@ -810,6 +820,7 @@
         function sendMessage() {
             const input = document.getElementById('chatInput');
             const message = input.value;
+            const language = document.getElementById('language').value;
             if (message.trim() === '') return;
 
             const chatboxBody = document.getElementById('chatboxBody');
@@ -817,23 +828,19 @@
             userMessage.className = 'chat-message user-message';
             userMessage.textContent = message;
             chatboxBody.appendChild(userMessage);
+            chatboxBody.scrollTop = chatboxBody.scrollHeight;
 
             $.ajax({
                 url: '/chat',
                 type: 'POST',
                 contentType: 'application/json',
-                data: JSON.stringify({ message: message }),
+                data: JSON.stringify({ message: message, language: language }),
                 success: function(response) {
                     const botMessage = document.createElement('div');
                     botMessage.className = 'chat-message bot-message';
                     botMessage.textContent = response.reply;
                     chatboxBody.appendChild(botMessage);
-
-                    if (response.intent === "price range inquiry") {
-                        document.getElementById('price-range-input').style.display = 'block';
-                    } else {
-                        document.getElementById('price-range-input').style.display = 'none';
-                    }
+                    chatboxBody.scrollTop = chatboxBody.scrollHeight;
                 }
             });
 
@@ -842,6 +849,7 @@
         function submitProductName() {
             var productName = document.getElementById('product-name').value;
             var userMessage = document.getElementById('chatInput').value;
+            var language = document.getElementById('language').value;
 
             fetch('/chat', {
                 method: 'POST',
@@ -851,7 +859,8 @@
                 body: JSON.stringify({
                     message: userMessage,
                     product_name: productName,
-                    intent: sessionStorage.getItem('last_intent') || "unknown"
+                    intent: sessionStorage.getItem('last_intent') || "unknown",
+                    language: language
                 })
             })
                 .then(response => response.json())
@@ -870,10 +879,12 @@
                     }
                 });
         }
+
         function submitPriceRange() {
             var minPrice = document.getElementById('min-price').value;
             var maxPrice = document.getElementById('max-price').value;
             var userMessage = document.getElementById('chatInput').value;
+            var language = document.getElementById('language').value;
 
             fetch('/chat', {
                 method: 'POST',
@@ -884,7 +895,8 @@
                     message: userMessage,
                     min_price: minPrice,
                     max_price: maxPrice,
-                    intent: "price range inquiry"
+                    intent: "price range inquiry",
+                    language: language
                 })
             })
                 .then(response => response.json())
@@ -895,9 +907,9 @@
                     botMessage.textContent = data.reply;
                     chatboxBody.appendChild(botMessage);
                     document.getElementById('price-range-input').style.display = 'none';
-
                 });
         }
+
         function openNav() {
 
             document.getElementById("mySidenav").style.width = "350px";

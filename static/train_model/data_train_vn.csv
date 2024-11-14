@@ -1,0 +1,154 @@
+text,label
+Chào bạn!,greeting
+Xin chào!,greeting
+"Chào buổi chiều, bạn có thể giúp tôi không?",greeting
+"Chào, tôi cần sự trợ giúp.",greeting
+"Xin chào, bạn có một chút thời gian không?",greeting
+Lời chào!,greeting
+Chào bạn!,greeting
+"Xin chào, có ai giúp tôi không?",greeting
+"Chào, tôi đang tìm sự trợ giúp.",greeting
+Chào buổi sáng!,greeting
+"Chào, bạn có thể giúp tôi tìm cái gì đó không?",greeting
+"Chào, tôi có một câu hỏi nhanh.",greeting
+"Chào, bạn có làm việc ở đây không?",greeting
+Sáng tốt!,greeting
+Chào! Có ai có mặt không?,greeting
+Xin chào!,greeting
+Chào bạn!,greeting
+Chào buổi tối!,greeting
+Chào! Bạn có biết sản phẩm này không?,greeting
+"Xin chào! Tôi có thể xin thông tin không?",greeting
+"Chào, bạn có thể hướng dẫn tôi không?",greeting
+"Xin chào, tôi đang tìm sự hỗ trợ.",greeting
+"Chào bạn, bạn khỏe không?",greeting
+"Chào, tôi cần giúp đỡ.",greeting
+"Chào, tôi có thể nhận lời khuyên của bạn không?",greeting
+Chúc một ngày tốt lành!,greeting
+"Chào, có gì mới không?",greeting
+"Chào, tôi có thể hỏi bạn điều gì không?",greeting
+"Chào! Bạn có thể giúp tôi với một câu hỏi không?",greeting
+"Chào, tôi có thể nói chuyện với ai không?",greeting
+"Xin chào, đây có phải là đúng nơi không?",greeting
+"Chào, bất kỳ thông tin nào sẽ rất hữu ích!",greeting
+"Chào, bạn có thể giúp tôi một chút không?",greeting
+"Chào, có ai sẵn sàng giúp tôi không?",greeting
+"Xin chào, tôi có một câu hỏi nhanh.",greeting
+"Chào, tôi tò mò về một điều gì đó.",greeting
+Chào buổi chiều!,greeting
+"Xin chào, có ai ở đó không?",greeting
+"Chào, tôi có thể hỏi vài điều không?",greeting
+Chào! Đây có phải là đội hỗ trợ không?,greeting
+"Chào, tôi có thể hỏi một câu không?",greeting
+Chào bạn!,greeting
+Mô tả sản phẩm này cho tôi!,description
+Hãy cho tôi biết thêm về sản phẩm này.,description
+Sản phẩm này được làm từ gì?,description
+Hãy mô tả các tính năng của sản phẩm này.,description
+Sản phẩm này hoạt động như thế nào?,description
+Bạn có thể giải thích sản phẩm này làm gì không?,description
+Vật liệu nào được sử dụng trong sản phẩm này?,description
+Sản phẩm này có tính năng gì chính?,description
+Sản phẩm này có bền không?,description
+Sản phẩm này có đi kèm hướng dẫn sử dụng không?,description
+Bạn có thể cho tôi biết tổng quan về sản phẩm không?,description
+Sản phẩm này được làm như thế nào?,description
+Bạn có thể cho tôi biết về sản phẩm này không?,description
+Sản phẩm này có phù hợp cho ngoài trời không?,description
+Sản phẩm này có gì đi kèm?,description
+Bạn có thể giải thích chi tiết không?,description
+Điều gì đặc biệt về sản phẩm này?,description
+Sản phẩm này sử dụng được bao lâu?,description
+Chất lượng của sản phẩm này thế nào?,description
+Bạn có thể cho tôi biết đầy đủ thông số kỹ thuật không?,description
+Hãy cho tôi biết về các tính năng thiết kế.,description
+Bảo hành của sản phẩm này bao gồm gì?,description
+Tôi sử dụng sản phẩm này như thế nào?,description
+Sản phẩm này dễ sử dụng không?,description
+Bạn có thể nói gì về hoàn thiện của sản phẩm?,description
+Sản phẩm này được đóng gói như thế nào?,description
+Sản phẩm này có các bộ phận bổ sung không?,description
+Bạn có thể cho tôi biết thêm thông tin về sản phẩm này không?,description
+Sản phẩm này có dễ sử dụng không?,description
+Lợi ích của sản phẩm này là gì?,description
+Hãy cho tôi biết thêm về tính năng của sản phẩm.,description
+Sản phẩm này có thiết kế độc đáo không?,description
+Bạn có thể cho tôi xem những sản phẩm tương tự không?,description
+Sản phẩm này có hạn chế gì không?,description
+Sản phẩm này có thể tùy chỉnh không?,description
+Tôi có thể cá nhân hóa sản phẩm này không?,description
+Sản phẩm này giá bao nhiêu?,price inquiry
+Giá của sản phẩm này là bao nhiêu?,price inquiry
+Sản phẩm này giá bao nhiêu?,price inquiry
+Tổng giá là bao nhiêu?,price inquiry
+Giá của sản phẩm này là bao nhiêu?,price inquiry
+Bạn có thể cho tôi biết giá chính xác không?,price inquiry
+Tôi phải trả bao nhiêu tiền cho sản phẩm này?,price inquiry
+Giá sản phẩm này là bao nhiêu?,price inquiry
+Sản phẩm này có giá cố định không?,price inquiry
+Giá của sản phẩm này là bao nhiêu?,price inquiry
+Sản phẩm này giá bao nhiêu?,price inquiry
+Giá của sản phẩm này như thế nào?,price inquiry
+Bạn có thể cho tôi biết giá chính xác không?,price inquiry
+Có giá cố định cho sản phẩm này không?,price inquiry
+Sản phẩm này giá bao nhiêu?,price inquiry
+Sản phẩm này có giá cố định không?,price inquiry
+Bạn có bán sản phẩm này với giá bao nhiêu?,price inquiry
+Có sản phẩm nào dưới 100k không?,price range inquiry
+Có sản phẩm nào trong khoảng từ 50k đến 100k không?,price range inquiry
+Sản phẩm này có trong ngân sách 150k của tôi không?,price range inquiry
+Hãy chỉ tôi các sản phẩm từ 50k đến 200k.,price range inquiry
+Có sản phẩm giá thấp hơn không?,price range inquiry
+Có sản phẩm nào khoảng 75k không?,price range inquiry
+Sản phẩm rẻ nhất là gì?,price range inquiry
+Có giá cho sản phẩm này không?,price range inquiry
+Có giảm giá cho sản phẩm này không?,price range inquiry
+Hãy chỉ tôi các sản phẩm với mức giá hợp lý hơn.,price range inquiry
+Có giảm giá cho sản phẩm này không?,price range inquiry
+Có gì đó dưới 200k không?,price range inquiry
+Hãy chỉ tôi các sản phẩm giá rẻ nhất.,price range inquiry
+Hãy chỉ tôi sản phẩm có giá trên 50k?,price range inquiry
+Sản phẩm nào đắt nhất ở đây?,price range inquiry
+Hãy chỉ tôi các sản phẩm trong ngân sách này.,price range inquiry
+Tôi đang tìm các sản phẩm trong khoảng 500k.,price range inquiry
+Bạn có sản phẩm nào trong phạm vi giá của tôi không?,price range inquiry
+"Chào,bạn có thể giúp tôi không?",greeting
+"Xin chào, tôi có thể hỏi bạn một câu không?",greeting
+"Chào bạn, bạn có thể hỗ trợ tôi không?",greeting
+"Chào, có ai ở đây không?",greeting
+"Xin chào, tôi cần sự hỗ trợ ngay",greeting
+"Chào bạn, có thể giúp tôi tìm thông tin không?",greeting
+"Chào, tôi đang gặp vấn đề cần giải quyết",greeting
+"Chào, bạn có thể cho tôi lời khuyên không?",greeting
+"Xin chào, tôi có thể yêu cầu giúp đỡ không?",greeting
+"Chào, bạn có thể trả lời vài câu hỏi không?",greeting
+Sản phẩm này có tính năng gì nổi bật",description
+Bạn có thể nói thêm về sản phẩm này được không?,description
+Hãy cho tôi biết các chi tiết về sản phẩm này.,description
+Sản phẩm này có thể làm gì?,description
+Cấu tạo của sản phẩm này như thế nào?,description
+Chất liệu sản phẩm này là gì?,description
+Sản phẩm này có tính năng đặc biệt nào không?,description
+Tôi có thể biết về những tính năng chính của sản phẩm không?,description
+Hãy giải thích về chức năng của sản phẩm này.,description
+Sản phẩm này phù hợp với những mục đích gì?,description
+Sản phẩm này giá bao nhiêu tiền?,price inquiry
+Bạn có thể cho tôi biết giá của sản phẩm này không?,price inquiry
+Bao nhiêu tiền để mua sản phẩm này?,price inquiry
+Giá của món này là bao nhiêu?,price inquiry
+Sản phẩm này có giá như thế nào?,price inquiry
+Tôi cần biết giá của sản phẩm này ngay.,price inquiry
+Có thông tin về giá sản phẩm này không?,price inquiry
+Sản phẩm này có giá thấp hơn không?,price inquiry
+Bạn có thể chia sẻ giá chính xác không?,price inquiry
+Giá của sản phẩm này có thay đổi không?,price inquiry
+Có sản phẩm nào dưới 100k không?,price range inquiry
+Tôi đang tìm sản phẩm có giá từ 150k đến 300k.,price range inquiry
+Hãy chỉ tôi những sản phẩm có giá từ 50k đến 100k.,price range inquiry
+Bạn có thể giới thiệu những sản phẩm dưới 200k không?,price range inquiry
+Những sản phẩm giá thấp nhất là gì?,price range inquiry
+Hãy cho tôi các sản phẩm có mức giá khoảng 100k.,price range inquiry
+Các sản phẩm trong khoảng giá từ 100k đến 500k là gì?,price range inquiry
+Có sản phẩm nào giá trên 500k không?,price range inquiry
+Tôi muốn xem các sản phẩm trong ngân sách dưới 300k.,price range inquiry
+Bạn có sản phẩm nào dưới mức giá này không?,price range inquiry

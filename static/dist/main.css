@@ -403,7 +403,7 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 :root {
-  --blue: #335AFF;
+  --coffee: #4e3629;
   --indigo: #6610f2;
   --purple: #6f42c1;
   --pink: #e83e8c;
@@ -416,7 +416,7 @@
   --white: white;
   --gray: #6c757d;
   --gray-dark: #343a40;
-  --primary: #335AFF;
+  --primary: #4e3629;
   --secondary: #6c757d;
   --success: #28a745;
   --info: #17a2b8;
@@ -532,7 +532,7 @@ sup {
   top: -.5em; }
 
 a {
-  color: #335AFF;
+  color: #4e3629;
   text-decoration: none;
   background-color: transparent; }
   a:hover {
@@ -2809,8 +2809,8 @@ fieldset:disabled a.btn {
 
 .btn-primary {
   color: white;
-  background-color: #335AFF;
-  border-color: #335AFF; }
+  background-color: #4e3629;
+  border-color: #4e3629; }
   .btn-primary:hover {
     color: white;
     background-color: #0d3bff;
@@ -2823,8 +2823,8 @@ fieldset:disabled a.btn {
             box-shadow: 0 0 0 0.2rem rgba(82, 115, 255, 0.5); }
   .btn-primary.disabled, .btn-primary:disabled {
     color: white;
-    background-color: #335AFF;
-    border-color: #335AFF; }
+    background-color: #4e3629;
+    border-color: #4e3629; }
   .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
   .show > .btn-primary.dropdown-toggle {
     color: white;
@@ -3032,23 +3032,23 @@ fieldset:disabled a.btn {
               box-shadow: 0 0 0 0.2rem rgba(82, 88, 93, 0.5); }
 
 .btn-outline-primary {
-  color: #335AFF;
-  border-color: #335AFF; }
+  color: #4e3629;
+  border-color: #4e3629; }
   .btn-outline-primary:hover {
     color: white;
-    background-color: #335AFF;
-    border-color: #335AFF; }
+    background-color: #4e3629;
+    border-color: #4e3629; }
   .btn-outline-primary:focus, .btn-outline-primary.focus {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(51, 90, 255, 0.5);
             box-shadow: 0 0 0 0.2rem rgba(51, 90, 255, 0.5); }
   .btn-outline-primary.disabled, .btn-outline-primary:disabled {
-    color: #335AFF;
+    color: #4e3629;
     background-color: transparent; }
   .btn-outline-primary:not(:disabled):not(.disabled):active, .btn-outline-primary:not(:disabled):not(.disabled).active,
   .show > .btn-outline-primary.dropdown-toggle {
     color: white;
-    background-color: #335AFF;
-    border-color: #335AFF; }
+    background-color: #4e3629;
+    border-color: #4e3629; }
     .btn-outline-primary:not(:disabled):not(.disabled):active:focus, .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
     .show > .btn-outline-primary.dropdown-toggle:focus {
       -webkit-box-shadow: 0 0 0 0.2rem rgba(51, 90, 255, 0.5);
@@ -3217,7 +3217,7 @@ fieldset:disabled a.btn {
 
 .btn-link {
   font-weight: 400;
-  color: #335AFF;
+  color: #4e3629;
   text-decoration: none; }
   .btn-link:hover {
     color: #002ce6;
@@ -3455,7 +3455,7 @@ input[type="button"].btn-block {
   .dropdown-item.active, .dropdown-item:active {
     color: white;
     text-decoration: none;
-    background-color: #335AFF; }
+    background-color: #4e3629; }
   .dropdown-item.disabled, .dropdown-item:disabled {
     color: #6c757d;
     pointer-events: none;
@@ -3788,8 +3788,8 @@ input[type="button"].btn-block {
   opacity: 0; }
   .custom-control-input:checked ~ .custom-control-label::before {
     color: white;
-    border-color: #335AFF;
-    background-color: #335AFF; }
+    border-color: #4e3629;
+    background-color: #4e3629; }
   .custom-control-input:focus ~ .custom-control-label::before {
     -webkit-box-shadow: 0 0 0 0.2rem rgba(51, 90, 255, 0.25);
             box-shadow: 0 0 0 0.2rem rgba(51, 90, 255, 0.25); }
@@ -3836,8 +3836,8 @@ input[type="button"].btn-block {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='white' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/%3e%3c/svg%3e"); }
 
 .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::before {
-  border-color: #335AFF;
-  background-color: #335AFF; }
+  border-color: #4e3629;
+  background-color: #4e3629; }
 
 .custom-checkbox .custom-control-input:indeterminate ~ .custom-control-label::after {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3e%3cpath stroke='white' d='M0 2h4'/%3e%3c/svg%3e"); }
@@ -4016,7 +4016,7 @@ input[type="button"].btn-block {
     width: 1rem;
     height: 1rem;
     margin-top: -0.25rem;
-    background-color: #335AFF;
+    background-color: #4e3629;
     border: 0;
     border-radius: 1rem;
     -webkit-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
@@ -4042,7 +4042,7 @@ input[type="button"].btn-block {
   .custom-range::-moz-range-thumb {
     width: 1rem;
     height: 1rem;
-    background-color: #335AFF;
+    background-color: #4e3629;
     border: 0;
     border-radius: 1rem;
     -moz-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -4069,7 +4069,7 @@ input[type="button"].btn-block {
     margin-top: 0;
     margin-right: 0.2rem;
     margin-left: 0.2rem;
-    background-color: #335AFF;
+    background-color: #4e3629;
     border: 0;
     border-radius: 1rem;
     -ms-transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -4173,7 +4173,7 @@ input[type="button"].btn-block {
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: white;
-  background-color: #335AFF; }
+  background-color: #4e3629; }
 
 .nav-fill > .nav-link,
 .nav-fill .nav-item {
@@ -4846,7 +4846,7 @@ input[type="button"].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #335AFF;
+  color: #4e3629;
   background-color: white;
   border: 1px solid #dee2e6; }
   .page-link:hover {
@@ -4873,8 +4873,8 @@ input[type="button"].btn-block {
 .page-item.active .page-link {
   z-index: 3;
   color: white;
-  background-color: #335AFF;
-  border-color: #335AFF; }
+  background-color: #4e3629;
+  border-color: #4e3629; }
 
 .page-item.disabled .page-link {
   color: #6c757d;
@@ -4943,7 +4943,7 @@ input[type="button"].btn-block {
 
 .badge-primary {
   color: white;
-  background-color: #335AFF; }
+  background-color: #4e3629; }
   a.badge-primary:hover, a.badge-primary:focus {
     color: white;
     background-color: #0031ff; }
@@ -5180,7 +5180,7 @@ input[type="button"].btn-block {
   color: white;
   text-align: center;
   white-space: nowrap;
-  background-color: #335AFF;
+  background-color: #4e3629;
   -webkit-transition: width 0.6s ease;
   transition: width 0.6s ease; }
   @media (prefers-reduced-motion: reduce) {
@@ -5262,8 +5262,8 @@ input[type="button"].btn-block {
   .list-group-item.active {
     z-index: 2;
     color: white;
-    background-color: #335AFF;
-    border-color: #335AFF; }
+    background-color: #4e3629;
+    border-color: #4e3629; }
   .list-group-item + .list-group-item {
     border-top-width: 0; }
     .list-group-item + .list-group-item.active {
@@ -6219,7 +6219,7 @@ a.close.disabled {
   vertical-align: text-top !important; }
 
 .bg-primary {
-  background-color: #335AFF !important; }
+  background-color: #4e3629 !important; }
 
 a.bg-primary:hover, a.bg-primary:focus,
 button.bg-primary:hover,
@@ -6319,7 +6319,7 @@ button.bg-dark:focus {
   border-left: 0 !important; }
 
 .border-primary {
-  border-color: #335AFF !important; }
+  border-color: #4e3629 !important; }
 
 .border-secondary {
   border-color: #6c757d !important; }
@@ -9046,7 +9046,7 @@ button.bg-dark:focus {
   color: white !important; }
 
 .text-primary {
-  color: #335AFF !important; }
+  color: #4e3629 !important; }
 
 a.text-primary:hover, a.text-primary:focus {
   color: #002ce6 !important; }
@@ -9419,7 +9419,7 @@ footer {
           -webkit-box-shadow: none;
                   box-shadow: none; }
         footer .newsletter-area-button .form button:hover {
-          background-color: #335AFF !important;
+          background-color: #4e3629 !important;
           color: #ffffff !important;
           border: none !important; }
   footer .main-footer {
@@ -9820,7 +9820,7 @@ footer {
         color: white;
         top: -4px;
         right: -8px;
-        background-color: #335AFF;
+        background-color: #4e3629;
         width: 18px;
         height: 18px;
         display: -webkit-box;
@@ -10158,7 +10158,7 @@ footer {
     margin-bottom: -6px;
     background-color: transparent; }
     .breadcrumb-area .breadcrumb .active {
-      color: #335AFF; }
+      color: #4e3629; }
     .breadcrumb-area .breadcrumb-item {
       font-size: 14px;
       font-weight: 400;
@@ -10265,7 +10265,7 @@ footer {
         transition: .3s; }
         .features-wrapper .slider-arrows .prev-arrow:hover,
         .features-wrapper .slider-arrows .next-arrow:hover {
-          background-color: #335AFF; }
+          background-color: #4e3629; }
           .features-wrapper .slider-arrows .prev-arrow:hover svg path,
           .features-wrapper .slider-arrows .next-arrow:hover svg path {
             stroke: white; }
@@ -10571,12 +10571,12 @@ footer {
   text-transform: uppercase;
   border: 2px solid transparent; }
   .btn.bg-primary {
-    background-color: #335AFF;
+    background-color: #4e3629;
     color: white; }
     .btn.bg-primary:hover {
       background-color: transparent !important;
-      border-color: #335AFF;
-      color: #335AFF; }
+      border-color: #4e3629;
+      color: #4e3629; }
   .btn.bg-secondary {
     background-color: white !important;
     color: black !important; }
@@ -10751,7 +10751,7 @@ footer {
         transition: .3s; }
         .customersreview-wrapper .slider-arrows .prev-arrow:hover,
         .customersreview-wrapper .slider-arrows .next-arrow:hover {
-          background-color: #335AFF; }
+          background-color: #4e3629; }
           .customersreview-wrapper .slider-arrows .prev-arrow:hover svg path,
           .customersreview-wrapper .slider-arrows .next-arrow:hover svg path {
             stroke: white; }
@@ -11622,7 +11622,7 @@ footer {
         font-size: 14px;
         color: #989BA7; }
     .account-setting form button {
-      border: 2px solid #335AFF; }
+      border: 2px solid #4e3629; }
       .account-setting form button:focus {
         -webkit-box-shadow: none;
                 box-shadow: none; }
@@ -11650,7 +11650,7 @@ footer {
         margin-bottom: 0; }
     .account .change-password form button {
       margin-top: 10px;
-      border: 2px solid #335AFF; }
+      border: 2px solid #4e3629; }
       .account .change-password form button:focus {
         -webkit-box-shadow: none;
                 box-shadow: none; }
@@ -11994,15 +11994,15 @@ footer {
           padding: 0 15px; }
       .product-pricelist-selector-button .cart-bg {
         color: white;
-        background-color: #335AFF;
+        background-color: #4e3629;
         padding: 20px 50px;
         margin-right: 28px; }
         .product-pricelist-selector-button .cart-bg:hover {
           background: transparent;
-          color: #335AFF;
-          border: 2px solid #335AFF; }
+          color: #4e3629;
+          border: 2px solid #4e3629; }
           .product-pricelist-selector-button .cart-bg:hover svg path {
-            stroke: #335AFF; }
+            stroke: #4e3629; }
       .product-pricelist-selector-button .cart-hart {
         padding: 19px 21px; }
       .product-pricelist-selector-button-item {
@@ -12414,11 +12414,11 @@ footer {
     .account-sign-in form .btn {
       width: 100%;
       padding: 15px 0px;
-      background-color: #335AFF;
+      background-color: #4e3629;
       font-size: 14px;
       border-radius: 4px; }
       .account-sign-in form .btn:focus {
-        background-color: #335AFF;
+        background-color: #4e3629;
         border: none;
         -webkit-box-shadow: none;
                 box-shadow: none; }
@@ -12502,11 +12502,11 @@ footer {
     .account-sign-up form .btn {
       width: 100%;
       padding: 15px 0px;
-      background-color: #335AFF;
+      background-color: #4e3629;
       font-size: 14px;
       border-radius: 4px; }
       .account-sign-up form .btn:focus {
-        background-color: #335AFF;
+        background-color: #4e3629;
         border: none;
         -webkit-box-shadow: none;
                 box-shadow: none; }
@@ -13794,8 +13794,8 @@ footer {
       margin-right: 0; }
     .pagination .p_prev:hover,
     .pagination .p_next:hover {
-      background-color: #335AFF;
-      border-color: #335AFF; }
+      background-color: #4e3629;
+      border-color: #4e3629; }
       .pagination .p_prev:hover svg path,
       .pagination .p_next:hover svg path {
         stroke: white; }
@@ -13880,95 +13880,224 @@ footer {
     margin: 0 10px; }
   .pagination .cdp_i {
     padding: 8px 0; } }
-
+/* Chatbot Button */
 #chatbotButton {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
   background-color: #007bff;
   color: white;
   border: none;
+  border-radius: 50%;
+  padding: 20px;
+  font-size: 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   cursor: pointer;
-  z-index: 1000;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+#chatbotButton:hover {
+  background-color: #0056b3;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Chatbot Button */
+#chatbotButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #6F4F37; /* Màu cà phê */
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 20px;
+  font-size: 24px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#chatbotButton:hover {
+  background-color: #4e3629; /* Màu cà phê đậm */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Chatbox Modal */
 .chatbox-modal {
   display: none;
   position: fixed;
-  bottom: 80px;
-  right: 20px;
-  width: 300px;
-  max-height: 400px;
-  border: 1px solid #ccc;
-  background-color: white;
-  z-index: 1000;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  bottom: 5%; /* Cách cạnh dưới 5% */
+  right: 0;
+  width: 25%; /* Chiều rộng 25% màn hình */
+  height: 60%; /* Chiều cao 60% màn hình */
+  background-color: rgba(0, 0, 0, 0.3); /* Mờ phần nền bên ngoài modal */
+  z-index: 9999;
+  transition: all 0.3s ease;
 }
 
+/* Modal Content */
 .chatbox-modal-content {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  border-radius: 10px 0 0 10px; /* Bo tròn góc bên trái */
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  height: 100%;
 }
 
 .chatbox-header {
-  padding: 10px;
-  background-color: #007bff;
-  color: white;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  padding: 10px;
+  background-color: #6F4F37; /* Màu cà phê */
+  color: white;
+  font-size: 18px;
 }
 
+.chatbox-header span {
+  font-weight: bold;
+}
+
+.chatbox-header button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.chatbox-header button:hover {
+  color: #ffc107;
+}
+
+/* Chatbox Body */
 .chatbox-body {
-  flex: 1;
+  height: 80%;
   padding: 10px;
   overflow-y: auto;
-  max-height: 300px; /* Set a fixed height for the chatbox body */
-}
-
-.chatbox-footer {
-  display: flex;
-  padding: 10px;
-  border-top: 1px solid #ccc;
-}
-
-.chatbox-footer input {
-  flex: 1;
-  padding: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.chatbox-footer button {
-  margin-left: 10px;
-  padding: 5px 10px;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 5px;
-  cursor: pointer;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ddd;
 }
 
 .chat-message {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   padding: 10px;
   border-radius: 10px;
+  max-width: 80%;
 }
 
 .user-message {
+  background-color: #6F4F37; /* Màu cà phê */
+  color: white;
+  margin-left: auto;
   text-align: right;
-  background-color: #d1e7dd;
-  color: #0f5132;
 }
 
 .bot-message {
-  text-align: left;
-  background-color: #f8d7da;
-  color: #842029;
+  background-color: #f1f1f1;
+  color: #333;
+}
+
+/* Input area */
+.chatbox-footer {
+  display: flex;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border-top: 1px solid #ddd;
+}
+
+.chatbox-footer input {
+  width: 80%;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.chatbox-footer button {
+  background-color: #6F4F37; /* Màu cà phê */
+  color: white;
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.chatbox-footer button:hover {
+  background-color: #4e3629; /* Màu cà phê đậm */
+}
+
+/* Language Selector */
+.chatbox-language {
+  padding: 10px;
+  text-align: center;
+}
+
+.chatbox-language select {
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Price Range & Product Name Input */
+.price-range-input,
+.product-name-input {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ddd;
+}
+
+.price-range-input label,
+.product-name-input label {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.price-range-input input,
+.product-name-input input {
+  width: 100%;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+/* Buttons for Submit */
+.btn-submit-price,
+.btn-submit-product {
+  background-color: #6F4F37; /* Màu cà phê */
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-submit-price:hover,
+.btn-submit-product:hover {
+  background-color: #4e3629;
+}
+
+/* Enable Interaction with Background */
+.chatbox-modal .active {
+  pointer-events: none; /* Disable interaction on the background when modal is open */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 body {
   top: 0px !important;
@@ -14011,3 +14140,5 @@ iframe {
 .card-body ul li {
   font-size: 1.1rem;
 }
+
+
