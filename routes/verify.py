@@ -27,7 +27,7 @@ def forget_password():
             return redirect(url_for('verify.show_verify'))
         else:
             flash('Email not found.')
-    return render_template('forget-password.html')
+    return render_template('forget-password.html', user=current_user)
 
 @verify_bp.route('/reset_password', methods=['GET', 'POST'])
 def reset_password():

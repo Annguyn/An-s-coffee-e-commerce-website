@@ -1,1 +1,1 @@
-from models import product, user, order, payment, cart, discount
+from models import product, user, order, payment, cart

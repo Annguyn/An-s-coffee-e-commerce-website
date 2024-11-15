@@ -841,6 +841,10 @@
                     botMessage.textContent = response.reply;
                     chatboxBody.appendChild(botMessage);
                     chatboxBody.scrollTop = chatboxBody.scrollHeight;
+
+                    if (response.intent === 'price range inquiry') {
+                        document.getElementById('price-range-input').style.display = 'block';
+                    }
                 }
             });
 

@@ -8,7 +8,6 @@ from flask_sqlalchemy import SQLAlchemy
 from langchain import requests
 from livereload import Server
 from sqlalchemy import create_engine
-from models.discount import Discount
 from models.product import Product, ProductCategory, ProductInventory
 from models.cart import ShoppingSession, CartItem
 from models.user import User
@@ -75,7 +74,18 @@ github = oauth.register(
     userinfo_endpoint='https://api.github.com/user',
     client_kwargs={'scope': 'user:email'},
 )
-
+facebook = oauth.register(
+    name='facebook',
+    client_id=os.getenv('FACEBOOK_CLIENT_ID'),
+    client_secret=os.getenv('FACEBOOK_CLIENT_SECRET'),
+    authorize_url='https://www.facebook.com/v10.0/dialog/oauth',
+    authorize_params=None,
+    access_token_url='https://graph.facebook.com/v10.0/oauth/access_token',
+    access_token_params=None,
+    userinfo_endpoint='https://graph.facebook.com/me?fields=id,name,email',
+    client_kwargs={'scope': 'email'},
+    redirect_uri=os.getenv('FACEBOOK_REDIRECT_URI')
+)
 @app.route('/login/github')
 def login_github():
     redirect_uri = url_for('github_authorized', _external=True)
@@ -154,6 +164,43 @@ def google_authorized():
         db.session.commit()
     login_user(user)
     flash('You were successfully logged in with Google.', 'success')
+    return redirect(url_for('index.home'))
+@account_bp.route('/login/facebook')
+def login_facebook():
+    redirect_uri = url_for('account.facebook_authorized', _external=True)
+    return facebook.authorize_redirect(redirect_uri)
+
+@account_bp.route('/login/facebook/authorized')
+def facebook_authorized():
+    token = facebook.authorize_access_token()
+    if not token:
+        flash('Failed to log in with Facebook', 'danger')
+        return redirect(url_for('account.sign_in'))
+
+    user_info = facebook.get('https://graph.facebook.com/me?fields=id,name,email').json()
+    if not user_info:
+        flash('Failed to fetch user info', 'danger')
+        return redirect(url_for('account.sign_in'))
+
+    email = user_info.get('email')
+    name = user_info.get('name', '')
+
+    user = User.query.filter_by(username=email).first()
+    if user is None:
+        user = User(
+            username=email,
+            first_name=name.split()[0] if name else '',
+            last_name=' '.join(name.split()[1:]) if name else '',
+            created_at=datetime.now(),
+            modified_at=datetime.now(),
+            is_admin=False,
+            active=True,
+            roles=[]
+        )
+        db.session.add(user)
+        db.session.commit()
+    login_user(user)
+    flash('You were successfully logged in with Facebook.', 'success')
     return redirect(url_for('index.home'))
 
 @app.errorhandler(404)

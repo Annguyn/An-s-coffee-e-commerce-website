@@ -3,4 +3,3 @@ from .user import User
 from .order import OrderDetails, OrderItems
 from .payment import PaymentDetails
 from .cart import ShoppingSession, CartItem
-from .discount import Discount

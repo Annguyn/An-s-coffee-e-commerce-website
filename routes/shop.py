@@ -11,7 +11,7 @@ shop_bp = Blueprint('shop', __name__)
 
 
 @shop_bp.route('/shop', methods=['GET'])
-@login_required
+# @login_required
 def home():
     key_search = request.args.get('keySearch')
     page = request.args.get(get_page_parameter(), type=int, default=1)
@@ -29,7 +29,7 @@ def home():
     return render_template('shop.html', user=current_user, products=products, brands=brands, categories=categories, pagination=pagination)
 
 @shop_bp.route('/filter-products', methods=['GET'])
-@login_required
+# @login_required
 def filter_products():
     category_id = request.args.get('category_filter')
     brand_id = request.args.get('brand_filter')
@@ -65,7 +65,6 @@ def upload_product():
         category_id = request.form['category_id']
         brand_id = request.form['brand_id']
         product_price = request.form['product_price']
-        discount_id = request.form.get('discount_id')
         quantity = request.form['quantity']
         product_image = request.files['product_image'].read()
         additional_images = request.files.getlist('additional_images')
@@ -83,12 +82,10 @@ def upload_product():
         new_product = Product(
             name=product_name,
             desc=product_desc,
-            SKU=product_sku,
             category_id=category_id,
             brand_id=brand_id,
             inventory_id=new_inventory.id,
             price=product_price,
-            discount_id=discount_id,
             image=product_image,
             created_at=created_at,
             modified_at=modified_at

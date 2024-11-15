@@ -403,7 +403,7 @@
                                 </div>
                             </div>
                             <div class="product-pricelist-selector-button">
-                                <a class="btn cart-bg " onclick="addToCard()">Add to cart
+                                <a class="btn cart-bg " onclick="addToCart()">Add to cart
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
                                 </a>
                                 {% if current_user.is_admin %}
@@ -590,8 +590,7 @@
                     </div>
                     <form action="{{ url_for('product.add_comment', product_id=product.id) }}" method="POST">
                         <div class="modal-body">
-                            <input type="hidden" value="{{ user.last_name + ' ' + user.first_name }}" id="user_name" name="user_name" required>
-                            <div class="form-group">
+                            <input type="hidden" value="{{ user.last_name + ' ' + user.first_name if user.is_authenticated else '' }}" id="user_name" name="user_name" required>                            <div class="form-group">
                                 <label for="rating">Rating</label>
                                 <select id="rating" name="rating" class="form-control" required>
                                     <option value="5">5 - Excellent</option>
@@ -785,6 +784,25 @@
             </div>
         </div>
     </footer>
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLabel">Notification</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalMessage">
+                <!-- Message will be inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>s
+    </div>
+</div>
     <!-- Footer -->
 
 <script type="text/javascript">
@@ -812,84 +830,65 @@
             $('#overlayy').removeClass("active");
         }
         quantity = document.getElementById('quantity');
-        function addToCard(){
+        // Ensure the addToCart function is defined in the global scope
+        function addToCart(productId, quantity) {
             $.ajax({
                 url: '{{ url_for('add_to_cart.add_to_cart') }}',
                 type: 'POST',
                 data: {
-                    product_id: {{ product.id }},
-                    quantity: quantity.value
+                    product_id: productId,
+                    quantity: quantity
                 },
-                success: function(response){
-                    alert('Add to cart');
+                success: function(response) {
+                    showModal('Added to cart successfully');
+                },
+                error: function(xhr, status, error) {
+                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                        showModal(xhr.responseJSON.error);
+                    } else {
+                        showModal('An error occurred. Please try again.');
+                    }
                 }
             });
         }
-        function addToFav(){
+
+        function addToFav(productId) {
             $.ajax({
                 url: '{{ url_for('add_to_favourite.add_to_favourites') }}',
                 type: 'POST',
                 data: {
-                    product_id: {{ product.id }}
+                    product_id: productId
                 },
-                success: function(response){
-                    alert('Add to favorite');
+                success: function(response) {
+                    showModal('Added to favorites successfully');
+                },
+                error: function(xhr, status, error) {
+                    if (xhr.responseJSON && xhr.responseJSON.error) {
+                        showModal(xhr.responseJSON.error);
+                    } else {
+                        showModal('An error occurred. Please try again.');
+                    }
                 }
             });
         }
+
+        function showModal(message) {
+            $('#modalMessage').text(message);
+            $('#notificationModal').modal('show');
+        }
+
         $(document).ready(function() {
             $('.add-to-favourites').on('click', function(e) {
-                e.preventDefault(); // Prevent the default behavior of the anchor tag
-
+                e.preventDefault();
                 var productId = $(this).data('product-id');
-
-                $.ajax({
-                    url: "{{ url_for('add_to_favourite.add_to_favourites') }}",
-                    type: 'POST',
-                    data: {
-                        'product_id': productId
-                    },
-                    success: function(response) {
-                        if (response.message) {
-                            alert(response.message);
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        if (xhr.responseJSON && xhr.responseJSON.error) {
-                            alert(xhr.responseJSON.error);  // Display error message
-                        } else {
-                            alert('An error occurred. Please try again.');
-                        }
-                    }
-                });
+                addToFav(productId);
             });
 
             $('.add-to-cart').on('click', function(e) {
-                e.preventDefault(); // Prevent the default behavior of the anchor tag
-
+                e.preventDefault();
                 var productId = $(this).data('product-id');
                 var quantity = $(this).data('quantity') || 1;
-
-                $.ajax({
-                    url: "{{ url_for('add_to_cart.add_to_cart') }}",
-                    type: 'POST',
-                    data: {
-                        'product_id': productId,
-                        'quantity': quantity
-                    },
-                    success: function(response) {
-                        if (response.message) {
-                            alert(response.message);
-                        }
-                    },
-                    error: function(xhr, status, error) {
-                        if (xhr.responseJSON && xhr.responseJSON.error) {
-                            alert(xhr.responseJSON.error);  // Display error message
-                        } else {
-                            alert('An error occurred. Please try again.');
-                        }
-                    }
-                });
+                addToCart(productId, quantity);
             });
         });
     </script>

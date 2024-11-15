@@ -1,10 +1,5 @@
 from extensions import db
 
-class PaymentMethod(db.Model):
-    __tablename__ = 'payment_method'
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(255), nullable=False)
-    description = db.Column(db.String(255))
 
 class ShippingMethod(db.Model):
     __tablename__ = 'shipping_method'
