@@ -14,15 +14,18 @@ from sqlalchemy import func
 def show_order():
     user = current_user
     status_filter = request.args.get('status')
+    page = request.args.get('page', 1, type=int)
 
     if status_filter:
-        orders = OrderDetails.query.filter_by(user_id=user.id, status=status_filter).all()
+        orders_query = OrderDetails.query.filter_by(user_id=user.id, status=status_filter)
     else:
-        orders = OrderDetails.query.filter_by(user_id=user.id).all()
+        orders_query = OrderDetails.query.filter_by(user_id=user.id)
+
+    orders_paginated = orders_query.order_by(OrderDetails.created_at.desc()).paginate(page=page, per_page=3)
     categories = ProductCategory.query.all()
     orders_with_items = []
 
-    for order in orders:
+    for order in orders_paginated.items:
         order_items = OrderItems.query.filter_by(order_id=order.id).all()
         items_with_ratings = []
         for item in order_items:
@@ -38,8 +41,7 @@ def show_order():
         })
 
     return render_template('order.html', user=user,
-                           orders_with_items=orders_with_items, categories=categories)
-
+                           orders_with_items=orders_with_items, categories=categories, pagination=orders_paginated)
 @order_bp.route('/order/update_status/<int:order_id>', methods=['POST'])
 @login_required
 def update_status(order_id):

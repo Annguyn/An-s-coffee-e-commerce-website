@@ -40,11 +40,13 @@ def show_cart():
                         discount = (coupon.percent / 100) * shopping_session.total
                         if discount > coupon.max:
                             discount = coupon.max
+                        total_before_discount = shopping_session.total
                         shopping_session.total -= discount
                         total_discount += discount
                         applied_coupons.append(coupon_code)
                         shopping_session.applied_coupons = ','.join(applied_coupons)
                         db.session.commit()
+                        return jsonify({'message': 'Coupon applied successfully', 'total_before_discount': total_before_discount, 'total_discount': total_discount}), 200
                     else:
                         return jsonify({'error': 'Minimum payment not met for this coupon'}), 400
                 else:

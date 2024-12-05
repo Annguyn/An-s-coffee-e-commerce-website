@@ -216,7 +216,7 @@
                     </div>
                     <div class="mobile-nav d-flex align-items-center justify-content-between">
                         <div class="logo">
-                            <a href="{{ url_for('index.home') }}"><img src="../static/dist/images/logo/AnDakLak.png" alt="logo" /></a>
+                            <a  href="{{ url_for('index.home') }}"><img src="../static/dist/images/logo/AnDakLak.png" alt="logo" /></a>
                         </div>
                         <div class="search-bar">
                             <input type="text" placeholder="Search for product...">
@@ -442,7 +442,7 @@
                 <div class="col-lg-6">
                     <div class="apply-coupon">
                         <h6>Apply Coupon</h6>
-                        <form action="{{ url_for('add_to_cart.show_cart') }}" method="POST">
+                        <form id="couponForm">
                             <div class="form__div">
                                 <input type="text" name="coupon_code" class="form__input" placeholder=" ">
                                 <label for="" class="form__label">Coupon Code</label>
@@ -459,8 +459,7 @@
                                 <p>{{ cart_items|length }} items</p>
                             </div>
                             <div class="price">
-                                <p>{{ session.total_before_discount }}</p>
-                            </div>
+                                <p id="totalBeforeDiscount">{{ session.total_before_discount }}</p>                            </div>
                         </div>
                         <div class="card-price-list d-flex justify-content-between align-items-center">
                             <div class="item">
@@ -475,7 +474,7 @@
                                 <p>Discount</p>
                             </div>
                             <div class="price">
-                                <p>{{ total_discount }}</p>
+                                <p id="totalDiscount">{{ total_discount }}</p>
                             </div>
                         </div>
                         <div class="card-price-list d-flex justify-content-between align-items-center">
@@ -506,94 +505,46 @@
     <!-- Cart Area End -->
 
   <!-- Footer -->
-  <footer>
-    <div class="container">
-        <div class="row align-items-center newsletter-area">
-            <div class="col-lg-5">
-                <div class="newsletter-area-text">
-                    <h4 class="text-white">Subscribe to get notification.</h4>
-                    <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-6 offset-lg-1">
-                <div class="newsletter-area-button">
-                    <form action="#">
-                        <div class="form">
-                            <input type="email" name="email" id="mail" placeholder="Enter your email address"
-                                class="form-control">
-                            <button class="btn bg-secondary border text-capitalize">Subscribe</button>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="copyright d-flex justify-content-between align-items-center">
+                        <div class="copyright-text order-2 order-lg-1">
+                            <p>&copy; 2024. Design and Developed by <a href="#">Nguyen Ba Xuan An</a></p>
                         </div>
-                    </form>
+                        <div class="copyright-links order-1 order-lg-2">
+                            <a href="https://www.facebook.com/an.nguyenbaxuan.9/" class="ml-0"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://github.com/Annguyn"><i class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/an-nguyen-b71776241/"><i class="fab fa-linkedin"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="row main-footer">
-            <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-                <div class="main-footer-info">
-                    <img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="Logo" class="img-fluid">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam molestie malesuada
-                        metus, non molestie ligula laoreet vitae. Ut et fringilla risus, vel.
-                    </p>
-                </div>
+    </footer>
+    <!-- Footer -->
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLabel">Notification</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            <div class="col-lg-2 offset-lg-2 col-md-4 col-sm-6 col-12">
-                <div class="main-footer-quicklinks">
-                    <h6>Company</h6>
-                    <ul class="quicklink">
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Help &amp; Support</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
+            <div class="modal-body" id="modalMessage">
+                <!-- Message will be inserted here -->
             </div>
-            <div class="col-lg-2 col-md-4 col-sm-6 col-12">
-                <div class="main-footer-quicklinks">
-                    <h6>Quick links</h6>
-                    <ul class="quicklink">
-                        <li><a href="#">New Realease</a></li>
-                        <li><a href="#">Customize</a></li>
-                        <li><a href="#">Sale &amp; Discount</a></li>
-                        <li><a href="#">Men</a></li>
-                        <li><a href="#">Women</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-6 col-12">
-                <div class="main-footer-quicklinks">
-                    <h6>Account</h6>
-                    <ul class="quicklink">
-                        <li><a href="#">Your Bag</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Order Completed</a></li>
-                        <li><a href="#">Log-out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="copyright d-flex justify-content-between align-items-center">
-                    <div class="copyright-text order-2 order-lg-1">
-                        <p>&copy; 2024. Design and Developed by <a href="#">Nguyen Ba Xuan An</a></p>
-                    </div>
-                    <div class="copyright-links order-1 order-lg-2">
-                        <a href="#" class="ml-0"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-</footer>
 </div>
-<!-- Footer -->
-
 <script type="text/javascript">
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
@@ -606,6 +557,38 @@
     <script src="../static/src/scss/vendors/plugin/js/jquery.nice-select.min.js"></script>
     <script src="../static/dist/main.js"></script>
     <script>
+        $(document).ready(function() {
+            function showModal(message) {
+                $('#modalMessage').text(message);
+                $('#notificationModal').modal('show');
+            }
+
+            $('#couponForm').on('submit', function(e) {
+                e.preventDefault();
+                var couponCode = $('input[name="coupon_code"]').val();
+
+                $.ajax({
+                    url: '{{ url_for('add_to_cart.show_cart') }}',
+                    type: 'POST',
+                    data: {
+                        coupon_code: couponCode
+                    },
+                    success: function(response) {
+                        showModal(response.message);
+                        // Update the discount money
+                        $('#totalBeforeDiscount').text(response.total_before_discount);
+                        $('#totalDiscount').text(response.total_discount);
+                    },
+                    error: function(xhr, status, error) {
+                        if (xhr.responseJSON && xhr.responseJSON.error) {
+                            showModal(xhr.responseJSON.error);
+                        } else {
+                            showModal('An error occurred. Please try again.');
+                        }
+                    }
+                });
+            });
+        });
         function openNav() {
 
             document.getElementById("mySidenav").style.width = "350px";

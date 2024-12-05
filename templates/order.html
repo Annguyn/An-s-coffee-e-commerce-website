@@ -372,56 +372,78 @@
                             </div>
                             <div class="body">
                                 {% for order_with_items in orders_with_items %}
-                                    <p class="fs-4 fw-bold">
-                                        Date: {{ order_with_items['order'].created_at }}
-                                    </p>
-                                    {% for item in order_with_items['items'] %}
-                                        <div class="item">
-                                            <div class="image">
-                                                <img src="{{ item['item'].product.image|b64encode }}">
-                                            </div>
-                                            <div class="name">
-                                                <div class="name-text">
-                                                    <p>{{ item['item'].product.name }}</p>
+                                    <div class="order-group">
+                                        <p class="order-header">
+                                            Date: {{ order_with_items['order'].created_at }}
+                                        </p>
+                                        {% for item in order_with_items['items'] %}
+                                            <div class="item">
+                                                <div class="image">
+                                                    <img src="{{ item['item'].product.image|b64encode }}">
                                                 </div>
-                                                <div class="button">
-                                                    <a class="btn bg-primary" href="{{ url_for('product.show_product', product_id=item['item'].product.id) }}">View product</a>
-                                                    <a class="cart-btn" href="#">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 20 18">
-                                                            <g id="Heart" transform="translate(1 1)">
-                                                                <path id="Heart-2" data-name="Heart"
-                                                                      d="M18.161,4.413a4.674,4.674,0,0,0-6.7,0l-.913.93-.913-.93a4.675,4.675,0,0,0-6.7,0,4.893,4.893,0,0,0,0,6.828l.913.93L10.548,19l6.7-6.828.913-.93a4.892,4.892,0,0,0,0-6.828Z"
-                                                                      transform="translate(-1.549 -2.998)" fill="#fff" stroke="#1a2224"
-                                                                      stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-                                                            </g>
-                                                        </svg>
-                                                    </a>
-                                                    <form class="del" action="{{ url_for('order.cancel_order', order_id=order_with_items['order'].id) }}" method="POST">
-                                                        <input type="hidden" name="order_id" value="{{ order_with_items['order'].id }}">
-                                                        <button type="submit" class="btn btn-danger">Cancel order</button>
-                                                    </form>
+                                                <div class="name">
+                                                    <div class="name-text">
+                                                        <p>{{ item['item'].product.name }}</p>
+                                                    </div>
+                                                    <div class="button">
+                                                        <a class="btn bg-primary" href="{{ url_for('product.show_product', product_id=item['item'].product.id) }}">View product</a>
+                                                        <a class="cart-btn" href="#">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 20 18">
+                                                                <g id="Heart" transform="translate(1 1)">
+                                                                    <path id="Heart-2" data-name="Heart"
+                                                                          d="M18.161,4.413a4.674,4.674,0,0,0-6.7,0l-.913.93-.913-.93a4.675,4.675,0,0,0-6.7,0,4.893,4.893,0,0,0,0,6.828l.913.93L10.548,19l6.7-6.828.913-.93a4.892,4.892,0,0,0,0-6.828Z"
+                                                                          transform="translate(-1.549 -2.998)" fill="#fff" stroke="#1a2224"
+                                                                          stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                                                </g>
+                                                            </svg>
+                                                        </a>
+                                                        <form class="del" action="{{ url_for('order.cancel_order', order_id=order_with_items['order'].id) }}" method="POST">
+                                                            <input type="hidden" name="order_id" value="{{ order_with_items['order'].id }}">
+                                                            <button type="submit" class="btn btn-danger">Cancel order</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="price">
+                                                    <span>{{ item['item'].product.price }}VND</span> <del>{{ item['item'].product.original_price }}</del>
+                                                </div>
+                                                <div class="rating">
+                                                    <i class="fas fa-star"></i>
+                                                    {% if item['avg_rating'] is not none %}
+                                                        {{ item['avg_rating'] | round(2) }}
+                                                    {% else %}
+                                                        N/A
+                                                    {% endif %}
+                                                </div>
+                                                <div class="info status">
+                                                    <ul class="list-unstyled">
+                                                        <li><strong>Order status:</strong> <span class="badge badge-info">{{ order_with_items['order'].status }}</span></li>
+                                                        <li><strong>Payment status:</strong> <span class="badge badge-success">{{ order_with_items['order'].payment.status }}</span></li>
+                                                    </ul>
                                                 </div>
                                             </div>
-                                            <div class="price">
-                                                <span>{{ item['item'].product.price }}VND</span> <del>{{ item['item'].product.original_price }}</del>
-                                            </div>
-                                            <div class="rating">
-                                                <i class="fas fa-star"></i>
-                                                {% if item['avg_rating'] is not none %}
-                                                    {{ item['avg_rating'] | round(2) }}
-                                                {% else %}
-                                                    N/A
-                                                {% endif %}
-                                            </div>
-                                            <div class="info status">
-                                                <ul class="list-unstyled">
-                                                    <li><strong>Order status:</strong> <span class="badge badge-info">{{ order_with_items['order'].status }}</span></li>
-                                                    <li><strong>Payment status:</strong> <span class="badge badge-success">{{ order_with_items['order'].payment.status }}</span></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    {% endfor %}
+                                        {% endfor %}
+                                    </div>
                                 {% endfor %}
+                            </div>
+
+                            <div class="pagination">
+                                {% if pagination.has_prev %}
+                                    <a href="{{ url_for('order.show_order', page=pagination.prev_num) }}">Previous</a>
+                                {% endif %}
+                                {% for page_num in pagination.iter_pages() %}
+                                    {% if page_num %}
+                                        {% if page_num == pagination.page %}
+                                            <span>{{ page_num }}</span>
+                                        {% else %}
+                                            <a href="{{ url_for('order.show_order', page=page_num) }}">{{ page_num }}</a>
+                                        {% endif %}
+                                    {% else %}
+                                        <span>...</span>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if pagination.has_next %}
+                                    <a href="{{ url_for('order.show_order', page=pagination.next_num) }}">Next</a>
+                                {% endif %}
                             </div>
                         </div>
                         <!-- Order Item End -->
@@ -430,92 +452,27 @@
         </section>
         <!-- Order Area End -->
     </main>
-   <!-- Footer -->
-   <footer>
-    <div class="container">
-        <div class="row align-items-center newsletter-area">
-            <div class="col-lg-5">
-                <div class="newsletter-area-text">
-                    <h4 class="text-white">Subscribe to get notification.</h4>
-                    <p>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-6 offset-lg-1">
-                <div class="newsletter-area-button">
-                    <form action="#">
-                        <div class="form">
-                            <input type="email" name="email" id="mail" placeholder="Enter your email address"
-                                class="form-control">
-                            <button class="btn bg-secondary border text-capitalize">Subscribe</button>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="copyright d-flex justify-content-between align-items-center">
+                        <div class="copyright-text order-2 order-lg-1">
+                            <p>&copy; 2024. Design and Developed by <a href="#">Nguyen Ba Xuan An</a></p>
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="row main-footer">
-            <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-                <div class="main-footer-info">
-                    <img src="{{ url_for('static',filename='dist/images/logo/AnDakLak.png') }}" alt="Logo" class="img-fluid">
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam molestie malesuada
-                        metus, non molestie ligula laoreet vitae. Ut et fringilla risus, vel.
-                    </p>
-                </div>
-            </div>
-            <div class="col-lg-2 offset-lg-2 col-md-4 col-sm-6 col-12">
-                <div class="main-footer-quicklinks">
-                    <h6>Company</h6>
-                    <ul class="quicklink">
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Help &amp; Support</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-6 col-12">
-                <div class="main-footer-quicklinks">
-                    <h6>Quick links</h6>
-                    <ul class="quicklink">
-                        <li><a href="#">New Realease</a></li>
-                        <li><a href="#">Customize</a></li>
-                        <li><a href="#">Sale &amp; Discount</a></li>
-                        <li><a href="#">Men</a></li>
-                        <li><a href="#">Women</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-lg-2 col-md-4 col-sm-6 col-12">
-                <div class="main-footer-quicklinks">
-                    <h6>Account</h6>
-                    <ul class="quicklink">
-                        <li><a href="#">Your Bag</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li><a href="#">Order Completed</a></li>
-                        <li><a href="#">Log-out</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="copyright d-flex justify-content-between align-items-center">
-                    <div class="copyright-text order-2 order-lg-1">
-                        <p>&copy; 2024. Design and Developed by <a href="#">Nguyen Ba Xuan An</a></p>
-                    </div>
-                    <div class="copyright-links order-1 order-lg-2">
-                        <a href="#" class="ml-0"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <div class="copyright-links order-1 order-lg-2">
+                            <a href="https://www.facebook.com/an.nguyenbaxuan.9/" class="ml-0"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://github.com/Annguyn"><i class="fab fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/an-nguyen-b71776241/"><i class="fab fa-linkedin"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
+    <!-- Footer -->
 </div>
 <!-- Footer -->
 

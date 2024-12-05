@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request
 from flask_login import login_required, current_user
 from extensions import db
-from models import OrderDetails, OrderItems, User, Product
+from models import OrderDetails, OrderItems, User, Product, PaymentDetails
 from models.product import Comment, ProductCategory
 from datetime import datetime
 
@@ -65,8 +65,8 @@ def show_user_statistics():
     start_date = datetime.strptime(start_date, '%Y-%m-%d')
     end_date = datetime.strptime(end_date, '%Y-%m-%d')
 
-    total_orders = db.session.query(db.func.count(OrderDetails.id)).filter(OrderDetails.user_id == current_user.id).scalar()
-    total_money_paid = db.session.query(db.func.sum(OrderDetails.total)).filter(OrderDetails.user_id == current_user.id).scalar()
+    total_orders = db.session.query(db.func.count(OrderDetails.id)).join(OrderDetails.payment).filter(OrderDetails.user_id == current_user.id, PaymentDetails.status == 'Success').scalar()
+    total_money_paid = db.session.query(db.func.sum(OrderDetails.total)).join(OrderDetails.payment).filter(OrderDetails.user_id == current_user.id, PaymentDetails.status == 'Success').scalar()
 
     favorite_products = db.session.query(
         Product.name, db.func.count(OrderItems.product_id)
@@ -74,8 +74,10 @@ def show_user_statistics():
         Product, OrderItems.product_id == Product.id
     ).join(
         OrderDetails, OrderItems.order_id == OrderDetails.id
+    ).join(
+        PaymentDetails, OrderDetails.payment_id == PaymentDetails.id
     ).filter(
-        OrderDetails.user_id == current_user.id
+        OrderDetails.user_id == current_user.id, PaymentDetails.status == 'Success'
     ).group_by(
         Product.id
     ).order_by(
@@ -90,8 +92,10 @@ def show_user_statistics():
         ProductCategory, Product.category_id == ProductCategory.id
     ).join(
         OrderDetails, OrderItems.order_id == OrderDetails.id
+    ).join(
+        PaymentDetails, OrderDetails.payment_id == PaymentDetails.id
     ).filter(
-        OrderDetails.user_id == current_user.id
+        OrderDetails.user_id == current_user.id, PaymentDetails.status == 'Success'
     ).group_by(
         ProductCategory.name
     ).order_by(

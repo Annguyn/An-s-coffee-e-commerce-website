@@ -44,7 +44,6 @@ logging.basicConfig(level=logging.DEBUG)
 @payment_bp.route('/process_payment', methods=['POST'])
 @login_required
 def process_payment():
-    # data = request.form
     payment_method = 'zalopay-method'
     logging.debug(f"Received payment method: {payment_method}")
 
@@ -95,11 +94,7 @@ def process_payment():
 
         amount = calculate_order_amount(billing_information, shopping_session)
         order_id = generate_order_id(payment_detail.id)
-        print(f"OrderID : {order_id}")
         description = "Payment for order {}".format(order_id)
-        print(f"Description : {description}")
-        print(f"Amount : {amount}")
-        print(f"OrderID : {order_id}")
         result = create_zalopay_order(amount, description, order_id)
 
         if result['return_code'] == 1:
@@ -142,10 +137,7 @@ def callback():
                 db.session.delete(shopping_session)
                 order_items = OrderItems.query.filter_by(order_id=order_detail.id).all()
                 for item in order_items:
-                    product_inventory = ProductInventory.query.filter_by(product_id=item.product_id).first()
-                    if product_inventory:
-                        product_inventory.quantity -= item.quantity
-                        db.session.commit()
+                    item.product.inventory.quantity -= item.quantity
                 db.session.commit()
 
             result['return_code'] = 1

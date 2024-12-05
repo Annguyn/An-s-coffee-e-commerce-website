@@ -2,7 +2,7 @@ import logging
 from flask import Blueprint, request, jsonify
 from models import db, Product
 import torch
-from transformers import BertTokenizer, BertForSequenceClassification, RobertaTokenizer, RobertaForSequenceClassification
+from transformers import BertTokenizer, BertForSequenceClassification
 from transformers import PhobertTokenizer, AutoModelForSequenceClassification
 
 logging.basicConfig(level=logging.DEBUG)
@@ -106,3 +106,6 @@ def chat():
     logging.debug(f"Bot reply: {bot_reply}")
 
     return jsonify({'reply': bot_reply, 'intent': intent})
+
+
+

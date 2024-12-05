@@ -13926,11 +13926,11 @@ footer {
 .chatbox-modal {
   display: none;
   position: fixed;
-  bottom: 5%; /* Cách cạnh dưới 5% */
+  bottom: 5%;
   right: 0;
-  width: 25%; /* Chiều rộng 25% màn hình */
-  height: 60%; /* Chiều cao 60% màn hình */
-  background-color: rgba(0, 0, 0, 0.3); /* Mờ phần nền bên ngoài modal */
+  width: 25%;
+  height: 60%;
+  background-color: rgba(0, 0, 0, 0.3);
   z-index: 9999;
   transition: all 0.3s ease;
 }
@@ -14140,5 +14140,57 @@ iframe {
 .card-body ul li {
   font-size: 1.1rem;
 }
+.order-group {
+  border: 2px solid #007bff;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background-color: #f8f9fa;
+}
 
+.order-group .order-header {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
 
+.order-group .item {
+  margin-bottom: 10px;
+}
+
+.order-group .item:last-child {
+  margin-bottom: 0;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination a, .pagination span {
+  margin: 0 5px;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #007bff;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination a:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.pagination span {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.pagination .disabled {
+  color: #6c757d;
+  pointer-events: none;
+  cursor: default;
+}
