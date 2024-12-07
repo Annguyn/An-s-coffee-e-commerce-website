@@ -7,6 +7,7 @@ from flask_paginate import Pagination, get_page_parameter
 
 from models import OrderDetails, ProductCategory
 from models.coupon import Coupon
+from models.product import Brand
 from models.user import User
 from extensions import db
 from utils import get_logged_in_user
@@ -105,3 +106,23 @@ def add_coupon():
             flash('Please provide all required fields.', 'danger')
 
     return render_template('add_coupon.html', categories=categories)
+
+@admin_bp.route('/add_brand', methods=['GET', 'POST'])
+@login_required
+def add_brand():
+    if not current_user.is_admin:
+        flash('You do not have permission to access this page.', 'danger')
+        return redirect(url_for('index.home'))
+
+    if request.method == 'POST':
+        brand_name = request.form.get('Brand_name')
+        if brand_name:
+            new_brand = Brand(name=brand_name)
+            db.session.add(new_brand)
+            db.session.commit()
+            flash('Brand added successfully!', 'success')
+            return redirect(url_for('admin.add_brand'))
+        else:
+            flash('Please provide a brand name.', 'danger')
+
+    return render_template('add-brand.html')

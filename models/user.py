@@ -24,7 +24,7 @@ class User(db.Model, UserMixin):
     active = db.Column(db.Boolean, default=True)
     fs_uniquifier = db.Column(db.String(255), unique=True, nullable=False, default=lambda: str(uuid.uuid4()))
 
-    billing_information = db.relationship('BillingInformation', backref='user_billing', uselist=False)
+    billing_information = db.relationship('BillingInformation', backref='user_billing', uselist=False, overlaps="billing_information,user_billing")
     roles = db.relationship('Role', secondary='user_roles', backref=db.backref('users', lazy='dynamic'))
 
     def set_password(self, password):

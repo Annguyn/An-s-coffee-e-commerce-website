@@ -19,8 +19,7 @@ class BillingInformation(db.Model):
     created_at = db.Column(db.DateTime)
     modified_at = db.Column(db.DateTime)
 
-    user = db.relationship('User', backref='billing_info')
-
+    user = db.relationship('User', back_populates='billing_information', overlaps="billing_information,user_billing")
 
 class PaymentDetails(db.Model):
     __tablename__ = 'payment_details'

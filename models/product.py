@@ -6,6 +6,7 @@ class ProductImage(db.Model):
     image = db.Column(db.LargeBinary)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
 
+    product = db.relationship('Product', back_populates='images')
 class ProductCategory(db.Model):
     __tablename__ = 'product_category'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -38,6 +39,7 @@ class Product(db.Model):
     deleted_at = db.Column(db.DateTime)
     image = db.Column(db.LargeBinary)
     category = db.relationship('ProductCategory', backref='products')
+    images = db.relationship('ProductImage', backref='products')
     inventory = db.relationship('ProductInventory', backref='products')
 
 class Brand(db.Model):

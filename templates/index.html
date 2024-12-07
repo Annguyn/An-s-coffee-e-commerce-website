@@ -95,23 +95,21 @@
                             </li>
                             <li><a href="{{ url_for('statistics.show_statistics') if user.is_admin else url_for('statistics.show_user_statistics') }}">Statistics</a></li>
                         </ul>
-                        <form id="search-bar" method="GET" action="{{ url_for('shop.home') }}">
-                        <div class="search-bar">
-                            <input type="text" name="keySearch" placeholder="Search for product...">
-                            <div  class="icon" onclick="submitForm()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20.414" height="20.414"
-                                    viewBox="0 0 20.414 20.414">
-                                    <g id="Search_Icon" data-name="Search Icon" transform="translate(1 1)">
-                                        <ellipse id="Ellipse_1" data-name="Ellipse 1" cx="8.158" cy="8" rx="8.158"
-                                            ry="8" fill="none" stroke="#1a2224" stroke-linecap="round"
-                                            stroke-linejoin="round" stroke-width="2" />
-                                        <line id="Line_4" data-name="Line 4" x1="3.569" y1="3.5"
-                                            transform="translate(14.431 14.5)" fill="none" stroke="#1a2224"
-                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
-                                    </g>
-                                </svg>
+                        <form id="search-bar" method="POST" action="{{ url_for('product.search_by_image') }}" enctype="multipart/form-data">
+                            <div class="search-bar">
+                                <input type="text" name="keySearch" placeholder="Search for product...">
+                                <div class="icon" onclick="submitForm()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20.414" height="20.414" viewBox="0 0 20.414 20.414">
+                                        <g id="Search_Icon" data-name="Search Icon" transform="translate(1 1)">
+                                            <ellipse id="Ellipse_1" data-name="Ellipse 1" cx="8.158" cy="8" rx="8.158" ry="8" fill="none" stroke="#1a2224" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                            <line id="Line_4" data-name="Line 4" x1="3.569" y1="3.5" transform="translate(14.431 14.5)" fill="none" stroke="#1a2224" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                                        </g>
+                                    </svg>
+                                </div>
                             </div>
-                        </div>
+                            <div class="image-upload">
+                                <input type="file" name="product_image" accept="image/*" onchange="submitImageForm()">
+                            </div>
                         </form>
                         <div class="menu-icon ml-auto">
                             <ul>
@@ -921,6 +919,10 @@
             });
         });
         function submitForm() {
+            document.getElementById('search-bar').submit();
+        }
+
+        function submitImageForm() {
             document.getElementById('search-bar').submit();
         }
 

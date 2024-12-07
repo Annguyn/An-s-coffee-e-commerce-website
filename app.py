@@ -6,6 +6,7 @@ from flask_login import LoginManager, login_user
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
 from langchain import requests
+from services.get_image import train_model, model_exists, get_images_and_labels
 from livereload import Server
 from sqlalchemy import create_engine
 from models.product import Product, ProductCategory, ProductInventory
@@ -124,14 +125,14 @@ def github_authorized():
     flash('You were successfully logged in with GitHub.', 'success')
     return redirect(url_for('index.home'))
 
-@account_bp.route('/login/google')
+@app.route('/login/google')
 def login_google():
     nonce = secrets.token_urlsafe()
     session['nonce'] = nonce
     redirect_uri = url_for('account.google_authorized', _external=True)
     return google.authorize_redirect(redirect_uri, nonce=nonce)
 
-@account_bp.route('/login/google/authorized')
+@app.route('/login/google/authorized')
 def google_authorized():
     token = google.authorize_access_token()
     if not token:
@@ -165,12 +166,12 @@ def google_authorized():
     login_user(user)
     flash('You were successfully logged in with Google.', 'success')
     return redirect(url_for('index.home'))
-@account_bp.route('/login/facebook')
+@app.route('/login/facebook')
 def login_facebook():
     redirect_uri = url_for('account.facebook_authorized', _external=True)
     return facebook.authorize_redirect(redirect_uri)
 
-@account_bp.route('/login/facebook/authorized')
+@app.route('/login/facebook/authorized')
 def facebook_authorized():
     token = facebook.authorize_access_token()
     if not token:
@@ -259,7 +260,11 @@ with app.app_context():
 
 user_datastore = SQLAlchemyUserDatastore(db, User, None)
 security = Security(app, user_datastore)
-
+with app.app_context():
+    data = get_images_and_labels()
+with app.app_context():
+    if not model_exists():
+        train_model()
 @app.route('/style')
 def style():
     return render_template('styleguide.html')
